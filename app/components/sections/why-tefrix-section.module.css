@@ -1,0 +1,128 @@
+.why {
+  position: relative;
+  isolation: isolate;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-slab);
+  padding: clamp(130px, 12vw, 160px) clamp(20px, 4vw, 64px) clamp(48px, 6vw, 80px);
+}
+
+.textures {
+  inset: 0;
+  overflow: hidden;
+  border-radius: var(--radius-slab);
+}
+
+/* Texture: concentric rings radiating from the black circle. */
+.rings {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1200px;
+  height: 1200px;
+  transform: translate(-50%, -50%);
+  background: repeating-radial-gradient(
+    circle at center,
+    transparent 0 56px,
+    color-mix(in srgb, var(--cherry) 28%, transparent) 56px 57px
+  );
+  -webkit-mask-image: radial-gradient(circle at center, #000 16%, transparent 60%);
+  mask-image: radial-gradient(circle at center, #000 16%, transparent 60%);
+}
+
+/* Texture: ink-14% dot grid fading in toward the bottom. */
+.dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--ink) 14%, transparent) 1px,
+    transparent 1.5px
+  );
+  background-size: 22px 22px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 35%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 35%, #000 100%);
+}
+
+/* 196px circle centred on the seam between the hero and this panel. */
+.circle {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, calc(-50% - 7px));
+  width: 196px;
+  height: 196px;
+  border-radius: 50%;
+  background: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.circleText {
+  font-family: var(--font-display);
+  font-size: 40px;
+  line-height: 0.95;
+  text-transform: uppercase;
+  color: var(--cherry-tint);
+}
+
+.intro {
+  max-width: 920px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.heading {
+  color: var(--cherry);
+}
+
+.lede {
+  margin: 24px auto 0;
+  max-width: 640px;
+  font-size: 18px;
+  color: var(--muted);
+}
+
+.grid {
+  margin: clamp(48px, 6vw, 80px) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 16px;
+}
+
+.card {
+  padding: 28px;
+  border-radius: var(--radius-card-sm);
+  background: var(--chill-white);
+  border: 1px solid var(--line);
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--cherry-ink);
+}
+
+.cardNumber {
+  font-family: var(--font-display);
+  font-size: 40px;
+  line-height: 1;
+  color: var(--cherry);
+}
+
+.cardTitle {
+  margin: 36px 0 8px;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.cardText {
+  margin: 0;
+  font-size: 16px;
+  color: var(--muted);
+}

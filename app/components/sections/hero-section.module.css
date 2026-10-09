@@ -1,0 +1,111 @@
+.hero {
+  --focus-ring: var(--chill-white);
+  background: var(--cherry);
+  color: var(--white);
+  border-radius: var(--radius-slab);
+  padding: clamp(24px, 3vw, 40px) clamp(20px, 3vw, 40px) clamp(130px, 12vw, 170px);
+}
+
+/* Texture: faint white 56px grid, radial mask fading out from the centre. */
+.grid {
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.17) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.17) 1px, transparent 1px);
+  background-size: 56px 56px;
+  background-position: center center;
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 42%, #000 12%, transparent 78%);
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 42%, #000 12%, transparent 78%);
+}
+
+/* Texture: large outline of the TX mark bleeding off the right edge. */
+.outlineMark {
+  right: -7%;
+  top: 5%;
+  width: min(48vw, 660px);
+  height: auto;
+  fill: none;
+  stroke: var(--white);
+  stroke-opacity: 0.3;
+  stroke-width: 0.32;
+}
+
+.coordinates {
+  right: clamp(20px, 3vw, 40px);
+  bottom: 40px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--chill-white);
+  text-align: right;
+  line-height: 1.6;
+}
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  color: var(--chill-white);
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.serial {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.serialSmall {
+  font-size: 12px;
+  line-height: 1.05;
+  text-align: right;
+}
+
+.serialNumber {
+  font-size: 34px;
+  line-height: 1;
+}
+
+.content {
+  max-width: 1180px;
+  margin: clamp(56px, 7vw, 96px) auto 0;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(58px, 9.6vw, 156px);
+  line-height: 0.94;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+}
+
+.lede {
+  margin: 28px auto 0;
+  max-width: 560px;
+  font-size: 19px;
+  font-weight: 500;
+  color: var(--chill-white);
+}
+
+.actions {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}

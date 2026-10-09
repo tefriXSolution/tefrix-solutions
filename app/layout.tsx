@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
-import "@mantine/core/styles.css";
-import "@mantine/notifications/styles.css";
+// Only Mantine's base layers: the site doesn't use Mantine's visual
+// components, so the full 290 KB component stylesheet isn't needed.
+import "@mantine/core/styles/baseline.css";
+import "@mantine/core/styles/default-css-variables.css";
+import "@mantine/core/styles/global.css";
 import "./globals.css";
 
-import { ColorSchemeScript, MantineProvider } from "@mantine/core";
-import { Notifications } from "@mantine/notifications";
+import { ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
 
-export const metadata: Metadata = {
-  title: "Tefrix Solutions",
-  description: "Web design, development, and digital marketing solutions.",
-};
+import { GoogleAnalytics } from "./components/google-analytics";
+import { fontVariables } from "./fonts";
+import { rootMetadata } from "./lib/metadata";
+import { siteConfig } from "./lib/site-config";
+import { Providers } from "./providers";
+
+export const metadata: Metadata = rootMetadata;
 
 export default function RootLayout({
   children,
@@ -17,15 +22,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      {...mantineHtmlProps}
+      data-scroll-behavior="smooth"
+      className={fontVariables}
+    >
       <head>
-        <ColorSchemeScript />
+        <ColorSchemeScript forceColorScheme="light" />
       </head>
       <body>
-        <MantineProvider>
-          <Notifications />
-          {children}
-        </MantineProvider>
+        <Providers>{children}</Providers>
+        {process.env.NODE_ENV === "production" && (
+          <GoogleAnalytics measurementId={siteConfig.gaMeasurementId} />
+        )}
       </body>
     </html>
   );

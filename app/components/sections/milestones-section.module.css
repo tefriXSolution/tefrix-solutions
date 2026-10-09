@@ -1,0 +1,118 @@
+.milestones {
+  box-sizing: content-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--section-space) var(--gutter-slab) 0;
+}
+
+.panel {
+  --focus-ring: var(--chill-white);
+  background: var(--ink);
+  color: var(--white);
+  border-radius: var(--radius-slab);
+  padding: clamp(32px, 5vw, 72px) clamp(20px, 4vw, 64px);
+}
+
+/* Texture: white-6% 48px grid fading downward. */
+.grid {
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 75%);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 75%);
+}
+
+/* Texture: ruler along the top edge (minor ticks every 12px, major every 120px). */
+.rulerMinor,
+.rulerMajor {
+  left: clamp(20px, 4vw, 64px);
+  right: clamp(20px, 4vw, 64px);
+  top: 0;
+}
+
+.rulerMinor {
+  height: 12px;
+  background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.32) 0 1px, transparent 1px 12px);
+}
+
+.rulerMajor {
+  height: 22px;
+  background: repeating-linear-gradient(90deg, var(--cherry-tint) 0 1.5px, transparent 1.5px 120px);
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px 48px;
+}
+
+.headingColumn {
+  flex: 1 1 520px;
+  min-width: 0;
+}
+
+.heading {
+  font-size: clamp(44px, 5.6vw, 88px);
+  line-height: 0.95;
+}
+
+.lede {
+  flex: 0 1 400px;
+  margin: 0;
+  color: var(--muted-dark);
+}
+
+.stats {
+  margin: clamp(40px, 5vw, 64px) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 16px;
+}
+
+.stat {
+  padding: 28px;
+  border-radius: var(--radius-card-sm);
+  background: var(--ink-2);
+}
+
+.stat[data-highlight] {
+  background: var(--cherry);
+  color: var(--chill-white);
+}
+
+/* Texture on the 99% card: fine 135° diagonal white lines. */
+.diagonalLines {
+  inset: 0;
+  background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0 1px, transparent 1px 11px);
+}
+
+.statValue {
+  font-family: var(--font-display);
+  font-size: clamp(88px, 9vw, 136px);
+  line-height: 0.9;
+  color: var(--cherry-tint);
+}
+
+.stat[data-highlight] .statValue {
+  color: var(--white);
+}
+
+.statLabel {
+  margin-top: 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-dark);
+}
+
+.stat[data-highlight] .statLabel {
+  color: inherit;
+  font-weight: 500;
+}

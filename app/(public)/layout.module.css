@@ -1,0 +1,13 @@
+/* `clip` rather than `hidden`: it stops horizontal overflow without creating a
+   scroll container, so the sticky navbar keeps working. */
+.page {
+  min-height: 100vh;
+  overflow-x: clip;
+  background: var(--chill-white);
+  color: var(--ink);
+}
+
+/* Space between the last section and the footer. */
+.main {
+  padding-bottom: var(--section-space);
+}

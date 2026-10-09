@@ -1,0 +1,47 @@
+/* Shared decorative textures (DESIGN_SPEC §5). Section-specific texture
+   layers live in each section's module and follow the same rules:
+   aria-hidden, pointer-events: none, z-index: -1 inside an isolated parent,
+   so they always paint behind the content. */
+
+/* Film grain on cherry and black slabs: grain.png tiled at 180px. */
+.grain,
+.grainDark {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.grain::after,
+.grainDark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("/grain.png");
+  background-size: 180px 180px;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.grain::after {
+  opacity: 0.6;
+  mix-blend-mode: overlay;
+}
+
+.grainDark::after {
+  opacity: 0.32;
+}
+
+/* Base for absolutely positioned texture layers. */
+.layer {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* The only breakpoint: hide decorative corner pieces on small screens. */
+@media (max-width: 760px) {
+  .hideSm {
+    display: none !important;
+  }
+}
