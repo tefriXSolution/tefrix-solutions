@@ -77,6 +77,13 @@
   letter-spacing: -0.04em;
 }
 
+/* An empty inline-block's top sits on the baseline of the line it is on. */
+.titleEnd {
+  display: inline-block;
+  width: 0;
+  height: 0;
+}
+
 /* "scalable & secure": gradient text with a slow shimmer. */
 .highlight {
   background: var(--gradient-highlight);

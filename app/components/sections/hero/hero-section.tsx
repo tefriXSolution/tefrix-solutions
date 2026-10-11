@@ -29,6 +29,8 @@ export function HeroSection() {
           <h1 className={cx(motion.fadeUp, styles.title)} style={motionVars({ delay: 0.08 })}>
             Empowering your vision with <span className={styles.highlight}>scalable &amp; secure</span>{" "}
             software
+            {/* Zero-size marker on the last line's baseline; HeroVisual aligns the deploy window to it. */}
+            <span aria-hidden="true" data-hero-title-end className={styles.titleEnd} />
           </h1>
           <p className={cx(motion.fadeUp, styles.lede)} style={motionVars({ delay: 0.18 })}>
             We are TefriX Solutions — your trusted partner for modern, enterprise-grade digital

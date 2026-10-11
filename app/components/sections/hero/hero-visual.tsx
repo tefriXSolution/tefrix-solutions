@@ -70,6 +70,29 @@ export function HeroVisual({ children }: { children: ReactNode }) {
 
   const showVideo = canPlayVideo && onScreen;
 
+  // Publish the distance from the headline's last baseline ("…software") to
+  // the bottom of this visual as --terminal-bottom, which the deploy window
+  // uses in the side-by-side layout so its bottom edge sits level with the end
+  // of the headline. The headline's offsetTop ignores its fade-up transform,
+  // and the marker is measured relative to the headline, so the value is
+  // stable during the load animation.
+  useEffect(() => {
+    const container = containerRef.current;
+    const heading = container?.closest("section")?.querySelector("h1");
+    const titleEnd = heading?.querySelector<HTMLElement>("[data-hero-title-end]");
+    if (!container || !heading?.parentElement || !titleEnd) return;
+    const align = () => {
+      const baseline =
+        heading.offsetTop + titleEnd.getBoundingClientRect().top - heading.getBoundingClientRect().top;
+      const visualBottom = container.offsetTop + container.offsetHeight;
+      container.style.setProperty("--terminal-bottom", `${visualBottom - baseline}px`);
+    };
+    const observer = new ResizeObserver(align);
+    observer.observe(container);
+    observer.observe(heading.parentElement);
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;

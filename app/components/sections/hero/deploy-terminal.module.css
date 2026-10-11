@@ -98,6 +98,16 @@
   }
 }
 
+/* Side-by-side hero (both columns fit from 1136px: 540 + 460 + 56 gap + 2 × 40
+   gutter): the window's bottom edge sits level with the end of the headline.
+   HeroVisual measures that into --terminal-bottom; 48% is the server-rendered
+   estimate. */
+@media (min-width: 1136px) {
+  .terminal {
+    bottom: var(--terminal-bottom, 48%);
+  }
+}
+
 /* Small screens: span the width and overlap the bottom of the glass. */
 @media (max-width: 760px) {
   .terminal {
