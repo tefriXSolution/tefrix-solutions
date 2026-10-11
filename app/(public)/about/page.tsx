@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-import { AboutSection } from "@/app/components/sections/about-section";
-import { ValuesSection } from "@/app/components/sections/values-section";
+import { AboutSection } from "@/app/components/sections/about/about-section";
+import { WhyTefrixSection } from "@/app/components/sections/about/why-tefrix-section";
 import { pageMetadata } from "@/app/lib/metadata";
 
 export const metadata: Metadata = pageMetadata.about;
@@ -9,8 +9,8 @@ export const metadata: Metadata = pageMetadata.about;
 export default function AboutPage() {
   return (
     <>
-      <AboutSection headingLevel="h1" />
-      <ValuesSection />
+      <WhyTefrixSection headingLevel="h1" />
+      <AboutSection />
     </>
   );
 }

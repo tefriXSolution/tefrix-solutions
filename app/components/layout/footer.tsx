@@ -1,41 +1,49 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { cx } from "@/app/lib/cx";
-import { navLinks, siteConfig, socialLinks } from "@/app/lib/site-config";
+import {
+  footerCompanyLinks,
+  footerServiceLinks,
+  siteConfig,
+  socialLinks,
+} from "@/app/lib/site-config";
 
-import texture from "../ui/texture.module.css";
-import { TxMark } from "../ui/tx-mark";
+import { Icon } from "../ui/icons";
+import { MonoLabel } from "../ui/primitives";
+import { TefrixMark } from "../ui/tefrix-mark";
 import styles from "./footer.module.css";
+import { Wordmark } from "./wordmark";
 
 export function Footer() {
   const { contact } = siteConfig;
   const year = new Date().getFullYear();
 
   return (
-    <footer className={cx(texture.grainDark, styles.footer)}>
-      <div aria-hidden="true" className={cx(texture.layer, styles.grid)} />
-
+    <footer className={styles.footer}>
       <div className={styles.inner}>
         <div className={styles.top}>
           <div className={styles.about}>
             <div className={styles.brand}>
-              <TxMark variant="dark" width={44} height={37} />
-              <span className={styles.name}>
-                Tefri<span className={styles.nameAccent}>X</span>
-              </span>{" "}
-              <span className={styles.tagline}>solutions</span>
+              <TefrixMark pixels={false} width={40} height={33} />
+              <Wordmark />
             </div>
             <p className={styles.blurb}>
               Innovative solutions for a digital world. We help businesses thrive through
               technology.
             </p>
+            <div className={styles.socials}>
+              {socialLinks.map((link) => (
+                <a key={link.href} href={link.href} aria-label={link.label} className={styles.social}>
+                  <Icon name={link.icon} size={18} />
+                </a>
+              ))}
+            </div>
           </div>
 
           <div className={styles.columns}>
-            <FooterColumn title="Quick links">
-              {navLinks.map((link) => (
-                <li key={link.href}>
+            <FooterColumn title="Services">
+              {footerServiceLinks.map((link) => (
+                <li key={link.label}>
                   <Link href={link.href} className={styles.link}>
                     {link.label}
                   </Link>
@@ -43,7 +51,17 @@ export function Footer() {
               ))}
             </FooterColumn>
 
-            <FooterColumn title="Contact us">
+            <FooterColumn title="Company">
+              {footerCompanyLinks.map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href} className={styles.link}>
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </FooterColumn>
+
+            <FooterColumn title="Contact">
               <li>
                 <a href={contact.phone.href} className={styles.link}>
                   {contact.phone.label}
@@ -61,27 +79,16 @@ export function Footer() {
                 </a>
               </li>
             </FooterColumn>
-
-            <FooterColumn title="Follow us">
-              {socialLinks.map((link) => (
-                <li key={link.href}>
-                  <a href={link.href} className={styles.link}>
-                    {link.label} ↗
-                  </a>
-                </li>
-              ))}
-            </FooterColumn>
           </div>
         </div>
 
         <div aria-hidden="true" className={styles.wordmark}>
           <div className={styles.wordmarkText}>TefriX</div>
-          <div className={styles.scanlines} />
         </div>
 
         <div className={styles.bottom}>
           <span>© {year} TefriX Solutions. All rights reserved.</span>
-          <span>— Empower your cyber world —</span>
+          <span>Empower your cyber world</span>
         </div>
       </div>
     </footer>
@@ -91,7 +98,7 @@ export function Footer() {
 function FooterColumn({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className={styles.column}>
-      <p className={styles.columnTitle}>{title}</p>
+      <MonoLabel className={styles.columnTitle}>{title}</MonoLabel>
       <ul className={styles.list}>{children}</ul>
     </div>
   );

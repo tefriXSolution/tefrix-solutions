@@ -1,0 +1,109 @@
+.terminal {
+  position: absolute;
+  left: 0;
+  bottom: 4%;
+  width: min(78%, 400px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 226, 232, 0.16);
+  background: rgba(14, 8, 10, 0.78);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 30px 80px -28px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3b2a2e;
+}
+
+.title {
+  margin-left: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--faint);
+}
+
+.body {
+  padding: 16px 18px 18px;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  line-height: 1.9;
+  color: var(--text-2);
+}
+
+.prompt {
+  color: var(--rose-300);
+}
+
+/* Lines appear one by one: fade + 6px slide. */
+.line {
+  animation: line 0.5s ease-out var(--delay, 0s) both;
+}
+
+@keyframes line {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.check {
+  color: var(--success);
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.liveDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 10px var(--success);
+}
+
+.live {
+  color: var(--text);
+}
+
+.caret {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: var(--rose-300);
+  animation: caret 1s steps(1) infinite;
+}
+
+@keyframes caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Small screens: span the width and overlap the bottom of the glass. */
+@media (max-width: 760px) {
+  .terminal {
+    left: 4%;
+    right: 4%;
+    bottom: -20%;
+    width: auto;
+  }
+}

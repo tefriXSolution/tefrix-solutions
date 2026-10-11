@@ -2,9 +2,9 @@ import Link from "next/link";
 
 import { navLinks } from "@/app/lib/site-config";
 
-import { ArrowUpRightIcon } from "../ui/icons";
-import { pillButton } from "../ui/primitives";
-import { TxMark } from "../ui/tx-mark";
+import { buttonProps } from "../ui/primitives";
+import { TefrixMark } from "../ui/tefrix-mark";
+import { Wordmark } from "./wordmark";
 import styles from "./navbar.module.css";
 import { StickyHeader } from "./sticky-header";
 
@@ -13,13 +13,8 @@ export function Navbar() {
     <StickyHeader className={styles.header}>
       <nav aria-label="Main" className={styles.nav}>
         <Link href="/#top" aria-label="TefriX Solutions home" className={styles.brand}>
-          <TxMark variant="light" width={44} height={37} />
-          <span className={styles.wordmark}>
-            <span className={styles.name}>
-              Tefri<span className={styles.nameAccent}>X</span>
-            </span>{" "}
-            <span className={styles.tagline}>solutions</span>
-          </span>
+          <TefrixMark width={40} height={33} />
+          <Wordmark />
         </Link>
 
         <ul className={styles.links}>
@@ -32,9 +27,8 @@ export function Navbar() {
           ))}
         </ul>
 
-        <Link href="/#contact" {...pillButton("ink", "sm")}>
-          Get a free consultation
-          <ArrowUpRightIcon size={17} />
+        <Link href="/#contact" {...buttonProps("primary", "sm")}>
+          Book a free consultation
         </Link>
       </nav>
     </StickyHeader>

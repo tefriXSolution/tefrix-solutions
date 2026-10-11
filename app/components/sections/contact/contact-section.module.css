@@ -1,0 +1,89 @@
+.contact {
+  box-sizing: content-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--section-space) var(--gutter) 0;
+}
+
+.panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: var(--radius-panel-lg);
+  border: 1px solid rgba(255, 143, 163, 0.16);
+  background: var(--panel);
+  padding: clamp(24px, 4vw, 56px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px 48px;
+}
+
+/* Drifting glow behind the panel content. */
+.glow {
+  position: absolute;
+  z-index: -1;
+  width: 900px;
+  height: 900px;
+  left: -30%;
+  top: -60%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 16, 46, 0.45), rgba(117, 7, 12, 0.18) 40%, transparent 68%);
+  pointer-events: none;
+}
+
+.intro {
+  flex: 1 1 420px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 36px;
+}
+
+.lede {
+  margin: 18px 0 0;
+  max-width: 440px;
+  font-size: 18px;
+  color: var(--text-2);
+}
+
+.details {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detail {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 52px;
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 500;
+}
+
+a.detail {
+  transition: color 0.2s;
+}
+
+a.detail:hover {
+  color: var(--rose-300);
+}
+
+.detailIcon {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  box-sizing: content-box; /* the border adds to the size, as in the reference */
+  border-radius: var(--radius-button-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blush);
+}

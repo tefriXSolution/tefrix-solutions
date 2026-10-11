@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TefriX Solutions — Homepage reference</title>
+<meta name="description" content="TefriX Solutions — scalable, secure software: custom web development, UI/UX design, e-commerce and digital marketing. Colombo, Sri Lanka.">
+<!-- DESIGN REFERENCE (static export of the approved "Homepage F" design).
+     Open in Chrome/Edge for the full effect (scroll-driven reveals and count-ups need Chrome 115+ / Safari 26+).
+     All assets are in ./assets. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0A0607}
+html{scroll-behavior:smooth}
+a{color:#FFF9FA}a:hover{color:#FF8FA3}
+input::placeholder,textarea::placeholder{color:#8F7D82}
+::selection{background:#C8102E;color:#FFFFFF}
+@property --n{syntax:'<integer>';initial-value:0;inherits:false}
+.tx-root{position:relative;isolation:isolate;overflow-x:hidden}
+.tx-root::after{content:"";position:absolute;inset:0;background-image:url(assets/grain.png);background-size:180px 180px;opacity:.09;pointer-events:none;z-index:60}
+.tx-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tx-fade{animation:txfade .9s cubic-bezier(.2,.7,.2,1) both}
+.tx-tl{animation:txline .5s ease-out both}
+.tx-grad{background:linear-gradient(100deg,#FFC2CF 0%,#FF4D6D 35%,#E11D48 60%,#FF4D6D 85%,#FFC2CF 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:txshim 10s linear infinite}
+.tx-float{animation:txfloat 10s ease-in-out infinite}
+.tx-blob{animation:txdrift 24s ease-in-out infinite alternate}
+.tx-pulse{animation:txpulse 2.2s ease-in-out infinite}
+.tx-caret{animation:txcaret 1s steps(1) infinite}
+.tx-card{transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s,border-color .4s}
+.tx-card:hover{transform:translateY(-4px);box-shadow:0 28px 70px -36px rgba(255,77,109,.5);border-color:rgba(255,143,163,.32) !important}
+.tx-link-arrow{transition:transform .3s}
+.tx-card:hover .tx-link-arrow{transform:translateX(4px)}
+.tx-btn{position:relative;overflow:hidden;isolation:isolate;transition:transform .25s,box-shadow .25s,background-color .25s}
+.tx-btn::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.32) 50%,transparent 70%);transform:translateX(-130%);transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.tx-btn:hover{transform:translateY(-1px)}
+.tx-btn:hover::after{transform:translateX(130%)}
+.tx-ghost:hover{background:rgba(255,255,255,.08) !important}
+.tx-count{--n:var(--to);counter-reset:n var(--n)}
+.tx-count::after{content:counter(n)}
+.tx-to-20{--to:20}.tx-to-50{--to:50}.tx-to-3{--to:3}.tx-to-99{--to:99}
+.tx-fill{transform-origin:0 50%}
+.tx-video-still{display:none}
+@keyframes txfade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes txline{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:none}}
+@keyframes txfloat{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(0,-14px,0) rotate(4deg)}}
+@keyframes txdrift{0%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(5%,-4%,0) scale(1.08)}100%{transform:translate3d(-4%,5%,0) scale(.96)}}
+@keyframes txpulse{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1)}}
+@keyframes txcaret{50%{opacity:0}}
+@keyframes txshim{to{background-position:-220% 0}}
+@keyframes txrise{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:none}}
+@keyframes txcount{from{--n:0}}
+@keyframes txgrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@supports (animation-timeline: view()){
+.tx-reveal{animation:txrise linear both;animation-timeline:view();animation-range:entry 0% entry 40%}
+.tx-count{animation:txcount linear both;animation-timeline:view();animation-range:entry 15% cover 40%}
+.tx-fill{animation:txgrow linear both;animation-timeline:view();animation-range:entry 30% cover 50%}
+}
+.tx-still *,.tx-still *::before,.tx-still *::after{animation:none !important;transition:none !important}
+.tx-still .tx-video{display:none}
+.tx-still .tx-video-still{display:block}
+@media (prefers-reduced-motion:reduce){
+.tx-root *,.tx-root *::before,.tx-root *::after{animation:none !important;transition:none !important}
+.tx-video{display:none}
+.tx-video-still{display:block}
+}
+@media (max-width:900px){.tx-hide-md{display:none !important}}
+@media (max-width:760px){
+.tx-hide-sm{display:none !important}
+.tx-hero-visual{margin-bottom:22% !important}
+.tx-term{left:4% !important;right:4%;bottom:-20% !important;width:auto !important}
+}
+</style>
+</head>
+<body>
+<div class="tx-root" style="background: #0A0607; color: #FFF9FA; font-family: 'Geist', system-ui, sans-serif; font-size: 17px; line-height: 1.6; min-height: 100vh">
+
+<!-- NAV -->
+<header style="position: sticky; top: 0; z-index: 40; background: rgba(10,6,7,0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,226,232,0.08)">
+<nav aria-label="Main" style="max-width: 1280px; margin: 0 auto; padding: 12px clamp(16px, 4vw, 40px); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 32px">
+<a href="#top" aria-label="TefriX Solutions home" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #FFF9FA">
+<svg viewBox="0 0 120 100" width="40" height="33" aria-hidden="true">
+<path d="M14 27 C14 15 22 8 33 8 L82 8 L69 27 Z" fill="#FFF9FA"></path>
+<path d="M42 27 L55 27 L55 70 L42 84 Z" fill="#FFF9FA"></path>
+<path d="M58 31 L71 31 L105 91 L91 91 Z" fill="#C8102E"></path>
+<path d="M26 94 Q 86 84 116 4 Q 80 68 26 94 Z" fill="#FF4D6D"></path>
+<rect x="33" y="38" width="5" height="5" fill="#FF4D6D"></rect>
+<rect x="34" y="50" width="5" height="5" fill="#FF4D6D"></rect>
+<rect x="27" y="58" width="5" height="5" fill="#FFF9FA"></rect>
+<rect x="35" y="63" width="5" height="5" fill="#FF4D6D"></rect>
+</svg>
+<span style="font-size: 20px; font-weight: 700; letter-spacing: -0.02em">Tefri<span style="color: #FF4D6D">X</span> <span style="font-weight: 500; color: #BFAEB2">Solutions</span></span>
+</a>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 2px 26px; font-size: 15px; font-weight: 500; color: #E2D0D4">
+<a href="#services" style="text-decoration: none; padding: 10px 0">Services</a>
+<a href="#process" style="text-decoration: none; padding: 10px 0">Process</a>
+<a href="#work" style="text-decoration: none; padding: 10px 0">Work</a>
+<a href="#about" style="text-decoration: none; padding: 10px 0">About</a>
+<a href="#contact" style="text-decoration: none; padding: 10px 0">Contact</a>
+</div>
+<a href="#contact" class="tx-btn" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 10px; background: linear-gradient(135deg, #E11D48, #9F0C1F); color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px; box-shadow: 0 8px 28px -12px rgba(255,77,109,0.7)">Book a free consultation</a>
+</nav>
+</header>
+
+<!-- HERO -->
+<section id="top" style="position: relative; isolation: isolate; overflow: hidden; padding: clamp(48px, 7vw, 104px) 0 0">
+<div aria-hidden="true" class="tx-blob" style="position: absolute; z-index: -2; width: 1000px; height: 1000px; left: 48%; top: -40%; border-radius: 50%; background: radial-gradient(circle at center, rgba(200,16,46,0.42), rgba(117,7,12,0.18) 42%, transparent 70%); pointer-events: none"></div>
+<div aria-hidden="true" style="position: absolute; inset: 0; z-index: -1; pointer-events: none; background-image: linear-gradient(rgba(255,226,232,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,226,232,0.05) 1px, transparent 1px); background-size: 72px 72px; -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 10%, transparent 75%); mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 10%, transparent 75%)"></div>
+
+<div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); display: flex; flex-wrap: wrap; align-items: center; gap: 40px 56px">
+<div style="flex: 1 1 540px; min-width: 0">
+<div class="tx-fade" style="display: inline-flex; align-items: center; gap: 10px; padding: 6px 14px 6px 10px; border-radius: 999px; border: 1px solid rgba(255,226,232,0.14); background: rgba(255,255,255,0.03); font-size: 14px; font-weight: 500; color: #E2D0D4">
+<span class="tx-pulse" style="width: 8px; height: 8px; border-radius: 50%; background: #FF4D6D; box-shadow: 0 0 10px #FF4D6D"></span>Software engineering studio · Colombo, Sri Lanka</div>
+<h1 class="tx-fade" style="margin: 24px 0 0; font-size: clamp(42px, 5.4vw, 80px); line-height: 1.03; font-weight: 600; letter-spacing: -0.04em; animation-delay: 0.08s">Empowering your vision with <span class="tx-grad">scalable &amp; secure</span> software</h1>
+<p class="tx-fade" style="margin: 24px 0 0; max-width: 540px; font-size: 19px; line-height: 1.6; color: #CDBCC0; animation-delay: 0.18s">We are TefriX Solutions — your trusted partner for modern, enterprise-grade digital products. From custom web development and UI/UX design to e-commerce and digital marketing, we take you from idea to launch and beyond.</p>
+<div class="tx-fade" style="margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; animation-delay: 0.28s">
+<a href="#contact" class="tx-btn" style="display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 24px; border-radius: 12px; background: linear-gradient(135deg, #E11D48, #9F0C1F); color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 16px; box-shadow: 0 14px 40px -16px rgba(255,77,109,0.8)">Book a free consultation
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+</a>
+<a href="#services" class="tx-btn tx-ghost" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; box-sizing: border-box; border-radius: 12px; border: 1px solid rgba(255,226,232,0.18); background: rgba(255,255,255,0.04); color: #FFF9FA; text-decoration: none; font-weight: 600; font-size: 16px">Explore services</a>
+</div>
+<div class="tx-fade" style="margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; font-size: 14px; color: #BFAEB2; animation-delay: 0.38s">
+<span style="display: inline-flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF8FA3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>99% client satisfaction</span>
+<span style="display: inline-flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF8FA3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>50+ projects delivered</span>
+<span style="display: inline-flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF8FA3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg>Free consultation</span>
+</div>
+</div>
+
+<div class="tx-hero-visual" style="flex: 1 1 460px; min-width: 0; position: relative; max-width: 600px; margin: 0 auto; aspect-ratio: 1 / 1">
+<div aria-hidden="true" style="position: absolute; inset: 14%; border-radius: 50%; background: radial-gradient(circle, rgba(200,16,46,0.30), transparent 65%); pointer-events: none"></div>
+<video class="tx-video" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.webp" aria-hidden="true" style="position: absolute; inset: 0 0 6% 6%; width: 94%; height: 94%; object-fit: contain; pointer-events: none">
+<source src="assets/hero-loop.webm" type="video/webm">
+</video>
+<img class="tx-video-still" src="assets/glass-hero.webp" alt="" style="position: absolute; left: 14%; top: 2%; width: 78%; height: auto">
+<img class="tx-float tx-hide-sm" src="assets/glass-pill.webp" alt="" style="position: absolute; top: 0; right: 0; width: 17%; height: auto; animation-duration: 9s">
+
+<div class="tx-term tx-fade" role="img" aria-label="Illustration of a deployment pipeline: build passed, tests passed, security scan clean, deployed to production" style="position: absolute; left: 0; bottom: 4%; width: min(78%, 400px); border-radius: 16px; border: 1px solid rgba(255,226,232,0.16); background: rgba(14,8,10,0.78); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 30px 80px -28px rgba(0,0,0,0.85); overflow: hidden; animation-delay: 0.5s">
+<div style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid rgba(255,226,232,0.08)">
+<span style="width: 10px; height: 10px; border-radius: 50%; background: #3B2A2E"></span>
+<span style="width: 10px; height: 10px; border-radius: 50%; background: #3B2A2E"></span>
+<span style="width: 10px; height: 10px; border-radius: 50%; background: #3B2A2E"></span>
+<span style="margin-left: 8px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #9F8D92">deploy — tefrix</span>
+</div>
+<div aria-hidden="true" style="padding: 16px 18px 18px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13.5px; line-height: 1.9; color: #E2D0D4">
+<div><span style="color: #FF8FA3">$</span> tefrix deploy --env production</div>
+<div class="tx-tl" style="animation-delay: 1.0s"><span style="color: #6EE7B7">✓</span> Build passed</div>
+<div class="tx-tl" style="animation-delay: 1.4s"><span style="color: #6EE7B7">✓</span> Tests passed</div>
+<div class="tx-tl" style="animation-delay: 1.8s"><span style="color: #6EE7B7">✓</span> Security scan clean</div>
+<div class="tx-tl" style="animation-delay: 2.2s"><span style="color: #6EE7B7">✓</span> Deployed to production</div>
+<div class="tx-tl" style="animation-delay: 2.6s; display: flex; align-items: center; gap: 8px"><span class="tx-pulse" style="width: 8px; height: 8px; border-radius: 50%; background: #6EE7B7; box-shadow: 0 0 10px #6EE7B7"></span><span style="color: #FFF9FA">Live</span><span class="tx-caret" style="display: inline-block; width: 8px; height: 16px; background: #FF8FA3"></span></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- STATS BAR -->
+<div style="max-width: 1280px; margin: clamp(56px, 7vw, 96px) auto 0; padding: 0 clamp(16px, 4vw, 40px)">
+<div class="tx-reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); border: 1px solid rgba(255,226,232,0.10); border-radius: 20px; background: rgba(255,255,255,0.025); overflow: hidden">
+<div style="padding: 26px 28px; border-right: 1px solid rgba(255,226,232,0.08)">
+<div style="font-size: clamp(36px, 3.6vw, 48px); font-weight: 600; letter-spacing: -0.03em; line-height: 1"><span class="tx-sr">20</span><span class="tx-count tx-to-20" aria-hidden="true"></span>+</div>
+<div style="margin-top: 8px; font-size: 15px; color: #BFAEB2">Team members</div>
+</div>
+<div style="padding: 26px 28px; border-right: 1px solid rgba(255,226,232,0.08)">
+<div style="font-size: clamp(36px, 3.6vw, 48px); font-weight: 600; letter-spacing: -0.03em; line-height: 1"><span class="tx-sr">50</span><span class="tx-count tx-to-50" aria-hidden="true"></span>+</div>
+<div style="margin-top: 8px; font-size: 15px; color: #BFAEB2">Projects delivered</div>
+</div>
+<div style="padding: 26px 28px; border-right: 1px solid rgba(255,226,232,0.08)">
+<div style="font-size: clamp(36px, 3.6vw, 48px); font-weight: 600; letter-spacing: -0.03em; line-height: 1"><span class="tx-sr">3</span><span class="tx-count tx-to-3" aria-hidden="true"></span>+</div>
+<div style="margin-top: 8px; font-size: 15px; color: #BFAEB2">Years in industry</div>
+</div>
+<div style="padding: 26px 28px">
+<div style="font-size: clamp(36px, 3.6vw, 48px); font-weight: 600; letter-spacing: -0.03em; line-height: 1; color: #FF8FA3"><span class="tx-sr">99</span><span class="tx-count tx-to-99" aria-hidden="true"></span>%</div>
+<div style="margin-top: 8px; font-size: 15px; color: #BFAEB2">Client satisfaction</div>
+</div>
+</div>
+</div>
+
+<!-- CLIENT LOGOS (placeholders) -->
+<div style="max-width: 1280px; margin: 0 auto; padding: 40px clamp(16px, 4vw, 40px) 0; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px">
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #9F8D92">Clients &amp; partners</span>
+<div style="flex: 1 1 600px; display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px">
+<span style="display: flex; align-items: center; justify-content: center; height: 48px; border-radius: 10px; border: 1px dashed rgba(255,226,232,0.16); font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #8F7D82">[Client logo]</span>
+<span style="display: flex; align-items: center; justify-content: center; height: 48px; border-radius: 10px; border: 1px dashed rgba(255,226,232,0.16); font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #8F7D82">[Client logo]</span>
+<span style="display: flex; align-items: center; justify-content: center; height: 48px; border-radius: 10px; border: 1px dashed rgba(255,226,232,0.16); font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #8F7D82">[Client logo]</span>
+<span style="display: flex; align-items: center; justify-content: center; height: 48px; border-radius: 10px; border: 1px dashed rgba(255,226,232,0.16); font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #8F7D82">[Client logo]</span>
+<span style="display: flex; align-items: center; justify-content: center; height: 48px; border-radius: 10px; border: 1px dashed rgba(255,226,232,0.16); font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #8F7D82">[Client logo]</span>
+</div>
+</div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" style="position: relative; isolation: isolate; max-width: 1280px; margin: 0 auto; padding: clamp(96px, 10vw, 140px) clamp(16px, 4vw, 40px) 0">
+<div class="tx-reveal" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px 48px">
+<div style="flex: 1 1 560px; min-width: 0">
+<div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #FF8FA3">Services</div>
+<h2 style="margin: 14px 0 0; font-size: clamp(34px, 3.8vw, 54px); line-height: 1.08; font-weight: 600; letter-spacing: -0.035em">Our comprehensive web solutions</h2>
+</div>
+<p style="flex: 0 1 460px; margin: 0; font-size: 18px; color: #CDBCC0">We empower your digital journey with cutting-edge web design, robust development, and strategic digital marketing — built to elevate your online presence.</p>
+</div>
+<div style="margin-top: 48px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px">
+<article class="tx-card tx-reveal" style="position: relative; overflow: hidden; padding: 28px; border-radius: 20px; border: 1px solid rgba(255,226,232,0.10); background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012))">
+<span style="display: inline-flex; width: 44px; height: 44px; border-radius: 12px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); border: 1px solid rgba(255,143,163,0.25); color: #FFC2CF"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 9l-4 3 4 3"></path><path d="M16 9l4 3-4 3"></path><path d="M13.5 5l-3 14"></path></svg></span>
+<h3 style="margin: 22px 0 8px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em">Custom web development</h3>
+<p style="margin: 0; font-size: 16px; color: #BFAEB2">Tailored web solutions from concept to launch. We build scalable, secure, and high-performance websites and web applications using the latest technologies.</p>
+<div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px; color: #E2D0D4"><span style="padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,0.05)">Web applications</span><span style="padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,0.05)">Concept to launch</span></div>
+</article>
+<article class="tx-card tx-reveal" style="position: relative; overflow: hidden; padding: 28px; border-radius: 20px; border: 1px solid rgba(255,226,232,0.10); background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012))">
+<span style="display: inline-flex; width: 44px; height: 44px; border-radius: 12px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); border: 1px solid rgba(255,143,163,0.25); color: #FFC2CF"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="13" height="10" rx="1.5"></rect><rect x="15" y="9" width="6" height="11" rx="1.5"></rect><path d="M7 18h5"></path></svg></span>
+<h3 style="margin: 22px 0 8px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em">Responsive web design</h3>
+<p style="margin: 0; font-size: 16px; color: #BFAEB2">Visually stunning and user-friendly designs that adapt seamlessly to any device, ensuring an optimal experience for all your visitors.</p>
+<div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px; color: #E2D0D4"><span style="padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,0.05)">Mobile</span><span style="padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,0.05)">Tablet</span><span style="padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,0.05)">Desktop</span></div>
+</article>
+<article class="tx-card tx-reveal" style="position: relative; overflow: hidden; padding: 28px; border-radius: 20px; border: 1px solid rgba(255,226,232,0.10); background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012))">
+<span style="display: inline-flex; width: 44px; height: 44px; border-radius: 12px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); border: 1px solid rgba(255,143,163,0.25); color: #FFC2CF"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11h11l2-8H6.2"></path><circle cx="9" cy="19" r="1.4"></circle><circle cx="17" cy="19" r="1.4"></circle></svg></span>
+<h3 style="margin: 22px 0 8px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em">E-commerce solutions</h3>
+<p style="margin: 0; font-size: 16px; color: #BFAEB2">Powerful online stores with secure payment gateways, inventory management, and intuitive user experiences to boost your sales.</p>
+<div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px; color: #E2D0D4"><span style="padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,0.05)">Secure payments</span><span style="padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,0.05)">Inventory</span></div>
+</article>
+<article class="tx-card tx-reveal" style="position: relative; overflow: hidden; padding: 28px; border-radius: 20px; border: 1px solid rgba(255,226,232,0.10); background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012))">
+<span style="display: inline-flex; width: 44px; height: 44px; border-radius: 12px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); border: 1px solid rgba(255,143,163,0.25); color: #FFC2CF"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5"></path><path d="M4 19h16"></path><path d="M7 15l4-4 3 3 5-6"></path></svg></span>
+<h3 style="margin: 22px 0 8px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em">Digital marketing &amp; SEO</h3>
+<p style="margin: 0; font-size: 16px; color: #BFAEB2">Increase your online visibility and attract more customers with expert SEO strategies, content marketing, and social media management.</p>
+<div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px; color: #E2D0D4"><span style="padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,0.05)">SEO</span><span style="padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,0.05)">Content</span><span style="padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,0.05)">Social media</span></div>
+</article>
+<article class="tx-card tx-reveal" style="position: relative; overflow: hidden; padding: 28px; border-radius: 20px; border: 1px solid rgba(255,226,232,0.10); background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012))">
+<span style="display: inline-flex; width: 44px; height: 44px; border-radius: 12px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); border: 1px solid rgba(255,143,163,0.25); color: #FFC2CF"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6l8-3z"></path><path d="M9 12l2 2 4-4"></path></svg></span>
+<h3 style="margin: 22px 0 8px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em">Website maintenance &amp; support</h3>
+<p style="margin: 0; font-size: 16px; color: #BFAEB2">Keep your website running smoothly and securely with our ongoing maintenance plans, updates, and dedicated technical support.</p>
+<div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px; color: #E2D0D4"><span style="padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,0.05)">Updates</span><span style="padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,0.05)">Technical support</span></div>
+</article>
+<article class="tx-card tx-reveal" style="position: relative; overflow: hidden; padding: 28px; border-radius: 20px; border: 1px solid rgba(255,226,232,0.10); background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012))">
+<span style="display: inline-flex; width: 44px; height: 44px; border-radius: 12px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); border: 1px solid rgba(255,143,163,0.25); color: #FFC2CF"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M3 9h18"></path><path d="M8 14h4"></path><path d="M8 17h8"></path></svg></span>
+<h3 style="margin: 22px 0 8px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em">UI/UX design</h3>
+<p style="margin: 0; font-size: 16px; color: #BFAEB2">Crafting intuitive and engaging user interfaces and exceptional user experiences, so your website is a joy to navigate.</p>
+<div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px; color: #E2D0D4"><span style="padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,0.05)">User interfaces</span><span style="padding: 4px 10px; border-radius: 6px; background: rgba(255,255,255,0.05)">User experience</span></div>
+</article>
+</div>
+
+<div class="tx-reveal" style="margin-top: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; padding: 20px 24px; border-radius: 20px; border: 1px solid rgba(255,226,232,0.10); background: rgba(255,255,255,0.02)">
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #9F8D92">Technologies we master</span>
+<div style="flex: 1 1 600px; display: flex; flex-wrap: wrap; gap: 8px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px">
+<span style="padding: 7px 12px; border-radius: 8px; border: 1px solid rgba(255,226,232,0.12); background: rgba(255,255,255,0.03)">React</span>
+<span style="padding: 7px 12px; border-radius: 8px; border: 1px solid rgba(255,226,232,0.12); background: rgba(255,255,255,0.03)">React Native</span>
+<span style="padding: 7px 12px; border-radius: 8px; border: 1px solid rgba(255,226,232,0.12); background: rgba(255,255,255,0.03)">Node.js</span>
+<span style="padding: 7px 12px; border-radius: 8px; border: 1px solid rgba(255,226,232,0.12); background: rgba(255,255,255,0.03)">Express</span>
+<span style="padding: 7px 12px; border-radius: 8px; border: 1px solid rgba(255,226,232,0.12); background: rgba(255,255,255,0.03)">Python</span>
+<span style="padding: 7px 12px; border-radius: 8px; border: 1px solid rgba(255,226,232,0.12); background: rgba(255,255,255,0.03)">Django</span>
+<span style="padding: 7px 12px; border-radius: 8px; border: 1px solid rgba(255,226,232,0.12); background: rgba(255,255,255,0.03)">PHP Laravel</span>
+<span style="padding: 7px 12px; border-radius: 8px; border: 1px solid rgba(255,226,232,0.12); background: rgba(255,255,255,0.03)">Spring Boot</span>
+<span style="padding: 7px 12px; border-radius: 8px; border: 1px solid rgba(255,226,232,0.12); background: rgba(255,255,255,0.03)">MongoDB</span>
+</div>
+</div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" style="max-width: 1280px; margin: 0 auto; padding: clamp(96px, 10vw, 140px) clamp(16px, 4vw, 40px) 0">
+<div class="tx-reveal" style="max-width: 720px">
+<div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #FF8FA3">How we work</div>
+<h2 style="margin: 14px 0 0; font-size: clamp(34px, 3.8vw, 54px); line-height: 1.08; font-weight: 600; letter-spacing: -0.035em">A clear process from first call to launch</h2>
+<p style="margin: 18px 0 0; font-size: 18px; color: #CDBCC0">You always know what is happening, what comes next and what you will get.</p>
+</div>
+<div style="position: relative; margin-top: 56px">
+<div class="tx-hide-md" aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 23px; height: 2px; background: rgba(255,226,232,0.08)">
+<div class="tx-fill" style="height: 100%; background: linear-gradient(90deg, #9F0C1F, #FF4D6D 70%, #FFC2CF)"></div>
+</div>
+<ol style="position: relative; margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 28px">
+<li class="tx-reveal">
+<span style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: #0A0607; border: 1.5px solid #FF4D6D; box-shadow: 0 0 0 6px #0A0607, 0 0 24px rgba(255,77,109,0.45); font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px; font-weight: 500; color: #FFC2CF">01</span>
+<h3 style="margin: 22px 0 8px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em">Discover</h3>
+<p style="margin: 0; font-size: 16px; color: #BFAEB2">We learn your goals, users and constraints, then agree on scope, timeline and what success looks like.</p>
+</li>
+<li class="tx-reveal">
+<span style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: #0A0607; border: 1.5px solid #FF4D6D; box-shadow: 0 0 0 6px #0A0607, 0 0 24px rgba(255,77,109,0.45); font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px; font-weight: 500; color: #FFC2CF">02</span>
+<h3 style="margin: 22px 0 8px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em">Design</h3>
+<p style="margin: 0; font-size: 16px; color: #BFAEB2">Wireframes and UI/UX designs you can click through and approve before any code is written.</p>
+</li>
+<li class="tx-reveal">
+<span style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: #0A0607; border: 1.5px solid #FF4D6D; box-shadow: 0 0 0 6px #0A0607, 0 0 24px rgba(255,77,109,0.45); font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px; font-weight: 500; color: #FFC2CF">03</span>
+<h3 style="margin: 22px 0 8px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em">Build &amp; test</h3>
+<p style="margin: 0; font-size: 16px; color: #BFAEB2">Development in short cycles with regular demos — secure, tested code on a modern, scalable stack.</p>
+</li>
+<li class="tx-reveal">
+<span style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: #0A0607; border: 1.5px solid #FF4D6D; box-shadow: 0 0 0 6px #0A0607, 0 0 24px rgba(255,77,109,0.45); font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px; font-weight: 500; color: #FFC2CF">04</span>
+<h3 style="margin: 22px 0 8px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em">Launch &amp; support</h3>
+<p style="margin: 0; font-size: 16px; color: #BFAEB2">We launch your product, then keep it fast, secure and up to date with ongoing maintenance and support.</p>
+</li>
+</ol>
+</div>
+</section>
+
+<!-- SELECTED WORK (placeholders) -->
+<section id="work" style="max-width: 1280px; margin: 0 auto; padding: clamp(96px, 10vw, 140px) clamp(16px, 4vw, 40px) 0">
+<div class="tx-reveal" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px 48px">
+<div style="flex: 1 1 520px; min-width: 0">
+<div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #FF8FA3">Selected work</div>
+<h2 style="margin: 14px 0 0; font-size: clamp(34px, 3.8vw, 54px); line-height: 1.08; font-weight: 600; letter-spacing: -0.035em">Products we have designed and built</h2>
+</div>
+<a href="#contact" class="tx-btn tx-ghost" style="display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 18px; box-sizing: border-box; border-radius: 10px; border: 1px solid rgba(255,226,232,0.18); background: rgba(255,255,255,0.04); color: #FFF9FA; text-decoration: none; font-weight: 600; font-size: 15px">Discuss your project
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+</a>
+</div>
+<div style="margin-top: 48px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 20px">
+<a href="#contact" class="tx-card tx-reveal" style="display: block; border-radius: 22px; border: 1px solid rgba(255,226,232,0.10); background: rgba(255,255,255,0.025); color: #FFF9FA; text-decoration: none; overflow: hidden">
+<div style="position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: radial-gradient(120% 120% at 20% 0%, #9F0C1F 0%, #3A060B 45%, #140B0E 100%)">
+<div style="position: absolute; left: 8%; right: 8%; top: 14%; bottom: -6%; border-radius: 12px 12px 0 0; border: 1px solid rgba(255,226,232,0.16); background: rgba(10,6,7,0.6)">
+<div style="display: flex; gap: 6px; padding: 10px 12px; border-bottom: 1px solid rgba(255,226,232,0.08)"><span style="width: 8px; height: 8px; border-radius: 50%; background: #3B2A2E"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #3B2A2E"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #3B2A2E"></span></div>
+<div style="display: flex; align-items: center; justify-content: center; height: 70%; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; color: #9F8D92">[Project screenshot]</div>
+</div>
+<img class="tx-float" src="assets/glass-ring.webp" alt="" style="position: absolute; right: -6%; top: -10%; width: 38%; height: auto; animation-duration: 11s">
+</div>
+<div style="padding: 22px 24px 26px">
+<div style="display: flex; flex-wrap: wrap; gap: 6px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #FFC2CF"><span style="padding: 3px 8px; border-radius: 6px; background: rgba(255,77,109,0.12)">[Industry]</span><span style="padding: 3px 8px; border-radius: 6px; background: rgba(255,77,109,0.12)">Web application</span></div>
+<h3 style="margin: 14px 0 6px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em">[Project name]</h3>
+<p style="margin: 0; font-size: 15px; color: #BFAEB2">[One line on what you built and the result for the client.]</p>
+<span style="margin-top: 16px; display: inline-flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 600; color: #FF8FA3">View case study <span class="tx-link-arrow" style="display: inline-block">→</span></span>
+</div>
+</a>
+<a href="#contact" class="tx-card tx-reveal" style="display: block; border-radius: 22px; border: 1px solid rgba(255,226,232,0.10); background: rgba(255,255,255,0.025); color: #FFF9FA; text-decoration: none; overflow: hidden">
+<div style="position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: radial-gradient(120% 120% at 80% 0%, #C8102E 0%, #4A0710 45%, #140B0E 100%)">
+<div style="position: absolute; left: 8%; right: 8%; top: 14%; bottom: -6%; border-radius: 12px 12px 0 0; border: 1px solid rgba(255,226,232,0.16); background: rgba(10,6,7,0.6)">
+<div style="display: flex; gap: 6px; padding: 10px 12px; border-bottom: 1px solid rgba(255,226,232,0.08)"><span style="width: 8px; height: 8px; border-radius: 50%; background: #3B2A2E"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #3B2A2E"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #3B2A2E"></span></div>
+<div style="display: flex; align-items: center; justify-content: center; height: 70%; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; color: #9F8D92">[Project screenshot]</div>
+</div>
+<img class="tx-float" src="assets/glass-pill.webp" alt="" style="position: absolute; left: -4%; top: -8%; width: 26%; height: auto; animation-duration: 9s">
+</div>
+<div style="padding: 22px 24px 26px">
+<div style="display: flex; flex-wrap: wrap; gap: 6px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #FFC2CF"><span style="padding: 3px 8px; border-radius: 6px; background: rgba(255,77,109,0.12)">[Industry]</span><span style="padding: 3px 8px; border-radius: 6px; background: rgba(255,77,109,0.12)">E-commerce</span></div>
+<h3 style="margin: 14px 0 6px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em">[Project name]</h3>
+<p style="margin: 0; font-size: 15px; color: #BFAEB2">[One line on what you built and the result for the client.]</p>
+<span style="margin-top: 16px; display: inline-flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 600; color: #FF8FA3">View case study <span class="tx-link-arrow" style="display: inline-block">→</span></span>
+</div>
+</a>
+<a href="#contact" class="tx-card tx-reveal" style="display: block; border-radius: 22px; border: 1px solid rgba(255,226,232,0.10); background: rgba(255,255,255,0.025); color: #FFF9FA; text-decoration: none; overflow: hidden">
+<div style="position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: radial-gradient(120% 120% at 50% 100%, #9F0C1F 0%, #3A060B 45%, #140B0E 100%)">
+<div style="position: absolute; left: 8%; right: 8%; top: 14%; bottom: -6%; border-radius: 12px 12px 0 0; border: 1px solid rgba(255,226,232,0.16); background: rgba(10,6,7,0.6)">
+<div style="display: flex; gap: 6px; padding: 10px 12px; border-bottom: 1px solid rgba(255,226,232,0.08)"><span style="width: 8px; height: 8px; border-radius: 50%; background: #3B2A2E"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #3B2A2E"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #3B2A2E"></span></div>
+<div style="display: flex; align-items: center; justify-content: center; height: 70%; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; color: #9F8D92">[Project screenshot]</div>
+</div>
+<img class="tx-float" src="assets/glass-twist.webp" alt="" style="position: absolute; right: -8%; bottom: -12%; width: 40%; height: auto; animation-duration: 12s">
+</div>
+<div style="padding: 22px 24px 26px">
+<div style="display: flex; flex-wrap: wrap; gap: 6px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #FFC2CF"><span style="padding: 3px 8px; border-radius: 6px; background: rgba(255,77,109,0.12)">[Industry]</span><span style="padding: 3px 8px; border-radius: 6px; background: rgba(255,77,109,0.12)">UI/UX design</span></div>
+<h3 style="margin: 14px 0 6px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em">[Project name]</h3>
+<p style="margin: 0; font-size: 15px; color: #BFAEB2">[One line on what you built and the result for the client.]</p>
+<span style="margin-top: 16px; display: inline-flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 600; color: #FF8FA3">View case study <span class="tx-link-arrow" style="display: inline-block">→</span></span>
+</div>
+</a>
+</div>
+</section>
+
+<!-- WHY TEFRIX -->
+<section id="about" style="max-width: 1280px; margin: 0 auto; padding: clamp(96px, 10vw, 140px) clamp(16px, 4vw, 40px) 0">
+<div style="display: flex; flex-wrap: wrap; gap: 40px 64px; align-items: center">
+<div class="tx-reveal" style="flex: 1 1 440px; min-width: 0">
+<div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #FF8FA3">Why TefriX</div>
+<h2 style="margin: 14px 0 0; font-size: clamp(34px, 3.8vw, 54px); line-height: 1.08; font-weight: 600; letter-spacing: -0.035em">Building future-ready solutions</h2>
+<p style="margin: 18px 0 0; font-size: 18px; color: #CDBCC0">At TefriX, we craft reliable, secure, and scalable software using cutting-edge technologies and battle-tested methodologies to power your digital transformation.</p>
+<div style="position: relative; margin-top: 32px; width: min(100%, 300px); aspect-ratio: 1 / 1" class="tx-hide-md">
+<img class="tx-float" src="assets/glass-orb.webp" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; animation-duration: 11s">
+<img src="assets/glass-hero.webp" alt="" style="position: absolute; left: 22%; top: 20%; width: 56%; height: auto; opacity: 0.55">
+</div>
+</div>
+<div style="flex: 1 1 560px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 16px">
+<div class="tx-card tx-reveal" style="padding: 26px; border-radius: 20px; border: 1px solid rgba(255,226,232,0.10); background: rgba(255,255,255,0.03)">
+<span style="display: inline-flex; width: 40px; height: 40px; border-radius: 10px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); color: #FFC2CF"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"></path><path d="M3 13l9 5 9-5"></path><path d="M3 17.5l9 5 9-5"></path></svg></span>
+<h3 style="margin: 18px 0 6px; font-size: 18px; font-weight: 600">Scalable architecture</h3>
+<p style="margin: 0; font-size: 15px; color: #BFAEB2">Modern stacks designed to grow with your business needs.</p>
+</div>
+<div class="tx-card tx-reveal" style="padding: 26px; border-radius: 20px; border: 1px solid rgba(255,226,232,0.10); background: rgba(255,255,255,0.03)">
+<span style="display: inline-flex; width: 40px; height: 40px; border-radius: 10px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); color: #FFC2CF"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6l8-3z"></path><path d="M9 12l2 2 4-4"></path></svg></span>
+<h3 style="margin: 18px 0 6px; font-size: 18px; font-weight: 600">Security-first</h3>
+<p style="margin: 0; font-size: 15px; color: #BFAEB2">Built with enterprise-grade security from the ground up.</p>
+</div>
+<div class="tx-card tx-reveal" style="padding: 26px; border-radius: 20px; border: 1px solid rgba(255,226,232,0.10); background: rgba(255,255,255,0.03)">
+<span style="display: inline-flex; width: 40px; height: 40px; border-radius: 10px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); color: #FFC2CF"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"></path></svg></span>
+<h3 style="margin: 18px 0 6px; font-size: 18px; font-weight: 600">Optimal performance</h3>
+<p style="margin: 0; font-size: 15px; color: #BFAEB2">Engineered for speed and efficiency at any scale.</p>
+</div>
+<div class="tx-card tx-reveal" style="padding: 26px; border-radius: 20px; border: 1px solid rgba(255,226,232,0.10); background: rgba(255,255,255,0.03)">
+<span style="display: inline-flex; width: 40px; height: 40px; border-radius: 10px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); color: #FFC2CF"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1"></circle></svg></span>
+<h3 style="margin: 18px 0 6px; font-size: 18px; font-weight: 600">Real-world impact</h3>
+<p style="margin: 0; font-size: 15px; color: #BFAEB2">Solutions focused on delivering measurable business results.</p>
+</div>
+</div>
+</div>
+
+<!-- who we are: vision / mission / values -->
+<div style="margin-top: clamp(64px, 8vw, 104px); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 16px">
+<figure class="tx-reveal" style="position: relative; isolation: isolate; overflow: hidden; margin: 0; grid-column: 1 / -1; padding: clamp(28px, 4.5vw, 56px); border-radius: 24px; border: 1px solid rgba(255,143,163,0.20); background: radial-gradient(120% 160% at 0% 0%, #9F0C1F 0%, #4A0710 40%, #170B0E 80%)">
+<div aria-hidden="true" class="tx-blob" style="position: absolute; z-index: -1; width: 520px; height: 520px; right: -10%; top: -60%; border-radius: 50%; background: radial-gradient(circle, rgba(255,77,109,0.35), transparent 65%); pointer-events: none"></div>
+<div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #FFC2CF">Who we are</div>
+<blockquote style="margin: 18px 0 0; max-width: 960px; font-size: clamp(24px, 2.6vw, 36px); line-height: 1.3; font-weight: 500; letter-spacing: -0.02em">“Great software is not built by code alone, but by the passion, collaboration, and brilliance of the best team working together.”</blockquote>
+<figcaption style="margin-top: 18px; max-width: 760px; font-size: 16px; color: #E2D0D4">We are a team of passionate individuals dedicated to making a difference through innovative solutions and community-driven initiatives.</figcaption>
+</figure>
+<div class="tx-card tx-reveal" style="padding: 28px; border-radius: 20px; border: 1px solid rgba(255,226,232,0.10); background: rgba(255,255,255,0.03)">
+<div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #FF8FA3">Our vision</div>
+<p style="margin: 14px 0 0; font-size: 18px; line-height: 1.55; color: #EADADE">To empower individuals and organizations to achieve their goals through innovative technology solutions and exceptional service.</p>
+</div>
+<div class="tx-card tx-reveal" style="padding: 28px; border-radius: 20px; border: 1px solid rgba(255,226,232,0.10); background: rgba(255,255,255,0.03)">
+<div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #FF8FA3">Our mission</div>
+<p style="margin: 14px 0 0; font-size: 18px; line-height: 1.55; color: #EADADE">To deliver cutting-edge digital products and services that drive real impact for our clients, guided by integrity, creativity, and a relentless pursuit of excellence.</p>
+</div>
+</div>
+
+<div class="tx-reveal" style="margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); border-radius: 20px; border: 1px solid rgba(255,226,232,0.10); overflow: hidden">
+<div style="padding: 24px 26px; border-right: 1px solid rgba(255,226,232,0.08)">
+<div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #FF8FA3">Value 01</div>
+<h3 style="margin: 10px 0 6px; font-size: 17px; font-weight: 600">Customer oriented</h3>
+<p style="margin: 0; font-size: 15px; color: #BFAEB2">Positive, lasting client relationships are the foundation of everything we ship.</p>
+</div>
+<div style="padding: 24px 26px; border-right: 1px solid rgba(255,226,232,0.08)">
+<div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #FF8FA3">Value 02</div>
+<h3 style="margin: 10px 0 6px; font-size: 17px; font-weight: 600">Continuous improvement</h3>
+<p style="margin: 0; font-size: 15px; color: #BFAEB2">Client feedback flows straight back into our products and processes.</p>
+</div>
+<div style="padding: 24px 26px; border-right: 1px solid rgba(255,226,232,0.08)">
+<div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #FF8FA3">Value 03</div>
+<h3 style="margin: 10px 0 6px; font-size: 17px; font-weight: 600">Cultural diversity</h3>
+<p style="margin: 0; font-size: 15px; color: #BFAEB2">We celebrate Sri Lanka's diversity — a driven family of tech people working in harmony.</p>
+</div>
+<div style="padding: 24px 26px">
+<div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #FF8FA3">Value 04</div>
+<h3 style="margin: 10px 0 6px; font-size: 17px; font-weight: 600">Technological superiority</h3>
+<p style="margin: 0; font-size: 15px; color: #BFAEB2">Cloud-native, scalable and resilient architecture with modern tools.</p>
+</div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="max-width: 1280px; margin: 0 auto; padding: clamp(96px, 10vw, 140px) clamp(16px, 4vw, 40px)">
+<div class="tx-reveal" style="position: relative; isolation: isolate; overflow: hidden; border-radius: 28px; border: 1px solid rgba(255,143,163,0.16); background: #110A0C; padding: clamp(24px, 4vw, 56px); display: flex; flex-wrap: wrap; gap: 32px 48px">
+<div aria-hidden="true" class="tx-blob" style="position: absolute; z-index: -1; width: 900px; height: 900px; left: -30%; top: -60%; border-radius: 50%; background: radial-gradient(circle, rgba(200,16,46,0.45), rgba(117,7,12,0.18) 40%, transparent 68%); pointer-events: none"></div>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 36px">
+<div>
+<div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #FFC2CF">Contact us</div>
+<h2 style="margin: 14px 0 0; font-size: clamp(36px, 4.2vw, 60px); line-height: 1.05; font-weight: 600; letter-spacing: -0.04em">Ready to build with us?</h2>
+<p style="margin: 18px 0 0; max-width: 440px; font-size: 18px; color: #E2D0D4">Tell us about your idea, product, or challenge. The first consultation is free.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<a href="tel:+94765907934" style="display: flex; align-items: center; gap: 14px; min-height: 52px; color: #FFF9FA; text-decoration: none; font-size: 17px; font-weight: 500">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,226,232,0.10); display: flex; align-items: center; justify-content: center; color: #FFC2CF"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"></path></svg></span>+94 76 590 7934</a>
+<a href="mailto:tefrixsolutions@gmail.com" style="display: flex; align-items: center; gap: 14px; min-height: 52px; color: #FFF9FA; text-decoration: none; font-size: 17px; font-weight: 500">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,226,232,0.10); display: flex; align-items: center; justify-content: center; color: #FFC2CF"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg></span>tefrixsolutions@gmail.com</a>
+<span style="display: flex; align-items: center; gap: 14px; min-height: 52px; font-size: 17px; font-weight: 500">
+<span style="width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,226,232,0.10); display: flex; align-items: center; justify-content: center; color: #FFC2CF"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg></span>Colombo, Sri Lanka</span>
+</div>
+</div>
+<form style="flex: 1 1 460px; min-width: 0; border-radius: 22px; border: 1px solid rgba(255,226,232,0.12); background: rgba(14,8,10,0.66); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: clamp(22px, 3vw, 36px); display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-wrap: wrap; gap: 16px">
+<label style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 500; color: #E2D0D4">Name *
+<input type="text" name="name" placeholder="Your name" style="height: 50px; box-sizing: border-box; padding: 0 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,226,232,0.14); border-radius: 10px; color: #FFF9FA; font-family: inherit; font-size: 16px">
+</label>
+<label style="flex: 1 1 200px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 500; color: #E2D0D4">Phone number * <span style="font-size: 13px; color: #FF8FA3">WhatsApp preferred</span>
+<input type="tel" name="phone" placeholder="+94 7X XXX XXXX" style="height: 50px; box-sizing: border-box; padding: 0 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,226,232,0.14); border-radius: 10px; color: #FFF9FA; font-family: inherit; font-size: 16px">
+</label>
+</div>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 500; color: #E2D0D4">Email
+<input type="email" name="email" placeholder="you@company.com" style="height: 50px; box-sizing: border-box; padding: 0 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,226,232,0.14); border-radius: 10px; color: #FFF9FA; font-family: inherit; font-size: 16px">
+</label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 500; color: #E2D0D4">Your message *
+<textarea name="message" rows="5" placeholder="Tell us about your idea, product or challenge" style="box-sizing: border-box; padding: 12px 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,226,232,0.14); border-radius: 10px; color: #FFF9FA; font-family: inherit; font-size: 16px; resize: vertical"></textarea>
+</label>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px">
+<button type="button" class="tx-btn" style="flex: 1 1 200px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; border: 0; border-radius: 12px; background: linear-gradient(135deg, #E11D48, #9F0C1F); color: #FFFFFF; font-family: inherit; font-weight: 600; font-size: 16px; cursor: pointer; box-shadow: 0 14px 40px -16px rgba(255,77,109,0.8)">Send message
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+</button>
+<a href="https://wa.me/94765907934" class="tx-btn tx-ghost" style="flex: 1 1 200px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; box-sizing: border-box; border: 1px solid rgba(255,226,232,0.18); border-radius: 12px; background: rgba(255,255,255,0.04); color: #FFF9FA; text-decoration: none; font-weight: 600; font-size: 16px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"></path></svg>Chat on WhatsApp</a>
+</div>
+</form>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer style="border-top: 1px solid rgba(255,226,232,0.08)">
+<div style="max-width: 1280px; margin: 0 auto; padding: 56px clamp(16px, 4vw, 40px) 28px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px 64px">
+<div style="flex: 1 1 280px; max-width: 360px">
+<div style="display: flex; align-items: center; gap: 10px">
+<svg viewBox="0 0 120 100" width="40" height="33" aria-hidden="true">
+<path d="M14 27 C14 15 22 8 33 8 L82 8 L69 27 Z" fill="#FFF9FA"></path>
+<path d="M42 27 L55 27 L55 70 L42 84 Z" fill="#FFF9FA"></path>
+<path d="M58 31 L71 31 L105 91 L91 91 Z" fill="#C8102E"></path>
+<path d="M26 94 Q 86 84 116 4 Q 80 68 26 94 Z" fill="#FF4D6D"></path>
+</svg>
+<span style="font-size: 20px; font-weight: 700; letter-spacing: -0.02em">Tefri<span style="color: #FF4D6D">X</span> <span style="font-weight: 500; color: #BFAEB2">Solutions</span></span>
+</div>
+<p style="margin: 16px 0 0; font-size: 15px; color: #BFAEB2">Innovative solutions for a digital world. We help businesses thrive through technology.</p>
+<div style="margin-top: 18px; display: flex; gap: 10px">
+<a href="https://www.facebook.com/tefrix" aria-label="TefriX on Facebook" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid rgba(255,226,232,0.12); display: flex; align-items: center; justify-content: center; color: #E2D0D4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h-2.5A3.5 3.5 0 009 6.5V9H7v3h2v9h3v-9h2.5l.5-3h-3V6.8c0-.5.3-.8.8-.8H15V3z"></path></svg></a>
+<a href="https://www.linkedin.com/company/tefrix/" aria-label="TefriX on LinkedIn" style="width: 44px; height: 44px; border-radius: 10px; border: 1px solid rgba(255,226,232,0.12); display: flex; align-items: center; justify-content: center; color: #E2D0D4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M8 10v7"></path><path d="M8 7v.01"></path><path d="M12 17v-4a2 2 0 014 0v4"></path><path d="M12 10v7"></path></svg></a>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 32px 64px; font-size: 15px">
+<div style="display: flex; flex-direction: column">
+<div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #9F8D92; margin-bottom: 8px">Services</div>
+<a href="#services" style="text-decoration: none; padding: 6px 0; color: #E2D0D4">Web development</a>
+<a href="#services" style="text-decoration: none; padding: 6px 0; color: #E2D0D4">UI/UX design</a>
+<a href="#services" style="text-decoration: none; padding: 6px 0; color: #E2D0D4">E-commerce</a>
+<a href="#services" style="text-decoration: none; padding: 6px 0; color: #E2D0D4">Digital marketing &amp; SEO</a>
+<a href="#services" style="text-decoration: none; padding: 6px 0; color: #E2D0D4">Maintenance &amp; support</a>
+</div>
+<div style="display: flex; flex-direction: column">
+<div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #9F8D92; margin-bottom: 8px">Company</div>
+<a href="#about" style="text-decoration: none; padding: 6px 0; color: #E2D0D4">About</a>
+<a href="#process" style="text-decoration: none; padding: 6px 0; color: #E2D0D4">How we work</a>
+<a href="#work" style="text-decoration: none; padding: 6px 0; color: #E2D0D4">Work</a>
+<a href="#contact" style="text-decoration: none; padding: 6px 0; color: #E2D0D4">Contact</a>
+</div>
+<div style="display: flex; flex-direction: column">
+<div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #9F8D92; margin-bottom: 8px">Contact</div>
+<a href="tel:+94765907934" style="text-decoration: none; padding: 6px 0; color: #E2D0D4">+94 76 590 7934</a>
+<a href="mailto:tefrixsolutions@gmail.com" style="text-decoration: none; padding: 6px 0; color: #E2D0D4">tefrixsolutions@gmail.com</a>
+<span style="padding: 6px 0; color: #E2D0D4">Colombo, Sri Lanka</span>
+<a href="https://www.tefrix.com" style="text-decoration: none; padding: 6px 0; color: #E2D0D4">www.tefrix.com</a>
+</div>
+</div>
+</div>
+<div aria-hidden="true" style="position: relative; margin-top: 48px; overflow: hidden">
+<div style="font-size: clamp(80px, 17vw, 250px); line-height: 0.85; font-weight: 700; letter-spacing: -0.06em; text-align: center; white-space: nowrap; background: linear-gradient(180deg, rgba(255,194,207,0.55) 0%, rgba(255,77,109,0.35) 40%, rgba(117,7,12,0.05) 95%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent">TefriX</div>
+</div>
+<div style="margin-top: 16px; padding-top: 18px; border-top: 1px solid rgba(255,226,232,0.08); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-size: 14px; color: #9F8D92">
+<span>© 2026 TefriX Solutions. All rights reserved.</span>
+<span>Empower your cyber world</span>
+</div>
+</div>
+</footer>
+
+</div>
+</body>
+</html>

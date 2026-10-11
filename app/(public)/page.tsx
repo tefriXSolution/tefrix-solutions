@@ -1,25 +1,20 @@
-import { AboutSection } from "@/app/components/sections/about-section";
-import { ContactSection } from "@/app/components/sections/contact-section";
-import { HeroSection } from "@/app/components/sections/hero-section";
-import { MilestonesSection } from "@/app/components/sections/milestones-section";
-import { ServicesSection } from "@/app/components/sections/services-section";
-import { ValuesSection } from "@/app/components/sections/values-section";
-import { WhyTefrixSection } from "@/app/components/sections/why-tefrix-section";
-
-import styles from "./page.module.css";
+import { AboutSection } from "@/app/components/sections/about/about-section";
+import { WhyTefrixSection } from "@/app/components/sections/about/why-tefrix-section";
+import { ContactSection } from "@/app/components/sections/contact/contact-section";
+import { HeroSection } from "@/app/components/sections/hero/hero-section";
+import { ProcessSection } from "@/app/components/sections/process/process-section";
+import { ServicesSection } from "@/app/components/sections/services/services-section";
+import { SelectedWorkSection } from "@/app/components/sections/work/selected-work-section";
 
 export default function HomePage() {
   return (
     <>
-      {/* Hero and the Why panel are joined by the "Why TefriX?" circle. */}
-      <div id="top" className={styles.top}>
-        <HeroSection />
-        <WhyTefrixSection />
-      </div>
+      <HeroSection />
       <ServicesSection />
-      <MilestonesSection />
+      <ProcessSection />
+      <SelectedWorkSection />
+      <WhyTefrixSection />
       <AboutSection />
-      <ValuesSection />
       <ContactSection />
     </>
   );

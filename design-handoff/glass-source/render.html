@@ -1,0 +1,176 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>html,body{margin:0;background:#000}canvas{display:block}</style>
+<script src="./node_modules/three/build/three.min.js"></script>
+</head><body>
+<script>
+const VERT = `
+varying vec3 vN; varying vec3 vW;
+void main(){
+  vec4 w = modelMatrix * vec4(position,1.0);
+  vW = w.xyz;
+  vN = normalize(mat3(modelMatrix) * normal);
+  gl_Position = projectionMatrix * viewMatrix * w;
+}`;
+const FRAG = `
+uniform vec3 cDeep; uniform vec3 cMid; uniform vec3 cHot; uniform vec3 cWhite;
+uniform float uBase; uniform float uFres; uniform float uGain; uniform float uSpec;
+varying vec3 vN; varying vec3 vW;
+vec3 env(vec3 R){
+  float y = R.y*0.5+0.5;
+  vec3 c = mix(cDeep*0.25, cDeep, smoothstep(0.0,0.35,y));
+  c = mix(c, cMid, smoothstep(0.30,0.62,y));
+  c = mix(c, cHot, smoothstep(0.60,0.92,y));
+  float sb1 = smoothstep(0.78,0.97, dot(R, normalize(vec3(-0.55,0.65,0.55))));
+  float sb2 = smoothstep(0.86,0.99, dot(R, normalize(vec3(0.85,0.05,0.55))));
+  float strip = smoothstep(0.045,0.0, abs(R.x - 0.55*R.y - 0.12)) * smoothstep(-0.2,0.4,R.z);
+  float side = smoothstep(0.55,0.95, dot(R, normalize(vec3(-0.9,-0.35,0.2))));
+  return c + cWhite*(sb1*1.7 + sb2*0.95)*uSpec + cWhite*strip*0.7*uSpec + cHot*side*0.6;
+}
+void main(){
+  vec3 N = normalize(vN);
+  vec3 V = normalize(cameraPosition - vW);
+  if(!gl_FrontFacing) N = -N;
+  float ndv = clamp(abs(dot(N,V)),0.0,1.0);
+  float f = pow(1.0 - ndv, uFres);
+  vec3 R = reflect(-V, N);
+  vec3 col = env(R);
+  float g = clamp(0.5 + 0.28*vW.x + 0.2*vW.y, 0.0, 1.0);
+  vec3 tint = mix(cDeep, cMid, g);
+  float a = uBase + 1.05*f;
+  gl_FragColor = vec4((col*a + tint*f*0.6)*uGain, 1.0);
+}`;
+
+const C = (r,g,b)=>new THREE.Vector3(r,g,b);
+const PAL = { cDeep:C(0.46,0.03,0.05), cMid:C(0.78,0.05,0.15), cHot:C(1.0,0.24,0.40), cWhite:C(1.0,0.90,0.93) };
+
+function mat(base, fres, gain, spec){
+  return new THREE.ShaderMaterial({
+    vertexShader: VERT, fragmentShader: FRAG,
+    uniforms: {
+      cDeep:{value:PAL.cDeep}, cMid:{value:PAL.cMid}, cHot:{value:PAL.cHot}, cWhite:{value:PAL.cWhite},
+      uBase:{value:base}, uFres:{value:fres}, uGain:{value:gain}, uSpec:{value:spec??1.0}
+    },
+    side: THREE.DoubleSide, transparent: true, depthWrite: false, depthTest: false,
+    blending: THREE.CustomBlending, blendEquation: THREE.AddEquation,
+    blendSrc: THREE.OneFactor, blendDst: THREE.OneFactor
+  });
+}
+
+class LoopCurve extends THREE.Curve {
+  constructor(a,b,s,ph){ super(); this.a=a; this.b=b; this.s=s; this.ph=ph||0; }
+  getPoint(u, target = new THREE.Vector3()){
+    const t = u*Math.PI*2;
+    const x = Math.cos(t) + this.a*Math.cos(2*t+this.ph);
+    const y = Math.sin(t) - this.a*Math.sin(2*t+this.ph);
+    const z = this.b*Math.sin(3*t);
+    return target.set(x*this.s, y*this.s, z*this.s);
+  }
+}
+
+// Band (ribbon) + its glowing rim
+function band(curve, opts){
+  const segs = opts.segs||600, cols = opts.cols||24;
+  const frames = curve.computeFrenetFrames(segs, true);
+  const width = (t)=> opts.w*(opts.wMin + (1-opts.wMin)*Math.pow(Math.sin(opts.petals*t*0.5),2));
+  const twist = opts.twist; // multiples of PI over the loop (odd => mobius)
+  const pos=[], idx=[];
+  const P = new THREE.Vector3(), tmp = new THREE.Vector3();
+  for(let i=0;i<=segs;i++){
+    const u=i/segs, t=u*Math.PI*2, k=i%segs;
+    curve.getPoint(u,P);
+    const N=frames.normals[k], B=frames.binormals[k];
+    const ph = twist*0.5*t;
+    for(let j=0;j<=cols;j++){
+      const s = -1 + 2*j/cols;
+      const w = width(t)*s;
+      tmp.copy(N).multiplyScalar(Math.cos(ph)*w).addScaledVector(B, Math.sin(ph)*w).add(P);
+      pos.push(tmp.x,tmp.y,tmp.z);
+    }
+  }
+  for(let i=0;i<segs;i++) for(let j=0;j<cols;j++){
+    const a=i*(cols+1)+j, b=a+cols+1;
+    idx.push(a,b,a+1, b,b+1,a+1);
+  }
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos,3));
+  g.setIndex(idx); g.computeVertexNormals();
+  const grp=new THREE.Group();
+  const th = opts.thick ?? 0.05;
+  for (const sgn of [-1,1]) {
+    const gg = g.clone();
+    const pa = gg.attributes.position, na = gg.attributes.normal;
+    for (let i=0;i<pa.count;i++) pa.setXYZ(i, pa.getX(i)+sgn*th*na.getX(i), pa.getY(i)+sgn*th*na.getY(i), pa.getZ(i)+sgn*th*na.getZ(i));
+    gg.computeVertexNormals();
+    grp.add(new THREE.Mesh(gg, mat(opts.sheetBase??0.10, 2.4, (opts.gain??1.0)*0.75)));
+  }
+  // rim: both edges traced as one closed path over two loops
+  const pts=[];
+  const n=900;
+  for(let i=0;i<n;i++){
+    const tt=(i/n)*Math.PI*4, t=tt%(Math.PI*2), u=t/(Math.PI*2);
+    const k=Math.round(u*segs)%segs;
+    curve.getPoint(u,P);
+    const N=frames.normals[k], B=frames.binormals[k];
+    const ph=twist*0.5*tt, w=width(t);
+    pts.push(new THREE.Vector3().copy(N).multiplyScalar(Math.cos(ph)*w).addScaledVector(B,Math.sin(ph)*w).add(P));
+  }
+  const rimCurve=new THREE.CatmullRomCurve3(pts,true);
+  grp.add(new THREE.Mesh(new THREE.TubeGeometry(rimCurve, 1600, opts.rim||((opts.thick??0.05)*1.15), 16, true), mat(0.14, 1.6, (opts.gain??1.0)*0.8)));
+  return grp;
+}
+
+let renderer, scene, camera, root, mode;
+window.setup = (name, size)=>{
+  mode=name;
+  renderer = new THREE.WebGLRenderer({antialias:true, preserveDrawingBuffer:true, alpha:false});
+  renderer.setPixelRatio(1); renderer.setSize(size,size);
+  renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+  renderer.setClearColor(0x000000,1);
+  document.body.appendChild(renderer.domElement);
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(32,1,0.1,100);
+  camera.position.set(0,0,9.5); camera.lookAt(0,0,0);
+  root = new THREE.Group(); scene.add(root);
+  const V = name.split('-')[1]||'a';
+  if(name.startsWith('hero')){
+    if(V==='a'){
+      root.add(band(new LoopCurve(0.30,0.65,1.55,0.0), {w:1.0,wMin:0.18,petals:3,twist:1,thick:0.06}));
+      root.rotation.set(0.45,0,-0.2);
+    } else if(V==='b'){
+      const b1=band(new LoopCurve(0.30,0.60,1.50,0.0), {w:0.85,wMin:0.2,petals:3,twist:1,thick:0.055});
+      const b2=band(new LoopCurve(0.18,0.75,0.95,1.1), {w:0.5,wMin:0.3,petals:3,twist:1,thick:0.045,gain:0.8});
+      b2.rotation.set(1.1,0.5,0.4); root.add(b1,b2); root.rotation.set(0.4,0,-0.25);
+    } else {
+      root.add(band(new LoopCurve(0.42,0.85,1.45,0.3), {w:0.9,wMin:0.12,petals:3,twist:3,thick:0.06}));
+      root.rotation.set(0.6,0,-0.1);
+    }
+  } else if(name==='orb'){
+    camera.position.set(0,0,7.2);
+    root.add(new THREE.Mesh(new THREE.SphereGeometry(1.9,128,96), mat(0.05,2.4,1.0,0.9)));
+  } else if(name==='ring'){
+    const m=new THREE.Mesh(new THREE.TorusGeometry(1.45,0.42,96,220), mat(0.14,1.8,0.9)); m.scale.set(1,1,0.55);
+    root.add(m); root.rotation.set(1.05,0.35,0.2);
+  } else if(name==='pill'){
+    root.add(new THREE.Mesh(new THREE.CapsuleGeometry(0.62,1.9,48,96), mat(0.14,1.9,0.9)));
+    root.rotation.set(0.5,0.3,-0.75);
+  } else if(name==='twist'){
+    root.add(band(new LoopCurve(0.0,0.35,1.25,0), {w:0.62,wMin:0.6,petals:2,twist:1,thick:0.06}));
+    root.rotation.set(1.15,0.2,0.35);
+  }
+  return true;
+};
+window.frame = (p)=>{ // p in [0,1)
+  const t=p*Math.PI*2;
+  if(mode.startsWith('hero')){
+    root.rotation.y = t;
+    root.rotation.x = 0.35 + 0.12*Math.sin(t);
+    root.rotation.z = -0.25 + 0.08*Math.sin(2*t);
+  } else if(mode==='orb'){
+    root.rotation.y = t*0.5;
+  }
+  renderer.render(scene,camera);
+  return renderer.domElement.toDataURL('image/png');
+};
+</script>
+</body></html>

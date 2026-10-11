@@ -1,0 +1,83 @@
+/* Shared motion (DESIGN_SPEC §6). Everything animates transform and/or
+   opacity only, except the hero highlight shimmer (background-position, as
+   specified). All of it is switched off under prefers-reduced-motion in
+   globals.css. Durations and delays are set per use through custom
+   properties, so they never compete with the base declarations. */
+
+/* Hero load: fade-up 16px, staggered with --delay. */
+.fadeUp {
+  animation: fadeUp 0.9s var(--ease-out) var(--delay, 0s) both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Floating glass: −14px and 4° over 9–12s. */
+.float {
+  animation: float var(--float-duration, 10s) ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0) rotate(4deg);
+  }
+}
+
+/* Glow blobs drift ±5% and scale .96–1.08. */
+.drift {
+  animation: drift 24s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(5%, -4%, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(-4%, 5%, 0) scale(0.96);
+  }
+}
+
+/* Status dots. */
+.pulse {
+  animation: pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Scroll reveal: fade up 36px once ~15% is visible. The hidden state is only
+   applied by <Reveal> after hydration, so content stays visible without JS. */
+.reveal[data-reveal="hidden"] {
+  opacity: 0;
+  transform: translateY(36px);
+}
+
+.reveal[data-reveal="shown"] {
+  transition:
+    opacity 0.9s var(--ease-out),
+    transform 0.9s var(--ease-out);
+}

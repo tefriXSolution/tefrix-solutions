@@ -1,25 +1,12 @@
 .footer {
-  --focus-ring: var(--chill-white);
-  background: var(--ink);
-  color: var(--white);
-}
-
-/* Texture: white-5% 56px grid fading downward. */
-.grid {
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 56px 56px;
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 60%);
-  mask-image: linear-gradient(to bottom, #000 0%, transparent 60%);
+  border-top: 1px solid var(--border-subtle);
 }
 
 .inner {
   box-sizing: content-box;
   max-width: var(--container);
   margin: 0 auto;
-  padding: 64px var(--gutter) 32px;
+  padding: 56px var(--gutter) 28px;
 }
 
 .top {
@@ -30,8 +17,8 @@
 }
 
 .about {
-  flex: 1 1 320px;
-  max-width: 400px;
+  flex: 1 1 280px;
+  max-width: 360px;
 }
 
 .brand {
@@ -40,30 +27,43 @@
   gap: 10px;
 }
 
-.name {
-  font-family: var(--font-display);
-  font-size: 26px;
-  text-transform: uppercase;
-}
-
-.nameAccent {
-  color: var(--cherry-tint);
-}
-
-.tagline {
-  font-size: 15px;
-  color: var(--muted-dark);
-}
-
 .blurb {
-  margin: 18px 0 0;
-  color: var(--muted-dark);
+  margin: 16px 0 0;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.socials {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+}
+
+.social {
+  width: 44px;
+  height: 44px;
+  box-sizing: content-box; /* the border adds to the size, as in the reference */
+  border-radius: var(--radius-button-sm);
+  border: 1px solid rgba(255, 226, 232, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-2);
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.social:hover {
+  color: var(--rose-300);
+  border-color: rgba(255, 143, 163, 0.32);
 }
 
 .columns {
   display: flex;
   flex-wrap: wrap;
-  gap: 32px 72px;
+  gap: 32px 64px;
+  font-size: 15px;
 }
 
 .column {
@@ -72,12 +72,7 @@
 }
 
 .columnTitle {
-  margin: 0 0 10px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted-dark);
+  margin-bottom: 8px;
 }
 
 .list {
@@ -91,55 +86,52 @@
 .link,
 .text {
   display: block;
-  padding: 7px 0;
+  padding: 6px 0;
+  color: var(--text-2);
 }
 
 .link {
-  color: var(--white);
-  transition: var(--hover-transition);
+  transition: color 0.2s;
 }
 
 .link:hover {
-  color: var(--cherry-tint);
+  color: var(--rose-300);
 }
 
-/* Giant wordmark cut by 2px ink scanlines every 9px, masked toward the bottom. */
+/* Large faded "TefriX" wordmark. */
 .wordmark {
   position: relative;
-  margin-top: 56px;
+  margin-top: 48px;
+  overflow: hidden;
 }
 
 .wordmarkText {
-  font-family: var(--font-display);
-  font-size: clamp(96px, 22vw, 330px);
-  line-height: 0.82;
-  text-transform: uppercase;
-  color: var(--cherry-tint);
-  white-space: nowrap;
-  overflow: hidden;
+  font-size: clamp(80px, 17vw, 250px);
+  line-height: 0.85;
+  font-weight: 700;
+  letter-spacing: -0.06em;
   text-align: center;
-}
-
-.scanlines {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(to bottom, transparent 0 7px, var(--ink) 7px 9px);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 15%, #000 85%);
-  mask-image: linear-gradient(to bottom, transparent 15%, #000 85%);
+  white-space: nowrap;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 194, 207, 0.55) 0%,
+    rgba(255, 77, 109, 0.35) 40%,
+    rgba(117, 7, 12, 0.05) 95%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 .bottom {
-  margin-top: 28px;
-  padding-top: 20px;
-  border-top: 1px solid var(--line-dark);
+  margin-top: 16px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-subtle);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 8px 24px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted-dark);
+  font-size: 14px;
+  color: var(--faint);
 }

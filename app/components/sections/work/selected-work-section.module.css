@@ -1,0 +1,193 @@
+.work {
+  box-sizing: content-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--section-space) var(--gutter) 0;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px 48px;
+}
+
+.headingColumn {
+  flex: 1 1 520px;
+  min-width: 0;
+}
+
+.discuss {
+  --button-height: 46px;
+}
+
+.grid {
+  margin: 48px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 20px;
+}
+
+.gridItem {
+  display: flex;
+}
+
+.card {
+  flex: 1;
+  display: block;
+  border-radius: var(--radius-card-lg);
+  background: rgba(255, 255, 255, 0.025);
+  color: var(--text);
+  overflow: hidden;
+}
+
+/* Gradient tile with an empty browser frame and one floating glass shape. */
+.tile {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.tile[data-variant="0"] {
+  background: radial-gradient(120% 120% at 20% 0%, #9f0c1f 0%, #3a060b 45%, #140b0e 100%);
+}
+
+.tile[data-variant="1"] {
+  background: radial-gradient(120% 120% at 80% 0%, #c8102e 0%, #4a0710 45%, #140b0e 100%);
+}
+
+.tile[data-variant="2"] {
+  background: radial-gradient(120% 120% at 50% 100%, #9f0c1f 0%, #3a060b 45%, #140b0e 100%);
+}
+
+.frame {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 14%;
+  bottom: -6%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px 12px 0 0;
+  border: 1px solid rgba(255, 226, 232, 0.16);
+  background: rgba(10, 6, 7, 0.6);
+  overflow: hidden;
+}
+
+.frameBar {
+  display: flex;
+  gap: 6px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.frameBar span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3b2a2e;
+}
+
+.frameBody {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--faint);
+}
+
+.frameBody[data-shot] {
+  flex: 1;
+  height: auto;
+}
+
+.screenshot {
+  object-fit: cover;
+  object-position: top;
+}
+
+.glass {
+  position: absolute;
+  height: auto;
+  pointer-events: none;
+}
+
+.tile[data-variant="0"] .glass {
+  right: -6%;
+  top: -10%;
+  width: 38%;
+}
+
+.tile[data-variant="1"] .glass {
+  left: -4%;
+  top: -8%;
+  width: 26%;
+}
+
+.tile[data-variant="2"] .glass {
+  right: -8%;
+  bottom: -12%;
+  width: 40%;
+}
+
+.body {
+  padding: 22px 24px 26px;
+}
+
+.tags {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--blush);
+}
+
+.tag {
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(255, 77, 109, 0.12);
+}
+
+.name {
+  margin: 14px 0 6px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.result {
+  margin: 0;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.cta {
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--rose-300);
+}
+
+/* Geist has no "→", so name the same fallback the design gets (not next/font's Arial). */
+.arrow {
+  display: inline-block;
+  font-family: system-ui, sans-serif;
+  transition: transform 0.3s;
+}
+
+.card:hover .arrow {
+  transform: translateX(4px);
+}

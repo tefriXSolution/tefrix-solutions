@@ -1,0 +1,132 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(48px, 7vw, 104px) 0 0;
+}
+
+/* Ambient glow, drifting. */
+.glow {
+  position: absolute;
+  z-index: -2;
+  width: 1000px;
+  height: 1000px;
+  left: 48%;
+  top: -40%;
+  border-radius: 50%;
+  background: var(--gradient-glow);
+  pointer-events: none;
+}
+
+/* Faint 72px grid, masked toward the edges. */
+.grid {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 226, 232, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 226, 232, 0.05) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 10%, transparent 75%);
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, #000 10%, transparent 75%);
+}
+
+.inner {
+  box-sizing: content-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 40px 56px;
+}
+
+.copy {
+  flex: 1 1 540px;
+  min-width: 0;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px 6px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-input);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-2);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rose);
+  box-shadow: 0 0 10px var(--rose);
+}
+
+.title {
+  margin: 24px 0 0;
+  font-size: clamp(42px, 5.4vw, 80px);
+  line-height: 1.03;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+/* "scalable & secure": gradient text with a slow shimmer. */
+.highlight {
+  background: var(--gradient-highlight);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 10s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -220% 0;
+  }
+}
+
+.lede {
+  margin: 24px 0 0;
+  max-width: 540px;
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--text-3);
+}
+
+.actions {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.proof {
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 22px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.proofItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.check {
+  color: var(--rose-300);
+}

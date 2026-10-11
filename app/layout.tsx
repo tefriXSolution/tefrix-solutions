@@ -25,11 +25,12 @@ export default function RootLayout({
     <html
       lang="en"
       {...mantineHtmlProps}
+      data-mantine-color-scheme="dark"
       data-scroll-behavior="smooth"
       className={fontVariables}
     >
       <head>
-        <ColorSchemeScript forceColorScheme="light" />
+        <ColorSchemeScript forceColorScheme="dark" />
       </head>
       <body>
         <Providers>{children}</Providers>

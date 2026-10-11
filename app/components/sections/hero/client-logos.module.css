@@ -1,0 +1,51 @@
+.row {
+  box-sizing: content-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 40px var(--gutter) 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 32px;
+}
+
+.grid {
+  flex: 1 1 600px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  box-sizing: content-box; /* the border adds to the size, as in the reference */
+  border-radius: var(--radius-button-sm);
+}
+
+.slot[data-placeholder] {
+  border: 1px dashed rgba(255, 226, 232, 0.16);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #8f7d82;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.logo {
+  max-width: 80%;
+  max-height: 28px;
+  width: auto;
+  height: auto;
+}

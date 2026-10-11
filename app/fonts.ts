@@ -1,28 +1,19 @@
-import { Anton, DM_Mono, Onest } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 
 // Self-hosted by next/font with metric-matched fallbacks, so text doesn't
 // shift when the web fonts load. Families are exposed as CSS variables and
-// mapped to the --font-display / --font-body / --font-mono tokens in theme.ts.
-const anton = Anton({
-  weight: "400",
+// mapped to the --font-sans / --font-mono tokens in theme.ts.
+const geist = Geist({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-anton",
+  variable: "--font-geist",
 });
 
-const onest = Onest({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-onest",
-});
-
-const dmMono = DM_Mono({
+const geistMono = Geist_Mono({
   weight: ["400", "500"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-dm-mono",
+  variable: "--font-geist-mono",
 });
 
-export const fontVariables = [anton, onest, dmMono]
-  .map((font) => font.variable)
-  .join(" ");
+export const fontVariables = [geist, geistMono].map((font) => font.variable).join(" ");

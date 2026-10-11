@@ -1,0 +1,14 @@
+.wordmark {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.x {
+  color: var(--rose);
+}
+
+.solutions {
+  font-weight: 500;
+  color: var(--muted);
+}

@@ -4,62 +4,47 @@ import { cx } from "@/app/lib/cx";
 
 import styles from "./ui.module.css";
 
-type LabelTone = "muted" | "muted-dark" | "on-cherry";
-
-/** Section eyebrow in the "(01) — Why TefriX" pattern. */
-export function SectionLabel({
-  index,
+/** Mono section eyebrow, e.g. "SERVICES". Rose on the page, blush on cherry panels. */
+export function Eyebrow({
+  tone = "rose",
+  className,
   children,
-  tone = "muted",
 }: {
-  index: string;
+  tone?: "rose" | "blush";
+  className?: string;
   children: ReactNode;
-  tone?: LabelTone;
 }) {
   return (
-    <div className={styles.label} data-tone={tone}>
-      ({index}) — {children}
+    <div className={cx(styles.eyebrow, className)} data-tone={tone}>
+      {children}
     </div>
   );
+}
+
+/** Small mono label, e.g. "TECHNOLOGIES WE MASTER". */
+export function MonoLabel({ className, children }: { className?: string; children: ReactNode }) {
+  return <span className={cx(styles.label, className)}>{children}</span>;
 }
 
 export type HeadingLevel = "h1" | "h2";
 
 /**
- * Anton display heading. Sections render an h2 on the homepage and an h1 when
- * they lead a standalone page (/about, /services, /contact).
+ * Section heading. Renders an h2 on the homepage and an h1 when the section
+ * leads a standalone page (/about, /services, /contact).
  */
-export function DisplayHeading({
+export function SectionHeading({
   as: Tag = "h2",
-  size,
-  className,
+  size = "section",
   children,
 }: {
   as?: HeadingLevel;
-  /** "section" applies the shared section-heading size; otherwise size via className. */
-  size?: "section";
-  className?: string;
+  size?: "section" | "contact";
   children: ReactNode;
 }) {
   return (
-    <Tag className={cx(styles.display, size === "section" && styles.sectionHeading, className)}>
+    <Tag className={styles.heading} data-size={size}>
       {children}
     </Tag>
-  );
-}
-
-/** Accent part of a display heading: cherry on light, cherry-tint on black. */
-export function Accent({
-  children,
-  tone = "cherry",
-}: {
-  children: ReactNode;
-  tone?: "cherry" | "tint";
-}) {
-  return (
-    <span className={styles.accent} data-tone={tone}>
-      {children}
-    </span>
   );
 }
 
@@ -68,14 +53,19 @@ export function subheadingFor(level: HeadingLevel) {
   return level === "h1" ? "h2" : "h3";
 }
 
-type ButtonVariant = "ink" | "white" | "outline-light" | "outline-ink";
-type ButtonSize = "sm" | "md" | "lg";
-
-/** Props for a pill button; spread onto an <a>, <Link> or <button>. */
-export function pillButton(variant: ButtonVariant, size: ButtonSize, className?: string) {
+/** Props for a button; spread onto an <a>, <Link> or <button>. */
+export function buttonProps(variant: "primary" | "ghost", size: "sm" | "md", className?: string) {
   return {
     className: cx(styles.button, className),
     "data-variant": variant,
     "data-size": size,
+  };
+}
+
+/** Props for a hover-lift card; spread onto any element. */
+export function cardProps(surface: "gradient" | "flat" | "none", className?: string) {
+  return {
+    className: cx(styles.card, className),
+    "data-surface": surface,
   };
 }

@@ -1,9 +1,0 @@
-.top {
-  box-sizing: content-box;
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 8px var(--gutter-slab) 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}

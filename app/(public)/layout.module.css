@@ -1,10 +1,24 @@
 /* `clip` rather than `hidden`: it stops horizontal overflow without creating a
    scroll container, so the sticky navbar keeps working. */
 .page {
+  position: relative;
+  isolation: isolate;
   min-height: 100vh;
   overflow-x: clip;
-  background: var(--chill-white);
-  color: var(--ink);
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Page-wide film grain at 9%, above content but never blocking clicks. */
+.page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  background-image: url("/assets/grain.png");
+  background-size: 180px 180px;
+  opacity: 0.09;
+  pointer-events: none;
 }
 
 /* Space between the last section and the footer. */

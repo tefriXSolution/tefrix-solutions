@@ -1,0 +1,135 @@
+/* Frosted form card. content-box so the 460px flex basis excludes padding, as in the reference. */
+.form {
+  box-sizing: content-box;
+  flex: 1 1 460px;
+  min-width: 0;
+  border-radius: var(--radius-card-lg);
+  border: 1px solid rgba(255, 226, 232, 0.12);
+  background: rgba(14, 8, 10, 0.66);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  padding: clamp(22px, 3vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.row > .field {
+  flex: 1 1 200px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Column flex, as in the design: "WhatsApp preferred" sits on its own line. */
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-2);
+}
+
+.hint {
+  font-size: 13px;
+  color: var(--rose-300);
+}
+
+.input,
+.textarea {
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-button-sm);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 16px;
+}
+
+.input {
+  height: 50px;
+  padding: 0 14px;
+}
+
+.textarea {
+  padding: 12px 14px;
+  line-height: normal;
+  resize: vertical;
+}
+
+.input[aria-invalid="true"],
+.textarea[aria-invalid="true"] {
+  border-color: var(--rose);
+}
+
+.error {
+  margin: 0;
+  font-size: 13px;
+  color: var(--rose-300);
+}
+
+.footer {
+  margin-top: 4px;
+}
+
+.status[data-status] {
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border-radius: var(--radius-button-sm);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.status[data-status="success"] {
+  border: 1px solid var(--border-strong);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+}
+
+.status[data-status="error"],
+.status[data-status="invalid"] {
+  border: 1px solid rgba(255, 77, 109, 0.5);
+  background: rgba(255, 77, 109, 0.08);
+  color: var(--blush);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.action {
+  flex: 1 1 200px;
+}
+
+.action:disabled {
+  cursor: progress;
+  opacity: 0.75;
+}
+
+/* Loading indicator on the submit button. */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #ffffff;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

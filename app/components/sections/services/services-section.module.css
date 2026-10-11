@@ -1,0 +1,92 @@
+.services {
+  position: relative;
+  isolation: isolate;
+  box-sizing: content-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--section-space) var(--gutter) 0;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px 48px;
+}
+
+.headingColumn {
+  flex: 1 1 560px;
+  min-width: 0;
+}
+
+.lede {
+  flex: 0 1 460px;
+  margin: 0;
+  font-size: 18px;
+  color: var(--text-3);
+}
+
+.grid {
+  margin: 48px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 16px;
+}
+
+.gridItem {
+  display: flex;
+}
+
+.card {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  padding: 28px;
+  border-radius: var(--radius-card);
+}
+
+.icon {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  box-sizing: content-box; /* the border adds to the size, as in the reference */
+  border-radius: var(--radius-button);
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 77, 109, 0.12);
+  border: 1px solid rgba(255, 143, 163, 0.25);
+  color: var(--blush);
+}
+
+.cardTitle {
+  margin: 22px 0 8px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.cardText {
+  margin: 0;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.tags {
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-2);
+}
+
+.tag {
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+}

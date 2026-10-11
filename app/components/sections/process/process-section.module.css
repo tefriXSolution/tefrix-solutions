@@ -1,0 +1,93 @@
+.process {
+  box-sizing: content-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--section-space) var(--gutter) 0;
+}
+
+.header {
+  max-width: 720px;
+}
+
+.lede {
+  margin: 18px 0 0;
+  font-size: 18px;
+  color: var(--text-3);
+}
+
+.steps {
+  position: relative;
+  margin-top: 56px;
+}
+
+/* Connector line through the step numbers. */
+.line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 23px;
+  height: 2px;
+  background: var(--border-subtle);
+}
+
+.lineFill {
+  height: 100%;
+  background: linear-gradient(90deg, #9f0c1f, #ff4d6d 70%, #ffc2cf);
+  transform-origin: 0 50%;
+}
+
+.lineFill[data-fill="empty"] {
+  transform: scaleX(0);
+}
+
+.lineFill[data-fill="full"] {
+  transition: transform 1.4s var(--ease-out);
+}
+
+.list {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 28px;
+}
+
+.number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  box-sizing: content-box; /* the border adds to the size, as in the reference */
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1.5px solid var(--rose);
+  box-shadow:
+    0 0 0 6px var(--bg),
+    0 0 24px rgba(255, 77, 109, 0.45);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--blush);
+}
+
+.stepTitle {
+  margin: 22px 0 8px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.stepText {
+  margin: 0;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .line {
+    display: none;
+  }
+}

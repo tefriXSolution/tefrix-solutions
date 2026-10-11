@@ -1,0 +1,14 @@
+{
+  "name": "tefrix-glass-assets",
+  "private": true,
+  "type": "module",
+  "description": "Re-renders the TefriX cherry glass shapes (stills + hero loop) with three.js in headless Chromium.",
+  "scripts": {
+    "stills": "mkdir -p out && node still.mjs out hero-c:1100:0 orb:900:0 ring:800:0 pill:800:0 twist:800:0",
+    "frames": "node frames.mjs vraw hero-c 960 300"
+  },
+  "dependencies": {
+    "playwright": "^1.47.0",
+    "three": "0.160.0"
+  }
+}
