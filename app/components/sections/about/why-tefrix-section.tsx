@@ -18,28 +18,47 @@ import {
 } from "../../ui/primitives";
 import styles from "./why-tefrix-section.module.css";
 
-export function WhyTefrixSection({ headingLevel = "h2" }: { headingLevel?: HeadingLevel }) {
+/**
+ * Why TefriX. Phones get the shorter heading and line, a small orb beside
+ * them, name-only pillar tiles and (unless `phoneQuote` is off, as on /about
+ * where the full quote follows) the short quote card.
+ */
+export function WhyTefrixSection({
+  headingLevel = "h2",
+  phoneQuote = true,
+}: {
+  headingLevel?: HeadingLevel;
+  phoneQuote?: boolean;
+}) {
   const CardHeading = subheadingFor(headingLevel);
 
   return (
     <section id="about" className={styles.why}>
       <div className={styles.layout}>
         <Reveal className={styles.intro}>
-          <Eyebrow>Why TefriX</Eyebrow>
-          <SectionHeading as={headingLevel}>Building future-ready solutions</SectionHeading>
-          <p className={styles.lede}>
-            At TefriX, we craft reliable, secure, and scalable software using cutting-edge
-            technologies and battle-tested methodologies to power your digital transformation.
-          </p>
+          <div className={styles.introText}>
+            <Eyebrow>Why TefriX</Eyebrow>
+            <SectionHeading as={headingLevel}>
+              <span className="desktop-only">Building future-ready solutions</span>
+              <span className="phone-only">Built to last</span>
+            </SectionHeading>
+            <p className={styles.lede}>
+              <span className="desktop-only">
+                At TefriX, we craft reliable, secure, and scalable software using cutting-edge
+                technologies and battle-tested methodologies to power your digital transformation.
+              </span>
+              <span className="phone-only">Reliable, secure, scalable.</span>
+            </p>
+          </div>
           <div aria-hidden="true" className={styles.orb}>
             <Image
               src={glassOrb}
               alt=""
-              sizes="300px"
+              sizes="(max-width: 767px) 120px, 300px"
               className={cx(motion.float, styles.orbGlass)}
               style={motionVars({ floatDuration: 11 })}
             />
-            <Image src={glassHero} alt="" sizes="170px" className={styles.orbInner} />
+            <Image src={glassHero} alt="" sizes="(max-width: 767px) 64px, 170px" className={styles.orbInner} />
           </div>
         </Reveal>
 
@@ -57,6 +76,17 @@ export function WhyTefrixSection({ headingLevel = "h2" }: { headingLevel?: Headi
           ))}
         </ul>
       </div>
+
+      {phoneQuote && (
+        <Reveal className="phone-only">
+          <figure className={styles.phoneQuote}>
+            <blockquote className={styles.phoneQuoteText}>
+              “Great software is built by the best team working together.”
+            </blockquote>
+            <figcaption className={styles.phoneQuoteCaption}>Our commitment</figcaption>
+          </figure>
+        </Reveal>
+      )}
     </section>
   );
 }

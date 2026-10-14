@@ -6,10 +6,14 @@ import { Reveal } from "../../motion/reveal";
 import { Eyebrow, cardProps } from "../../ui/primitives";
 import styles from "./about-section.module.css";
 
-/** "Who we are" quote, vision and mission, and the values strip. Follows <WhyTefrixSection />. */
-export function AboutSection() {
+/**
+ * "Who we are" quote, vision and mission, and the values strip. Follows
+ * <WhyTefrixSection />. The phone homepage drops it (DESIGN_SPEC §13); /about
+ * keeps it on phones with `showOnPhone`.
+ */
+export function AboutSection({ showOnPhone = false }: { showOnPhone?: boolean }) {
   return (
-    <section aria-label="Who we are" className={styles.about}>
+    <section aria-label="Who we are" className={cx(styles.about, !showOnPhone && "desktop-only")}>
       <div className={styles.grid}>
         <Reveal className={styles.quoteItem}>
           <figure className={styles.quote}>

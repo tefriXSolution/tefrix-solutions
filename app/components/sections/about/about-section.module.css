@@ -126,3 +126,20 @@
   font-size: 15px;
   color: var(--muted);
 }
+
+/* Phone layout (/about only): one column, values stacked with dividers. */
+@media (max-width: 767.98px) {
+  .about {
+    max-width: none;
+    padding: var(--phone-section-space) var(--phone-gutter) 0;
+  }
+
+  .value {
+    border-right: 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .value:last-child {
+    border-bottom: 0;
+  }
+}
