@@ -43,32 +43,41 @@ const canShowVideo = () => supportsAlphaVideo() && !prefersReducedMotion();
 /**
  * Hero glass. The server renders the still image (so first paint never waits
  * on the 2 MB video, and Safari never shows a black box); on capable
- * browsers the transparent loop is mounted once the visual nears the
- * viewport, plays only while on screen, and fades in over the still once it
- * is actually playing.
+ * browsers the transparent loop is mounted after the page has loaded and the
+ * visual is on screen, plays only while on screen, and fades in over the
+ * still once it is actually playing.
  */
 export function HeroVisual({ children }: { children: ReactNode }) {
   const canPlayVideo = useSyncExternalStore(subscribeToMotionPreference, canShowVideo, () => false);
-  const [onScreen, setOnScreen] = useState(false);
+  const [videoWanted, setVideoWanted] = useState(false);
   const [playing, setPlaying] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Don't fetch the 2 MB loop until the visual is on screen (on phones it
-  // starts below the fold); the still covers it until then.
+  // Don't fetch the 2 MB loop (or its poster) until the page has loaded, so it
+  // never competes with the still (the LCP image), and the visual is on
+  // screen. The still covers it until then.
   useEffect(() => {
     const container = containerRef.current;
     if (!container || !canPlayVideo) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) return;
-      setOnScreen(true);
-      observer.disconnect();
-    });
-    observer.observe(container);
-    return () => observer.disconnect();
+    let observer: IntersectionObserver | undefined;
+    const watch = () => {
+      observer = new IntersectionObserver(([entry]) => {
+        if (!entry.isIntersecting) return;
+        setVideoWanted(true);
+        observer?.disconnect();
+      });
+      observer.observe(container);
+    };
+    if (document.readyState === "complete") watch();
+    else window.addEventListener("load", watch, { once: true });
+    return () => {
+      window.removeEventListener("load", watch);
+      observer?.disconnect();
+    };
   }, [canPlayVideo]);
 
-  const showVideo = canPlayVideo && onScreen;
+  const showVideo = canPlayVideo && videoWanted;
 
   // Publish the distance from the headline's last baseline ("…software") to
   // the bottom of this visual as --terminal-bottom, which the deploy window
@@ -109,16 +118,20 @@ export function HeroVisual({ children }: { children: ReactNode }) {
   const videoVisible = showVideo && playing;
 
   return (
-    <div ref={containerRef} className={styles.visual}>
+    <div
+      ref={containerRef}
+      className={cx(styles.visual, motion.fadeUpPhone)}
+      style={motionVars({ phoneDelay: 0.24 })}
+    >
       <div aria-hidden="true" className={styles.glow} />
       <Image
         src={glassHero}
         alt=""
-        // Eager but not preloaded: on desktop it is on screen (and the LCP image),
-        // so Chrome raises its priority; on phones it is below the fold and
-        // shouldn't compete with the headline's fonts.
+        // The LCP image in both layouts (the glass is on the first screen on
+        // phones too), so fetch it eagerly at high priority.
         loading="eager"
-        sizes="(max-width: 760px) 78vw, 470px"
+        fetchPriority="high"
+        sizes="(max-width: 767px) 251px, 470px"
         className={styles.still}
         data-hidden={videoVisible || undefined}
       />
@@ -142,7 +155,7 @@ export function HeroVisual({ children }: { children: ReactNode }) {
       <Image
         src={glassPill}
         alt=""
-        sizes="102px"
+        sizes="(max-width: 767px) 64px, 102px"
         className={cx(motion.float, styles.pill)}
         style={motionVars({ floatDuration: 9 })}
       />

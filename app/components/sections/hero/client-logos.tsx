@@ -1,16 +1,17 @@
 import Image from "next/image";
 
+import { cx } from "@/app/lib/cx";
 import { clientLogos, type ClientLogo } from "@/app/lib/site-config";
 
 import { MonoLabel } from "../../ui/primitives";
 import styles from "./client-logos.module.css";
 
-/** "Clients & partners" row. Hidden until `clientLogos` has entries. */
+/** "Clients & partners" row (desktop only). Hidden until `clientLogos` has entries. */
 export function ClientLogos() {
   if (clientLogos.length === 0) return null;
 
   return (
-    <div className={styles.row}>
+    <div className={cx(styles.row, "desktop-only")}>
       <MonoLabel>Clients &amp; partners</MonoLabel>
       <ul className={styles.grid}>
         {clientLogos.map((client, index) => (

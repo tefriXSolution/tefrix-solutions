@@ -108,12 +108,34 @@
   }
 }
 
-/* Small screens: span the width and overlap the bottom of the glass. */
-@media (max-width: 760px) {
-  .terminal {
-    left: 4%;
-    right: 4%;
-    bottom: -20%;
-    width: auto;
-  }
+/* Phone layout: compact three-line card over the bottom-left of the glass. */
+.compact {
+  position: absolute;
+  left: -4px;
+  bottom: 14px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 226, 232, 0.16);
+  background: rgba(14, 8, 10, 0.78);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.85);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text-2);
+}
+
+.compactStatus {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.compactDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 8px var(--success);
 }

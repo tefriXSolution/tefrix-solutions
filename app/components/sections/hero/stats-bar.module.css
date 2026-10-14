@@ -39,3 +39,39 @@
   font-size: 15px;
   color: var(--muted);
 }
+
+/* Phone layout: a 2×2 card. */
+@media (max-width: 767.98px) {
+  .wrap {
+    max-width: none;
+    margin: 36px 0 0;
+    padding: 0;
+  }
+
+  .bar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-radius: 18px;
+  }
+
+  .stat {
+    padding: 18px;
+    border-right: 0;
+  }
+
+  .stat:nth-child(odd) {
+    border-right: 1px solid var(--border-subtle);
+  }
+
+  .stat:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .value {
+    font-size: 32px;
+  }
+
+  .label {
+    margin-top: 6px;
+    font-size: 13px;
+  }
+}

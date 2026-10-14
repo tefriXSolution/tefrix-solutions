@@ -137,3 +137,76 @@
 .check {
   color: var(--rose-300);
 }
+
+/* Phone layout (< 768px, mobile-home.html): one column, the copy column
+   dissolves so its children and the glass share one ordered flex column. */
+@media (max-width: 767.98px) {
+  .hero {
+    overflow: visible;
+    padding: 28px var(--phone-gutter) 0;
+  }
+
+  .glow {
+    z-index: -1;
+    width: 560px;
+    height: 560px;
+    left: -10%;
+    top: 220px;
+    background: radial-gradient(circle, rgba(200, 16, 46, 0.42), rgba(117, 7, 12, 0.16) 42%, transparent 70%);
+  }
+
+  .grid {
+    display: none;
+  }
+
+  .inner {
+    max-width: none;
+    padding: 0;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .copy {
+    display: contents;
+  }
+
+  .badge {
+    order: 1;
+    align-self: flex-start;
+    gap: 8px;
+    padding: 5px 12px 5px 9px;
+    font-size: 13px;
+  }
+
+  .dot {
+    width: 7px;
+    height: 7px;
+  }
+
+  .title {
+    order: 2;
+    margin-top: 18px;
+    font-size: 40px;
+    line-height: 1.04;
+    letter-spacing: -0.045em;
+  }
+
+  .lede {
+    order: 3;
+    margin-top: 14px;
+    max-width: none;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  /* order 4 is the glass (hero-visual.module.css). */
+
+  .actions {
+    order: 5;
+    margin-top: 18px;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
