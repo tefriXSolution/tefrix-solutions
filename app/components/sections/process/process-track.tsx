@@ -4,13 +4,22 @@ import { useEffect, useRef, type ReactNode } from "react";
 
 import { isInViewport, observeOnce, prefersReducedMotion } from "@/app/lib/motion";
 
-import styles from "./process-section.module.css";
-
 /**
- * Wraps the process steps and draws the connector line, which fills left to
- * right (scaleX 0 → 1) once 30% of the steps are visible.
+ * Wraps a list of process steps and draws its connector line, which fills
+ * (scale 0 → 1, along whichever axis the CSS sets) once 30% of the steps are
+ * visible. Used for the horizontal desktop line and the vertical phone one.
  */
-export function ProcessTrack({ children }: { children: ReactNode }) {
+export function ProcessTrack({
+  className,
+  lineClassName,
+  fillClassName,
+  children,
+}: {
+  className: string;
+  lineClassName: string;
+  fillClassName: string;
+  children: ReactNode;
+}) {
   const trackRef = useRef<HTMLDivElement>(null);
   const fillRef = useRef<HTMLDivElement>(null);
 
@@ -34,9 +43,9 @@ export function ProcessTrack({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <div ref={trackRef} className={styles.steps}>
-      <div aria-hidden="true" className={styles.line}>
-        <div ref={fillRef} className={styles.lineFill} />
+    <div ref={trackRef} className={className}>
+      <div aria-hidden="true" className={lineClassName}>
+        <div ref={fillRef} className={fillClassName} />
       </div>
       {children}
     </div>
