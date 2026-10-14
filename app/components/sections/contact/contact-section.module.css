@@ -87,3 +87,92 @@ a.detail:hover {
   justify-content: center;
   color: var(--blush);
 }
+
+/* Phone layout: compact contact card (mobile-home.html). */
+.card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 26px 20px 20px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 143, 163, 0.18);
+  background: var(--panel);
+}
+
+.cardGlow {
+  position: absolute;
+  z-index: -1;
+  width: 520px;
+  height: 520px;
+  left: -40%;
+  top: -70%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 16, 46, 0.5), rgba(117, 7, 12, 0.18) 40%, transparent 68%);
+  pointer-events: none;
+}
+
+.cardGlass {
+  position: absolute;
+  z-index: -1;
+  right: -18px;
+  top: -18px;
+  width: 120px;
+  height: auto;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.cardTitle {
+  margin: 0;
+  max-width: 240px;
+  font-size: 30px;
+  line-height: 1.08;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.cardLede {
+  margin: 10px 0 0;
+  font-size: 15px;
+  color: var(--text-2);
+}
+
+/* .card .cardButton outranks the shared inline-flex button: full width. */
+.card .cardButton {
+  display: flex;
+  margin-top: 20px;
+}
+
+.quick {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.quickLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 6px;
+  border-radius: var(--radius-button-phone);
+  border: 1px solid var(--border-input);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.quickIcon {
+  color: var(--blush);
+}
+
+@media (max-width: 767.98px) {
+  .contact {
+    max-width: none;
+    padding: var(--phone-section-space) var(--phone-gutter) 0;
+  }
+}

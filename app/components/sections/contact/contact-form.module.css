@@ -133,3 +133,45 @@
     transform: rotate(360deg);
   }
 }
+
+/* "page" variant: the phone contact page (mobile-contact.html). 48px inputs
+   with 16px text so iOS doesn't zoom on focus. */
+.form[data-variant="page"] {
+  box-sizing: border-box;
+  flex: none;
+  margin: 20px 12px 0;
+  padding: 18px 16px 16px;
+  border-radius: 20px;
+  background: rgba(16, 9, 11, 0.66);
+  gap: 12px;
+}
+
+.form[data-variant="page"] .field {
+  gap: 6px;
+}
+
+.form[data-variant="page"] .label {
+  display: block;
+  font-size: 13px;
+}
+
+.form[data-variant="page"] .hint {
+  font-weight: 400;
+}
+
+.form[data-variant="page"] .input {
+  height: 48px;
+  border-radius: var(--radius-button);
+}
+
+.form[data-variant="page"] .textarea {
+  border-radius: var(--radius-button);
+  resize: none;
+}
+
+.form[data-variant="page"] .input:focus,
+.form[data-variant="page"] .textarea:focus {
+  outline: none;
+  border-color: var(--rose-300);
+  box-shadow: 0 0 0 3px rgba(255, 77, 109, 0.2);
+}

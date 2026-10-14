@@ -1,0 +1,112 @@
+.page {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 100dvh;
+  padding-bottom: 32px;
+  font-size: 16px;
+  line-height: normal;
+}
+
+.glow {
+  position: absolute;
+  z-index: -1;
+  width: 560px;
+  height: 560px;
+  left: -45%;
+  top: -32%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 16, 46, 0.48), rgba(117, 7, 12, 0.16) 42%, transparent 70%);
+  pointer-events: none;
+}
+
+.ring {
+  position: absolute;
+  z-index: -1;
+  right: -30px;
+  top: 70px;
+  width: 130px;
+  height: auto;
+  pointer-events: none;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px var(--phone-gutter) 10px 12px;
+}
+
+/* 44px plus the border, as in the reference. */
+.back {
+  box-sizing: content-box;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-button);
+  border: 1px solid var(--border-input);
+  background: rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rose-300);
+}
+
+.intro {
+  padding: 12px var(--phone-gutter) 0;
+}
+
+.title {
+  margin: 0;
+  max-width: 260px;
+  font-size: 32px;
+  line-height: 1.06;
+  font-weight: 600;
+  letter-spacing: -0.045em;
+}
+
+.lede {
+  margin: 8px 0 0;
+  font-size: 15px;
+  color: var(--text-3);
+}
+
+.chips {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 8px;
+}
+
+.chipItem {
+  flex: 1 1 0;
+  display: flex;
+}
+
+.chip {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  box-sizing: content-box; /* the border adds to the height, as in the reference */
+  border-radius: var(--radius-button);
+  border: 1px solid var(--border-input);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.chipIcon {
+  color: var(--blush);
+}

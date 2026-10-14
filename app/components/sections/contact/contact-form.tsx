@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "@mantine/form";
-import { useState, type ReactNode } from "react";
+import { useId, useState, type ReactNode } from "react";
 
 import { submitContactForm } from "@/app/lib/api";
 import {
@@ -9,6 +9,7 @@ import {
   validateContactForm,
   type ContactFormValues,
 } from "@/app/lib/contact";
+import { cx } from "@/app/lib/cx";
 import { siteConfig } from "@/app/lib/site-config";
 
 import { Icon } from "../../ui/icons";
@@ -24,10 +25,18 @@ const STATUS_MESSAGES: Partial<Record<Status, string>> = {
   invalid: "Please check the highlighted fields.",
 };
 
-const fieldId = (field: keyof ContactFormValues) => `contact-${field}`;
+const FIELDS = Object.keys(emptyContactForm) as (keyof ContactFormValues)[];
 
-/** Posts to /api/contact (see app/api/contact/route.ts for the delivery TODO). */
-export function ContactForm() {
+/**
+ * Contact form, posting to /api/contact (see app/api/contact/route.ts for the
+ * delivery TODO). Two looks: "panel" (the desktop contact section) and "page"
+ * (the phone contact page, with its shorter labels and 48px inputs).
+ */
+export function ContactForm({ variant = "panel" }: { variant?: "panel" | "page" }) {
+  const idPrefix = useId();
+  const fieldId = (field: keyof ContactFormValues) => `${idPrefix}-${field}`;
+  const isPage = variant === "page";
+
   const [status, setStatus] = useState<Status>("idle");
   const form = useForm<ContactFormValues>({
     mode: "controlled",
@@ -37,9 +46,7 @@ export function ContactForm() {
   });
 
   const focusFirstError = (errors: Record<string, unknown>) => {
-    const first = (Object.keys(emptyContactForm) as (keyof ContactFormValues)[]).find(
-      (field) => errors[field],
-    );
+    const first = FIELDS.find((field) => errors[field]);
     if (first) document.getElementById(fieldId(first))?.focus();
   };
 
@@ -77,58 +84,76 @@ export function ContactForm() {
     };
   };
 
+  const field = (name: keyof ContactFormValues, label: ReactNode, control: ReactNode) => (
+    <Field id={fieldId(name)} label={label} error={form.errors[name]}>
+      {control}
+    </Field>
+  );
+
+  const nameField = field(
+    "name",
+    "Name *",
+    <input type="text" autoComplete="name" placeholder="Your name" className={styles.input} {...inputProps("name")} />,
+  );
+  const phoneField = field(
+    "phone",
+    isPage ? (
+      <span>
+        Phone * <span className={styles.hint}>· WhatsApp preferred</span>
+      </span>
+    ) : (
+      <>
+        Phone number * <span className={styles.hint}>WhatsApp preferred</span>
+      </>
+    ),
+    <input
+      type="tel"
+      autoComplete="tel"
+      placeholder="+94 7X XXX XXXX"
+      className={styles.input}
+      {...inputProps("phone")}
+    />,
+  );
+
   const submitting = status === "submitting";
   const statusMessage = STATUS_MESSAGES[status];
 
   return (
-    <form className={styles.form} noValidate aria-busy={submitting} onSubmit={handleSubmit}>
-      <div className={styles.row}>
-        <Field field="name" label="Name *" error={form.errors.name}>
-          <input
-            type="text"
-            autoComplete="name"
-            placeholder="Your name"
-            className={styles.input}
-            {...inputProps("name")}
-          />
-        </Field>
-        <Field
-          field="phone"
-          label={
-            <>
-              Phone number * <span className={styles.hint}>WhatsApp preferred</span>
-            </>
-          }
-          error={form.errors.phone}
-        >
-          <input
-            type="tel"
-            autoComplete="tel"
-            placeholder="+94 7X XXX XXXX"
-            className={styles.input}
-            {...inputProps("phone")}
-          />
-        </Field>
-      </div>
+    <form className={styles.form} data-variant={variant} noValidate aria-busy={submitting} onSubmit={handleSubmit}>
+      {isPage ? (
+        <>
+          {nameField}
+          {phoneField}
+        </>
+      ) : (
+        <div className={styles.row}>
+          {nameField}
+          {phoneField}
+        </div>
+      )}
 
-      <Field field="email" label="Email" error={form.errors.email}>
+      {field(
+        "email",
+        "Email",
         <input
           type="email"
           autoComplete="email"
           placeholder="you@company.com"
           className={styles.input}
           {...inputProps("email")}
-        />
-      </Field>
+        />,
+      )}
 
-      <Field field="message" label="Your message *" error={form.errors.message}>
+      {field(
+        "message",
+        isPage ? "Message *" : "Your message *",
         <textarea
-          rows={5}
-          placeholder="Tell us about your idea, product or challenge"
+          rows={isPage ? 4 : 5}
+          placeholder={isPage ? "Your idea, product or challenge" : "Tell us about your idea, product or challenge"}
           className={styles.textarea}
           {...inputProps("message")}
-        />
-      </Field>
+        />,
+      )}
 
       <div className={styles.footer}>
         <div
@@ -149,10 +174,12 @@ export function ContactForm() {
               <Icon name="arrowRight" size={18} strokeWidth={2} />
             )}
           </button>
-          <a href={siteConfig.contact.whatsappHref} {...buttonProps("ghost", "md", styles.action)}>
-            <Icon name="chat" size={18} />
-            Chat on WhatsApp
-          </a>
+          {!isPage && (
+            <a href={siteConfig.contact.whatsappHref} {...buttonProps("ghost", "md", cx(styles.action))}>
+              <Icon name="chat" size={18} />
+              Chat on WhatsApp
+            </a>
+          )}
         </div>
       </div>
     </form>
@@ -160,24 +187,24 @@ export function ContactForm() {
 }
 
 function Field({
-  field,
+  id,
   label,
   error,
   children,
 }: {
-  field: keyof ContactFormValues;
+  id: string;
   label: ReactNode;
   error: ReactNode;
   children: ReactNode;
 }) {
   return (
     <div className={styles.field}>
-      <label htmlFor={fieldId(field)} className={styles.label}>
+      <label htmlFor={id} className={styles.label}>
         {label}
       </label>
       {children}
       {error && (
-        <p id={`${fieldId(field)}-error`} className={styles.error}>
+        <p id={`${id}-error`} className={styles.error}>
           {error}
         </p>
       )}
