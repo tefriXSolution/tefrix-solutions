@@ -1,0 +1,196 @@
+/* ☰ / ✕ buttons: 44px plus the border, as in the reference (no box-sizing reset). */
+.iconButton {
+  box-sizing: content-box;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: var(--radius-button);
+  border: 1px solid var(--border-input);
+  background: rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  cursor: pointer;
+}
+
+/* Full-screen overlay. */
+.dialog {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  isolation: isolate;
+  overflow: hidden auto;
+  overscroll-behavior: contain;
+  background: var(--bg);
+  color: var(--text);
+  line-height: normal;
+}
+
+.dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog::backdrop {
+  background: var(--bg);
+}
+
+/* Film grain, as on the page. */
+.dialog::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background-image: url("/assets/grain.png");
+  background-size: 180px 180px;
+  opacity: 0.09;
+  pointer-events: none;
+}
+
+.glow {
+  position: absolute;
+  z-index: -1;
+  width: 620px;
+  height: 620px;
+  right: -55%;
+  bottom: -30%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 16, 46, 0.5), rgba(117, 7, 12, 0.18) 42%, transparent 70%);
+  pointer-events: none;
+}
+
+.orb {
+  --float-distance: -12px;
+  position: absolute;
+  z-index: -1;
+  right: -70px;
+  bottom: 120px;
+  width: 240px;
+  height: auto;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px 10px var(--phone-gutter);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+}
+
+.nav {
+  padding: 28px var(--phone-gutter) 0;
+}
+
+.links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Links slide in one after another. */
+.item {
+  animation: menuIn 0.6s var(--ease-out) calc(0.02s + var(--index) * 0.05s) both;
+}
+
+@keyframes menuIn {
+  from {
+    opacity: 0;
+    transform: translateX(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text);
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.linkText {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.number {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: normal;
+  color: var(--rose-300);
+}
+
+.arrow {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--faint);
+}
+
+.footer {
+  margin-top: auto;
+  padding: 0 var(--phone-gutter) 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.quick {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.quickLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 46px;
+  box-sizing: content-box; /* the border adds to the height, as in the reference */
+  border-radius: var(--radius-button);
+  border: 1px solid var(--border-input);
+  background: rgba(16, 9, 11, 0.6);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.tagline {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+  text-align: center;
+}

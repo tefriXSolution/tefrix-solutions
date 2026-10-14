@@ -1,0 +1,76 @@
+/* One screen down the page: the trigger on pages without a hero. */
+.marker {
+  position: absolute;
+  top: 100vh;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+/* Floats 12px above the bottom edge (plus the safe area). Hidden state slides
+   it below the edge; visibility keeps it out of the tab order while hidden. */
+.bar {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  z-index: 45;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 18px;
+  border: 1px solid var(--border-input);
+  background: rgba(16, 9, 11, 0.78);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 20px 50px -18px rgba(0, 0, 0, 0.9);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(130%);
+  transition:
+    transform 0.2s var(--ease-out),
+    opacity 0.2s,
+    visibility 0s linear 0.2s;
+}
+
+.bar[data-visible] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    transform 0.2s var(--ease-out),
+    opacity 0.2s,
+    visibility 0s;
+}
+
+:global(html[data-menu-open]) .bar {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.primary {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  border-radius: var(--radius-button);
+  background: var(--gradient-primary);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.whatsapp {
+  flex: 0 0 50px;
+  height: 50px;
+  box-sizing: content-box; /* the border adds to the size, as in the reference */
+  border-radius: var(--radius-button);
+  border: 1px solid rgba(255, 226, 232, 0.16);
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blush);
+}

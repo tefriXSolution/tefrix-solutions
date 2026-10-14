@@ -7,6 +7,8 @@
   overflow-x: clip;
   background: var(--bg);
   color: var(--text);
+  font-size: 17px;
+  line-height: 1.6;
 }
 
 /* Page-wide film grain at 9%, above content but never blocking clicks. */
@@ -24,4 +26,23 @@
 /* Space between the last section and the footer. */
 .main {
   padding-bottom: var(--section-space);
+}
+
+@media (max-width: 767.98px) {
+  .page {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  /* The phone footer brings its own top spacing. */
+  .main {
+    padding-bottom: 0;
+  }
+
+  /* Standalone phone pages (the /contact page) replace the site chrome. */
+  .page:has([data-standalone-phone]) [data-site-header],
+  .page:has([data-standalone-phone]) [data-site-footer],
+  .page:has([data-standalone-phone]) [data-action-bar] {
+    display: none;
+  }
 }

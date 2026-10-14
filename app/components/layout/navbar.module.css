@@ -49,3 +49,25 @@
 .link:hover {
   color: var(--rose-300);
 }
+
+/* Phone top bar (< 768px): logo + "TefriX" and the menu button. */
+.phoneBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px 10px var(--phone-gutter);
+}
+
+.phoneBrand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+}
+
+@media (max-width: 767.98px) {
+  .header {
+    background: rgba(10, 6, 7, 0.72);
+  }
+}
