@@ -20,28 +20,53 @@ export async function POST(request: Request) {
 
   const delivered = await deliverContactSubmission(submission);
   if (!delivered) {
-    return Response.json({ error: "delivery_not_configured" }, { status: 503 });
+    return Response.json({ error: "delivery_failed" }, { status: 503 });
   }
 
   return Response.json({ ok: true });
 }
 
 /**
- * ─── TODO(contact-delivery): send contact submissions somewhere real ───────
+ * Sends a submission to the Google Sheet's Apps Script web app, which appends
+ * a row and emails the enquiry to the team. It returns true only once the
+ * script answers `{ ok: true }`.
  *
- * The project has no submission backend yet. Replace this function's body
- * with the real delivery (e.g. email via Resend/SMTP, a CRM, or a Google
- * Sheet) and return true once the message has been accepted.
+ * CONTACT_SHEET_URL (the web app's /exec URL) and CONTACT_SHEET_SECRET (must
+ * match SECRET in the script) come from .env locally, or from the hosting's
+ * environment variables in production.
  *
- * Until then, submissions are only logged in development. In production this
+ * Without them, submissions are only logged in development. In production this
  * returns false, so the route responds 503 and the form shows its error state
  * (which points people to WhatsApp and email) instead of silently dropping
- * real enquiries.
+ * real enquiries. Delivery failures take the same path.
  */
 async function deliverContactSubmission(submission: ContactFormValues): Promise<boolean> {
-  if (process.env.NODE_ENV !== "production") {
-    console.info("[contact] Submission received (not delivered: no backend configured)", submission);
-    return true;
+  const url = process.env.CONTACT_SHEET_URL;
+  const secret = process.env.CONTACT_SHEET_SECRET;
+
+  if (!url || !secret) {
+    if (process.env.NODE_ENV !== "production") {
+      console.info("[contact] Submission received (not delivered: CONTACT_SHEET_URL/SECRET not set)", submission);
+      return true;
+    }
+    console.error("[contact] Not delivered: CONTACT_SHEET_URL/SECRET not set");
+    return false;
   }
-  return false;
+
+  try {
+    // Apps Script replies with a redirect to the script's output; fetch follows it.
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ secret, ...submission }),
+      signal: AbortSignal.timeout(15_000),
+    });
+    const body = (await response.json().catch(() => null)) as { ok?: unknown } | null;
+    if (body?.ok === true) return true;
+    console.error("[contact] Sheet rejected the submission", response.status, body);
+    return false;
+  } catch (error) {
+    console.error("[contact] Sheet delivery failed", error);
+    return false;
+  }
 }
