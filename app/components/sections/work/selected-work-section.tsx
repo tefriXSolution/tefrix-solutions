@@ -13,6 +13,7 @@ import { motionVars } from "../../motion/style-vars";
 import { Icon } from "../../ui/icons";
 import { Eyebrow, SectionHeading, buttonProps, cardProps } from "../../ui/primitives";
 import styles from "./selected-work-section.module.css";
+import { WorkCarousel } from "./work-carousel";
 
 // Tile backgrounds and floating glass cycle through the design's three variants.
 const TILE_VARIANTS: { glass: StaticImageData; floatDuration: number }[] = [
@@ -21,7 +22,7 @@ const TILE_VARIANTS: { glass: StaticImageData; floatDuration: number }[] = [
   { glass: glassTwist, floatDuration: 12 },
 ];
 
-/** Case studies. Hidden until `caseStudies` has entries. */
+/** Case studies: a grid on desktop, a swipe row on phones. Hidden until `caseStudies` has entries. */
 export function SelectedWorkSection() {
   if (caseStudies.length === 0) return null;
 
@@ -30,21 +31,37 @@ export function SelectedWorkSection() {
       <Reveal className={styles.header}>
         <div className={styles.headingColumn}>
           <Eyebrow>Selected work</Eyebrow>
-          <SectionHeading>Products we have designed and built</SectionHeading>
+          <SectionHeading>
+            <span className="desktop-only">Products we have designed and built</span>
+            <span className="phone-only">Recent projects</span>
+          </SectionHeading>
         </div>
-        <Link href="/#contact" {...buttonProps("ghost", "sm", styles.discuss)}>
+        <Link href="/#contact" {...buttonProps("ghost", "sm", cx(styles.discuss, "desktop-only"))}>
           Discuss your project
           <Icon name="arrowRight" size={16} strokeWidth={2} />
         </Link>
+        <span aria-hidden="true" className={cx(styles.swipeHint, "phone-only")}>
+          Swipe <span className={styles.swipeArrow}>→</span>
+        </span>
       </Reveal>
 
-      <ul className={styles.grid}>
+      <ul className={cx(styles.grid, "desktop-only")}>
         {caseStudies.map((study, index) => (
           <Reveal as="li" key={`${study.name}-${index}`} className={styles.gridItem}>
             <CaseStudyCard study={study} variant={index % TILE_VARIANTS.length} />
           </Reveal>
         ))}
       </ul>
+
+      <div className="phone-only">
+        <WorkCarousel count={caseStudies.length}>
+          {caseStudies.map((study, index) => (
+            <li key={`${study.name}-${index}`} className={styles.swipeItem}>
+              <PhoneCaseStudyCard study={study} variant={index % TILE_VARIANTS.length} />
+            </li>
+          ))}
+        </WorkCarousel>
+      </div>
     </section>
   );
 }
@@ -67,7 +84,7 @@ function CaseStudyCard({ study, variant }: { study: CaseStudy; variant: number }
                 src={study.screenshot}
                 alt={`${study.name} screenshot`}
                 fill
-                sizes="(max-width: 760px) 84vw, 340px"
+                sizes="(max-width: 1100px) 45vw, 340px"
                 className={styles.screenshot}
               />
             ) : (
@@ -96,6 +113,44 @@ function CaseStudyCard({ study, variant }: { study: CaseStudy; variant: number }
             →
           </span>
         </span>
+      </div>
+    </Link>
+  );
+}
+
+/** Phone card: 286px wide, shorter tile, name and "Industry · category". */
+function PhoneCaseStudyCard({ study, variant }: { study: CaseStudy; variant: number }) {
+  const { glass, floatDuration } = TILE_VARIANTS[variant];
+
+  return (
+    <Link href={study.href ?? "/#contact"} className={cx(styles.phoneCard, motion.press)}>
+      <div className={styles.phoneTile} data-variant={variant}>
+        <div className={styles.phoneFrame}>
+          {study.screenshot ? (
+            <Image
+              src={study.screenshot}
+              alt={`${study.name} screenshot`}
+              fill
+              sizes="230px"
+              className={styles.screenshot}
+            />
+          ) : (
+            "[Screenshot]"
+          )}
+        </div>
+        <Image
+          src={glass}
+          alt=""
+          sizes="130px"
+          className={cx(motion.float, styles.phoneGlass)}
+          style={motionVars({ floatDuration })}
+        />
+      </div>
+      <div className={styles.phoneBody}>
+        <h3 className={styles.phoneName}>{study.name}</h3>
+        <p className={styles.phoneMeta}>
+          {study.industry} · {study.shortCategory ?? study.category}
+        </p>
       </div>
     </Link>
   );

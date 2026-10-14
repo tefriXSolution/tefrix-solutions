@@ -191,3 +191,164 @@
 .card:hover .arrow {
   transform: translateX(4px);
 }
+
+/* Phone layout: swipe row of 286px cards with page dots. */
+.swipeHint {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--faint);
+}
+
+/* Geist Mono has no "→": name the fallback the design gets. */
+.swipeArrow {
+  font-family: ui-monospace, monospace;
+}
+
+.swipe {
+  margin: 20px 0 0;
+  padding: 0 var(--phone-gutter);
+  list-style: none;
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.swipe::-webkit-scrollbar {
+  display: none;
+}
+
+.swipeItem {
+  flex: 0 0 286px;
+  display: flex;
+  scroll-snap-align: start;
+}
+
+/* The scroller ignores end padding, so the last card carries the gutter. */
+.swipeItem:last-child {
+  margin-right: var(--phone-gutter);
+}
+
+.phoneCard {
+  flex: 1;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.025);
+  color: var(--text);
+  overflow: hidden;
+}
+
+.phoneTile {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
+
+.phoneTile[data-variant="0"] {
+  background: radial-gradient(120% 120% at 20% 0%, #9f0c1f 0%, #3a060b 45%, #140b0e 100%);
+}
+
+.phoneTile[data-variant="1"] {
+  background: radial-gradient(120% 120% at 80% 0%, #c8102e 0%, #4a0710 45%, #140b0e 100%);
+}
+
+.phoneTile[data-variant="2"] {
+  background: radial-gradient(120% 120% at 50% 100%, #9f0c1f 0%, #3a060b 45%, #140b0e 100%);
+}
+
+.phoneFrame {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 18%;
+  bottom: -8%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
+  border: 1px solid rgba(255, 226, 232, 0.16);
+  background: rgba(10, 6, 7, 0.6);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--faint);
+}
+
+.phoneGlass {
+  position: absolute;
+  height: auto;
+  pointer-events: none;
+}
+
+.phoneTile[data-variant="0"] .phoneGlass {
+  right: -8%;
+  top: -12%;
+  width: 42%;
+}
+
+.phoneTile[data-variant="1"] .phoneGlass {
+  left: -4%;
+  top: -10%;
+  width: 28%;
+}
+
+.phoneTile[data-variant="2"] .phoneGlass {
+  right: -10%;
+  bottom: -14%;
+  width: 44%;
+}
+
+.phoneBody {
+  padding: 14px 16px 16px;
+}
+
+.phoneName {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.phoneMeta {
+  margin: 4px 0 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--blush);
+}
+
+.dots {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.pageDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 226, 232, 0.25);
+}
+
+.pageDot[data-active] {
+  width: 18px;
+  background: var(--rose);
+}
+
+@media (max-width: 767.98px) {
+  .work {
+    max-width: none;
+    padding: var(--phone-section-space) 0 0;
+  }
+
+  .header {
+    padding: 0 var(--phone-gutter);
+    flex-wrap: nowrap;
+    gap: 12px;
+  }
+
+  .headingColumn {
+    flex: 1 1 auto;
+  }
+}
