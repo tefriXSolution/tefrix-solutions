@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>html,body{margin:0;background:#0A0607}</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "./node_modules/three/build/three.module.js",
+    "three/addons/": "./node_modules/three/examples/jsm/",
+    "https://cdn.jsdelivr.net/npm/opentype.js@1.3.4/+esm": "./node_modules/opentype.js/dist/opentype.module.js"
+  }
+}
+</script>
+</head>
+<body>
+<script type="module">
+// Footer wordmark: glossy cherry-red extruded "TefriX" (Geist Bold) on a dark
+// reflective floor, with bloom, edges faded into the page background (#0A0607).
+// Query params: w, h (output size), plus look tweaks used while iterating.
+import * as THREE from "three";
+import { TTFLoader } from "three/addons/loaders/TTFLoader.js";
+import { Font } from "three/addons/loaders/FontLoader.js";
+import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { Reflector } from "three/addons/objects/Reflector.js";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+import { RectAreaLightUniformsLib } from "three/addons/lights/RectAreaLightUniformsLib.js";
+
+RectAreaLightUniformsLib.init();
+
+const q = new URLSearchParams(location.search);
+const num = (key, fallback) => (q.has(key) ? Number(q.get(key)) : fallback);
+const W = num("w", 1600);
+const H = num("h", 650);
+const BG = "#0A0607";
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1);
+renderer.setSize(W, H);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = num("exposure", 1.0);
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+{
+  // Smooth backdrop: near-black with a faint red glow behind the letters.
+  const c = document.createElement("canvas");
+  c.width = W;
+  c.height = H;
+  const g = c.getContext("2d");
+  g.fillStyle = BG;
+  g.fillRect(0, 0, W, H);
+  const glow = g.createRadialGradient(W * 0.5, H * 0.42, 0, W * 0.5, H * 0.42, W * 0.42);
+  glow.addColorStop(0, `rgba(130,8,22,${num("backGlow", 0.45)})`);
+  glow.addColorStop(1, "rgba(130,8,22,0)");
+  g.fillStyle = glow;
+  g.fillRect(0, 0, W, H);
+  const texture = new THREE.CanvasTexture(c);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  scene.background = texture;
+}
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+scene.environmentIntensity = num("env", 0.35);
+
+const camera = new THREE.PerspectiveCamera(num("fov", 24), W / H, 0.1, 400);
+camera.position.set(0, num("camY", 2.4), num("camZ", 34));
+camera.lookAt(0, num("lookY", 2.6), 0);
+
+const fontJson = await new Promise((resolve, reject) =>
+  new TTFLoader().load("./node_modules/geist/dist/fonts/geist-sans/Geist-Bold.ttf", resolve, undefined, reject),
+);
+const font = new Font(fontJson);
+const geometry = new TextGeometry("TefriX", {
+  font,
+  size: 6,
+  depth: num("depth", 1.8),
+  curveSegments: 24,
+  bevelEnabled: true,
+  bevelThickness: 0.16,
+  bevelSize: 0.1,
+  bevelSegments: 8,
+});
+geometry.computeBoundingBox();
+const bb = geometry.boundingBox;
+geometry.translate(-(bb.max.x + bb.min.x) / 2, -bb.min.y, -bb.max.z / 2);
+
+const material = new THREE.MeshPhysicalMaterial({
+  color: q.get("color") ?? "#8E0A1A",
+  roughness: num("rough", 0.3),
+  metalness: num("metal", 0.2),
+  clearcoat: 1,
+  clearcoatRoughness: 0.1,
+  emissive: "#3A0309",
+  emissiveIntensity: num("emissive", 0.5),
+});
+const text = new THREE.Mesh(geometry, material);
+scene.add(text);
+
+// Lights: two red spots from the front, a red rim from behind, a low red ambient.
+const key = new THREE.SpotLight("#FF4D6D", num("key", 900), 120, Math.PI / 5, 0.6, 1.4);
+key.position.set(-12, num("keyY", 18), 24);
+key.target = text;
+scene.add(key);
+const key2 = new THREE.SpotLight("#FF2A4A", num("key2", 700), 120, Math.PI / 5, 0.6, 1.4);
+key2.position.set(14, num("keyY", 18) - 2, 22);
+key2.target = text;
+scene.add(key2);
+const rim = new THREE.PointLight("#FF1A3A", num("rim", 500), 80, 1.4);
+rim.position.set(0, 10, -8);
+scene.add(rim);
+scene.add(new THREE.AmbientLight("#3A0A10", num("ambient", 0.6)));
+const top = new THREE.DirectionalLight("#FF2A44", num("top", 0));
+top.position.set(-4, 30, num("topZ", 6));
+scene.add(top);
+// Broad soft light above and in front: a smooth top-to-bottom sheen on the faces.
+const area = new THREE.RectAreaLight("#FF2A44", num("area", 0), num("areaW", 40), num("areaH", 6));
+area.position.set(0, num("areaY", 16), num("areaZ", 14));
+area.lookAt(0, 3, 0);
+scene.add(area);
+
+// Soft red haze behind the letters.
+{
+  const c = document.createElement("canvas");
+  c.width = c.height = 256;
+  const g = c.getContext("2d");
+  const grad = g.createRadialGradient(128, 128, 0, 128, 128, 128);
+  grad.addColorStop(0, `rgba(200,16,46,${num("haze", 0)})`);
+  grad.addColorStop(1, "rgba(200,16,46,0)");
+  g.fillStyle = grad;
+  g.fillRect(0, 0, 256, 256);
+  const haze = new THREE.Mesh(
+    new THREE.PlaneGeometry(60, 26),
+    new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(c), transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }),
+  );
+  haze.position.set(0, 4, -6);
+  scene.add(haze);
+}
+
+// Glossy floor: a mirror, faded with a dark gradient that gets opaque toward the viewer.
+const floor = new Reflector(new THREE.PlaneGeometry(400, 400), {
+  textureWidth: Math.round(W / num("mirrorRes", 1)),
+  textureHeight: Math.round(H / num("mirrorRes", 1)),
+  color: new THREE.Color(q.get("mirror") ?? "#777777"),
+});
+floor.rotation.x = -Math.PI / 2;
+scene.add(floor);
+{
+  const c = document.createElement("canvas");
+  c.width = 2;
+  c.height = 256;
+  const g = c.getContext("2d");
+  const grad = g.createLinearGradient(0, 0, 0, 256);
+  grad.addColorStop(0, `rgba(10,6,7,${num("fadeNear", 0.45)})`);
+  grad.addColorStop(0.35, `rgba(10,6,7,${num("fadeMid", 0.8)})`);
+  grad.addColorStop(1, "rgba(10,6,7,1)");
+  g.fillStyle = grad;
+  g.fillRect(0, 0, 2, 256);
+  const fade = new THREE.Mesh(
+    new THREE.PlaneGeometry(400, 40),
+    new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(c), transparent: true, depthWrite: false }),
+  );
+  fade.rotation.x = -Math.PI / 2;
+  fade.position.set(0, 0.02, 20 - num("fadeStart", 1.2));
+  scene.add(fade);
+}
+
+if (q.get("mode") === "mask") {
+  // Mask for the footer's light sweep: the same lettering, camera and framing,
+  // in flat white on black (used with CSS mask-mode: luminance).
+  const maskScene = new THREE.Scene();
+  maskScene.background = new THREE.Color("#000000");
+  maskScene.add(new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ color: "#ffffff" })));
+  renderer.toneMapping = THREE.NoToneMapping;
+  renderer.render(maskScene, camera);
+  window.__result = renderer.domElement.toDataURL(q.get("type") ?? "image/png", num("quality", 0.86));
+} else {
+  const composer = new EffectComposer(renderer);
+  composer.setSize(W, H);
+  composer.addPass(new RenderPass(scene, camera));
+  composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), num("bloom", 0.55), num("bloomRadius", 0.5), num("bloomThreshold", 0.55)));
+  composer.addPass(new OutputPass());
+  composer.render();
+
+  // Fade the edges into the page background so the image blends at any width.
+  const out = document.createElement("canvas");
+  out.width = W;
+  out.height = H;
+  const ctx = out.getContext("2d");
+  ctx.drawImage(renderer.domElement, 0, 0);
+  // Tone mapping crushes the backdrop to near-black, darker than the page;
+  // raise anything below the page colour back to it so the faded edges meet
+  // it without a seam (only the darkest pixels change).
+  ctx.globalCompositeOperation = "lighten";
+  ctx.fillStyle = BG;
+  ctx.fillRect(0, 0, W, H);
+  ctx.globalCompositeOperation = "source-over";
+  const edge = (x0, y0, x1, y1) => {
+    const grad = ctx.createLinearGradient(x0, y0, x1, y1);
+    grad.addColorStop(0, "rgba(10,6,7,1)");
+    grad.addColorStop(1, "rgba(10,6,7,0)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+  };
+  edge(0, 0, W * 0.14, 0);
+  edge(W, 0, W * 0.86, 0);
+  edge(0, 0, 0, H * 0.12);
+  edge(0, H, 0, H * num("bottomFade", 0.72));
+
+  window.__result = out.toDataURL(q.get("type") ?? "image/png", num("quality", 0.86));
+}
+window.__done = true;
+</script>
+</body>
+</html>

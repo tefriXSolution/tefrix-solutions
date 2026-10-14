@@ -1,0 +1,17 @@
+{
+  "name": "footer-wordmark-render",
+  "private": true,
+  "type": "module",
+  "description": "Renders public/assets/footer-wordmark.webp (the 3D \"TefriX\" behind the desktop footer) and its light-sweep mask.",
+  "scripts": {
+    "serve": "node server.mjs",
+    "render": "node shoot.mjs ../../public/assets/footer-wordmark.webp \"w=3200&h=1300&type=image/webp&quality=0.82&color=%23700814&rough=0.3&metal=0.3&emissive=0.15&env=0.08&key=50&key2=40&keyY=34&rim=90&top=3&topZ=-4&area=9&areaY=14&areaZ=16&ambient=0.2&bloom=0.5&bloomRadius=0.6&bloomThreshold=0.62&mirror=%23a0a0a0&mirrorRes=4&fadeNear=0.12&fadeMid=0.6&backGlow=0.42&exposure=1\"",
+    "render:mask": "node shoot.mjs ../../public/assets/footer-wordmark-mask.webp \"mode=mask&w=1600&h=650&type=image/webp&quality=0.8\""
+  },
+  "dependencies": {
+    "geist": "^1.7.2",
+    "opentype.js": "1.3.4",
+    "playwright-core": "^1.64.0",
+    "three": "^0.186.1"
+  }
+}

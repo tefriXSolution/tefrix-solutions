@@ -1,50 +1,139 @@
-.footer {
-  border-top: 1px solid var(--border-subtle);
+/* Desktop footer (≥ 768px). The render (3200×1300, edges faded into --bg) is
+   0.406× as tall as it is wide, and its letters stand on the floor at 67.7%
+   of that height, i.e. 27.5% of the footer width (capped at the 1600px it is
+   shown at). The content starts on the floor, just below the letters. */
+.desktop {
+  --floor: min(27.5vw, 440px);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+/* Centred with margins rather than a transform, which the scroll reveal uses. */
+.stage {
+  position: absolute;
+  z-index: -2;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: 1600px;
+  margin: 0 auto;
+  pointer-events: none;
+}
+
+.stageImage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Light sweep across the lettering every few seconds, masked to the letters
+   by footer-wordmark-mask.webp (the same render as flat white on black).
+   Overlay blending brightens the red rather than tinting it. Where mask-mode
+   isn't supported it stays off rather than showing as a band. */
+.sheen {
+  display: none;
+}
+
+@supports (mask-mode: luminance) {
+  .sheen {
+    display: block;
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    mask-image: url("/assets/footer-wordmark-mask.webp");
+    mask-size: 100% 100%;
+    mask-mode: luminance;
+    mix-blend-mode: overlay;
+  }
+}
+
+.sheenBar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 20%;
+  background: linear-gradient(
+    105deg,
+    transparent 15%,
+    rgba(255, 255, 255, 0.35) 42%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0.35) 58%,
+    transparent 85%
+  );
+  transform: translateX(-100%);
+  animation: sheen 10s cubic-bezier(0.45, 0, 0.55, 1) 1.5s infinite;
+}
+
+@keyframes sheen {
+  0% {
+    transform: translateX(-100%);
+  }
+  35%,
+  100% {
+    transform: translateX(520%);
+  }
+}
+
+/* Darkens the reflection under the content so the text stays easy to read. */
+.scrim {
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  top: calc(var(--floor) - 12px);
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(10, 6, 7, 0) 0, rgba(10, 6, 7, 0.6) 110px, rgba(10, 6, 7, 0.85) 100%);
+  pointer-events: none;
 }
 
 .inner {
   box-sizing: content-box;
   max-width: var(--container);
   margin: 0 auto;
-  padding: 56px var(--gutter) 28px;
+  padding: calc(var(--floor) + 32px) var(--gutter) 32px;
 }
 
-.top {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 40px 64px;
+.grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 1.5fr) repeat(3, minmax(0, 1fr));
+  gap: 40px 56px;
 }
 
-.about {
-  flex: 1 1 280px;
-  max-width: 360px;
+.brandColumn {
+  max-width: 380px;
 }
 
 .brand {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  color: var(--text);
 }
 
 .blurb {
-  margin: 16px 0 0;
+  margin: 18px 0 0;
   font-size: 15px;
+  line-height: 1.6;
   color: var(--muted);
 }
 
-.socials {
-  margin-top: 18px;
+.actions {
+  margin-top: 22px;
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 10px;
 }
 
 .social {
   width: 44px;
   height: 44px;
-  box-sizing: content-box; /* the border adds to the size, as in the reference */
+  box-sizing: border-box;
   border-radius: var(--radius-button-sm);
-  border: 1px solid rgba(255, 226, 232, 0.12);
+  border: 1px solid var(--border-input);
+  background: rgba(255, 255, 255, 0.03);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,64 +148,239 @@
   border-color: rgba(255, 143, 163, 0.32);
 }
 
-.columns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 32px 64px;
-  font-size: 15px;
-}
-
 .column {
   display: flex;
   flex-direction: column;
 }
 
-.columnTitle {
-  margin-bottom: 8px;
+/* .column .columnTitle outranks the shared MonoLabel size and colour. */
+.column .columnTitle {
+  margin-bottom: 14px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--faint);
 }
 
 .list {
   display: flex;
   flex-direction: column;
+  gap: 2px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.link,
-.text {
-  display: block;
-  padding: 6px 0;
-  color: var(--text-2);
-}
-
+/* Links brighten on hover with an underline that grows from the left. */
 .link {
+  position: relative;
+  display: inline-block;
+  padding: 6px 0;
+  font-size: 15px;
+  color: var(--text-2);
   transition: color 0.2s;
 }
 
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 5px;
+  height: 1px;
+  background: var(--rose-300);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease-out);
+}
+
 .link:hover {
+  color: var(--text);
+}
+
+.link:hover::after {
+  transform: scaleX(1);
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+  font-size: 15px;
+  color: var(--text-2);
+}
+
+.contactIcon {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blush);
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.contactLabel {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.contactLink {
+  transition: color 0.2s;
+}
+
+.contactLink:hover {
+  color: var(--text);
+}
+
+.contactLink:hover .contactIcon {
   color: var(--rose-300);
+  border-color: rgba(255, 143, 163, 0.32);
 }
 
-/* Large faded "TefriX" wordmark. */
-.wordmark {
-  position: relative;
-  margin-top: 48px;
-  overflow: hidden;
+.bottom {
+  margin-top: 56px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  font-size: 14px;
+  color: var(--faint);
 }
 
-.wordmarkText {
-  font-size: clamp(80px, 17vw, 250px);
+.tagline {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.backToTop {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: var(--radius-button-sm);
+  border: 1px solid var(--border-input);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-2);
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.backToTop svg {
+  transition: transform 0.25s var(--ease-out);
+}
+
+.backToTop:hover {
+  color: var(--text);
+  border-color: rgba(255, 143, 163, 0.32);
+}
+
+.backToTop:hover svg {
+  transform: translateY(-2px);
+}
+
+/* Narrower desktop/tablet: the brand block takes its own row above the three columns. */
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .brandColumn {
+    grid-column: 1 / -1;
+    max-width: 460px;
+  }
+}
+
+/* Phone footer (< 768px): brand + socials, two link columns, wordmark, ©.
+   The bottom padding leaves room for the pinned action bar. */
+.phone {
+  padding: 56px var(--phone-gutter) 112px;
+}
+
+.phoneTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.phoneBrand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.phoneSocials {
+  display: flex;
+  gap: 8px;
+}
+
+.phoneSocial {
+  width: 44px;
+  height: 44px;
+  box-sizing: content-box; /* the border adds to the size, as in the reference */
+  border-radius: var(--radius-button);
+  border: 1px solid rgba(255, 226, 232, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-2);
+}
+
+.phoneLinks {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 16px;
+  font-size: 15px;
+}
+
+.phoneList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.phoneLink,
+.phoneText {
+  display: block;
+  padding: 8px 0;
+  color: var(--text-2);
+  overflow-wrap: anywhere;
+}
+
+.phoneWordmark {
+  margin-top: 28px;
+  font-size: 96px;
   line-height: 0.85;
   font-weight: 700;
   letter-spacing: -0.06em;
   text-align: center;
-  white-space: nowrap;
   background: linear-gradient(
     180deg,
-    rgba(255, 194, 207, 0.55) 0%,
-    rgba(255, 77, 109, 0.35) 40%,
-    rgba(117, 7, 12, 0.05) 95%
+    rgba(255, 194, 207, 0.5),
+    rgba(255, 77, 109, 0.3) 45%,
+    rgba(117, 7, 12, 0.04) 95%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -124,14 +388,11 @@
   -webkit-text-fill-color: transparent;
 }
 
-.bottom {
-  margin-top: 16px;
-  padding-top: 18px;
+.phoneCopyright {
+  margin: 16px 0 0;
+  padding-top: 14px;
   border-top: 1px solid var(--border-subtle);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 8px 24px;
-  font-size: 14px;
+  font-size: 12px;
   color: var(--faint);
+  text-align: center;
 }
