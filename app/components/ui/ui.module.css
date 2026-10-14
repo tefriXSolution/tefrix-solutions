@@ -43,7 +43,24 @@
   letter-spacing: -0.04em;
 }
 
-/* Buttons: lift 1px with a light sweep on hover. */
+/* Phone layout: smaller eyebrows and section headings. */
+@media (max-width: 767.98px) {
+  .eyebrow {
+    font-size: 12px;
+  }
+
+  .heading {
+    margin-top: 10px;
+  }
+
+  .heading[data-size="section"] {
+    font-size: 30px;
+    line-height: 1.1;
+  }
+}
+
+/* Buttons: lift 1px with a light sweep on hover (pointer devices), scale
+   down slightly on tap. */
 .button {
   position: relative;
   overflow: hidden;
@@ -57,7 +74,7 @@
   text-decoration: none;
   cursor: pointer;
   transition:
-    transform 0.25s,
+    transform 0.2s,
     box-shadow 0.25s,
     background-color 0.25s;
 }
@@ -72,12 +89,22 @@
   transition: transform 0.8s var(--ease-out);
 }
 
-.button:hover:not(:disabled) {
-  transform: translateY(-1px);
+@media (hover: hover) {
+  .button:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  .button:hover:not(:disabled)::after {
+    transform: translateX(130%);
+  }
+
+  .button[data-variant="ghost"]:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
 }
 
-.button:hover:not(:disabled)::after {
-  transform: translateX(130%);
+.button:active:not(:disabled) {
+  transform: scale(0.97);
 }
 
 .button[data-size="sm"] {
@@ -107,14 +134,21 @@
   box-shadow: 0 8px 28px -12px rgba(255, 77, 109, 0.7);
 }
 
+/* Phone layout: full-size 54px primary / 52px ghost buttons, rounder corners. */
+@media (max-width: 767.98px) {
+  .button[data-size="md"] {
+    border-radius: var(--radius-button-phone);
+  }
+
+  .button[data-variant="primary"][data-size="md"] {
+    min-height: 54px;
+  }
+}
+
 .button[data-variant="ghost"] {
   border: 1px solid var(--border-strong);
   background: rgba(255, 255, 255, 0.04);
   color: var(--text);
-}
-
-.button[data-variant="ghost"]:hover {
-  background: rgba(255, 255, 255, 0.08);
 }
 
 /* Cards: lift 4px with a soft rose shadow and a brighter border on hover. */
@@ -126,10 +160,12 @@
     border-color 0.4s;
 }
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 28px 70px -36px rgba(255, 77, 109, 0.5);
-  border-color: rgba(255, 143, 163, 0.32);
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 28px 70px -36px rgba(255, 77, 109, 0.5);
+    border-color: rgba(255, 143, 163, 0.32);
+  }
 }
 
 .card[data-surface="gradient"] {

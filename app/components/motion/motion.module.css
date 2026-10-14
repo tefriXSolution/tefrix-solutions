@@ -1,18 +1,33 @@
 /* Shared motion (DESIGN_SPEC §6). Everything animates transform and/or
    opacity only, except the hero highlight shimmer (background-position, as
    specified). All of it is switched off under prefers-reduced-motion in
-   globals.css. Durations and delays are set per use through custom
-   properties, so they never compete with the base declarations. */
+   globals.css. Durations, delays and distances are set per use through
+   custom properties, so they never compete with the base declarations. */
 
-/* Hero load: fade-up 16px, staggered with --delay. */
+/* Hero load: fade-up (16px desktop, 14px phone), staggered with --delay.
+   The phone layout has its own stagger in --delay-phone. */
 .fadeUp {
+  --fade-distance: 16px;
   animation: fadeUp 0.9s var(--ease-out) var(--delay, 0s) both;
+}
+
+@media (max-width: 767.98px) {
+  .fadeUp {
+    --fade-distance: 14px;
+    animation-delay: var(--delay-phone, var(--delay, 0s));
+  }
+
+  /* Fades in on phones only (e.g. the hero glass, which is static on desktop). */
+  .fadeUpPhone {
+    --fade-distance: 14px;
+    animation: fadeUp 0.9s var(--ease-out) var(--delay-phone, 0s) both;
+  }
 }
 
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(var(--fade-distance));
   }
   to {
     opacity: 1;
@@ -20,9 +35,16 @@
   }
 }
 
-/* Floating glass: −14px and 4° over 9–12s. */
+/* Floating glass: −14px (−10px on phones) and 4° over 9–12s. */
 .float {
+  --float-distance: -14px;
   animation: float var(--float-duration, 10s) ease-in-out infinite;
+}
+
+@media (max-width: 767.98px) {
+  .float {
+    --float-distance: -10px;
+  }
 }
 
 @keyframes float {
@@ -31,7 +53,7 @@
     transform: translate3d(0, 0, 0) rotate(0deg);
   }
   50% {
-    transform: translate3d(0, -14px, 0) rotate(4deg);
+    transform: translate3d(0, var(--float-distance), 0) rotate(4deg);
   }
 }
 
@@ -80,4 +102,13 @@
   transition:
     opacity 0.9s var(--ease-out),
     transform 0.9s var(--ease-out);
+}
+
+/* Tap feedback on phones (DESIGN_SPEC §13). */
+.press {
+  transition: transform 0.15s;
+}
+
+.press:active {
+  transform: scale(0.97);
 }

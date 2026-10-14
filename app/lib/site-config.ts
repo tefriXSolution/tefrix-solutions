@@ -18,7 +18,19 @@ export const siteConfig = {
   },
 } as const;
 
-export type NavLink = { label: string; href: string };
+export type NavLink = {
+  label: string;
+  href: string;
+  /** Where the link goes in the phone layout, if different (e.g. the phone contact page). */
+  phoneHref?: string;
+};
+
+/** WhatsApp / Call / Email buttons in the phone menu, contact card and contact page. */
+export const quickContactLinks: { label: string; href: string; icon: "chat" | "phone" | "mail" }[] = [
+  { label: "WhatsApp", href: siteConfig.contact.whatsappHref, icon: "chat" },
+  { label: "Call", href: siteConfig.contact.phone.href, icon: "phone" },
+  { label: "Email", href: siteConfig.contact.email.href, icon: "mail" },
+];
 
 export const socialLinks: { label: string; href: string; icon: "facebook" | "linkedin" }[] = [
   { label: "TefriX on Facebook", href: "https://www.facebook.com/tefrix", icon: "facebook" },
@@ -44,6 +56,8 @@ export type CaseStudy = {
   industry: string;
   /** Second tag, e.g. "Web application", "E-commerce", "UI/UX design". */
   category: string;
+  /** Shorter category for the phone cards, e.g. "Web app", "UI/UX". Defaults to category. */
+  shortCategory?: string;
   /** One line on what was built and the result for the client. */
   result: string;
   /** Path under /public, e.g. "/work/acme.webp" (16:10 works best). */
@@ -72,7 +86,7 @@ export const navLinks: NavLink[] = [
   { label: "Process", href: "/#process" },
   ...(caseStudies.length > 0 ? [{ label: "Work", href: "/#work" }] : []),
   { label: "About", href: "/#about" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/#contact", phoneHref: "/contact" },
 ];
 
 export const footerServiceLinks: NavLink[] = [
@@ -90,6 +104,13 @@ export const footerCompanyLinks: NavLink[] = [
   { label: "Contact", href: "/#contact" },
 ];
 
+/** Phone footer: the site links column (the contact column comes from siteConfig.contact). */
+export const phoneFooterLinks: NavLink[] = [
+  { label: "Services", href: "/#services" },
+  { label: "How we work", href: "/#process" },
+  ...(caseStudies.length > 0 ? [{ label: "Work", href: "/#work" }] : []),
+];
+
 // ─── Hero ───────────────────────────────────────────────────────────────────
 
 export const heroProofPoints = ["99% client satisfaction", "50+ projects delivered", "Free consultation"];
@@ -102,26 +123,49 @@ export const deployTerminal = {
   status: "Live",
   ariaLabel:
     "Illustration of a deployment pipeline: build passed, tests passed, security scan clean, deployed to production",
+  /** The compact three-line card in the phone hero. */
+  phone: {
+    command: "tefrix deploy",
+    checks: ["build", "tests", "security"],
+    ariaLabel: "Deployed to production, live",
+  },
 };
 
-export const stats: { value: number; suffix: string; label: string; highlight?: boolean }[] = [
-  { value: 20, suffix: "+", label: "Team members" },
-  { value: 50, suffix: "+", label: "Projects delivered" },
-  { value: 3, suffix: "+", label: "Years in industry" },
-  { value: 99, suffix: "%", label: "Client satisfaction", highlight: true },
+export const stats: {
+  value: number;
+  suffix: string;
+  label: string;
+  /** Phone label (DESIGN_SPEC §13). */
+  shortLabel: string;
+  highlight?: boolean;
+}[] = [
+  { value: 20, suffix: "+", label: "Team members", shortLabel: "Team members" },
+  { value: 50, suffix: "+", label: "Projects delivered", shortLabel: "Projects" },
+  { value: 3, suffix: "+", label: "Years in industry", shortLabel: "Years" },
+  { value: 99, suffix: "%", label: "Client satisfaction", shortLabel: "Satisfaction", highlight: true },
 ];
 
 // ─── Services ───────────────────────────────────────────────────────────────
 
 export type ServiceIcon = "code" | "devices" | "cart" | "chart" | "shield" | "layout";
 
-export const services: { title: string; description: string; icon: ServiceIcon; tags: string[] }[] = [
+export type Service = {
+  title: string;
+  description: string;
+  icon: ServiceIcon;
+  tags: string[];
+  /** Phone tile: the short name and its position in the 2-column grid (DESIGN_SPEC §13). */
+  phone: { label: string; order: number };
+};
+
+export const services: Service[] = [
   {
     title: "Custom web development",
     description:
       "Tailored web solutions from concept to launch. We build scalable, secure, and high-performance websites and web applications using the latest technologies.",
     icon: "code",
     tags: ["Web applications", "Concept to launch"],
+    phone: { label: "Web development", order: 1 },
   },
   {
     title: "Responsive web design",
@@ -129,6 +173,7 @@ export const services: { title: string; description: string; icon: ServiceIcon; 
       "Visually stunning and user-friendly designs that adapt seamlessly to any device, ensuring an optimal experience for all your visitors.",
     icon: "devices",
     tags: ["Mobile", "Tablet", "Desktop"],
+    phone: { label: "Responsive design", order: 5 },
   },
   {
     title: "E-commerce solutions",
@@ -136,6 +181,7 @@ export const services: { title: string; description: string; icon: ServiceIcon; 
       "Powerful online stores with secure payment gateways, inventory management, and intuitive user experiences to boost your sales.",
     icon: "cart",
     tags: ["Secure payments", "Inventory"],
+    phone: { label: "E-commerce", order: 3 },
   },
   {
     title: "Digital marketing & SEO",
@@ -143,6 +189,7 @@ export const services: { title: string; description: string; icon: ServiceIcon; 
       "Increase your online visibility and attract more customers with expert SEO strategies, content marketing, and social media management.",
     icon: "chart",
     tags: ["SEO", "Content", "Social media"],
+    phone: { label: "Marketing & SEO", order: 4 },
   },
   {
     title: "Website maintenance & support",
@@ -150,6 +197,7 @@ export const services: { title: string; description: string; icon: ServiceIcon; 
       "Keep your website running smoothly and securely with our ongoing maintenance plans, updates, and dedicated technical support.",
     icon: "shield",
     tags: ["Updates", "Technical support"],
+    phone: { label: "Maintenance & support", order: 6 },
   },
   {
     title: "UI/UX design",
@@ -157,41 +205,48 @@ export const services: { title: string; description: string; icon: ServiceIcon; 
       "Crafting intuitive and engaging user interfaces and exceptional user experiences, so your website is a joy to navigate.",
     icon: "layout",
     tags: ["User interfaces", "User experience"],
+    phone: { label: "UI/UX design", order: 2 },
   },
 ];
 
-export const technologies = [
-  "React",
-  "React Native",
-  "Node.js",
-  "Express",
-  "Python",
-  "Django",
-  "PHP Laravel",
-  "Spring Boot",
-  "MongoDB",
+/** `short` is the phone chip label (DESIGN_SPEC §13). */
+export const technologies: { name: string; short?: string }[] = [
+  { name: "React" },
+  { name: "React Native" },
+  { name: "Node.js" },
+  { name: "Express" },
+  { name: "Python" },
+  { name: "Django" },
+  { name: "PHP Laravel", short: "Laravel" },
+  { name: "Spring Boot" },
+  { name: "MongoDB" },
 ];
 
-export const processSteps: { title: string; description: string }[] = [
+/** `short` is the one-line phone version (DESIGN_SPEC §13). */
+export const processSteps: { title: string; description: string; short: string }[] = [
   {
     title: "Discover",
     description:
       "We learn your goals, users and constraints, then agree on scope, timeline and what success looks like.",
+    short: "Goals, scope and plan",
   },
   {
     title: "Design",
     description:
       "Wireframes and UI/UX designs you can click through and approve before any code is written.",
+    short: "Clickable UI/UX you approve",
   },
   {
     title: "Build & test",
     description:
       "Development in short cycles with regular demos — secure, tested code on a modern, scalable stack.",
+    short: "Secure, tested code",
   },
   {
     title: "Launch & support",
     description:
       "We launch your product, then keep it fast, secure and up to date with ongoing maintenance and support.",
+    short: "Live, monitored, maintained",
   },
 ];
 

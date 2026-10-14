@@ -7,6 +7,11 @@ html {
   scroll-padding-top: var(--nav-height, 0px);
 }
 
+/* Page scroll lock while the phone menu dialog is open (set by MobileMenu). */
+html[data-menu-open] {
+  overflow: hidden;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -25,6 +30,22 @@ textarea::placeholder {
 :focus-visible {
   outline: 2px solid var(--rose-300);
   outline-offset: 2px;
+}
+
+/* One codebase, two layouts (DESIGN_SPEC §7, §13): the dedicated phone layout
+   below 768px, the desktop/tablet layout from 768px. Sections render a
+   variant per layout where the markup differs; these hide the inactive one
+   (display: none also removes it from the accessibility tree). */
+@media (max-width: 767.98px) {
+  .desktop-only {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .phone-only {
+    display: none !important;
+  }
 }
 
 .sr-only {

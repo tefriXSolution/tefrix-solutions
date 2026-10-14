@@ -28,3 +28,44 @@
   border: 1px solid rgba(255, 226, 232, 0.12);
   background: rgba(255, 255, 255, 0.03);
 }
+
+/* Phone layout: edge-to-edge swipe row with scroll-snap and no scrollbar. */
+@media (max-width: 767.98px) {
+  .stack {
+    display: block;
+    margin: 28px calc(-1 * var(--phone-gutter)) 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+  }
+
+  /* .stack .label outranks the shared MonoLabel size. */
+  .stack .label {
+    display: block;
+    padding: 0 var(--phone-gutter) 10px;
+    font-size: 11px;
+  }
+
+  .chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 var(--phone-gutter);
+    font-size: 13px;
+  }
+
+  .chips::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chip {
+    flex: 0 0 auto;
+    padding: 8px 12px;
+    border-radius: var(--radius-button-sm);
+    white-space: nowrap;
+    scroll-snap-align: start;
+  }
+}

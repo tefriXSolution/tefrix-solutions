@@ -63,6 +63,10 @@ export const designTokens = {
   "--container": "1280px",
   "--gutter": "clamp(16px, 4vw, 40px)",
   "--section-space": "clamp(96px, 10vw, 140px)",
+  // Phone layout (< 768px, DESIGN_SPEC §13).
+  "--phone-gutter": "20px",
+  "--phone-section-space": "64px",
+  "--radius-button-phone": "14px",
 
   // Motion
   "--ease-out": "cubic-bezier(.2,.7,.2,1)",

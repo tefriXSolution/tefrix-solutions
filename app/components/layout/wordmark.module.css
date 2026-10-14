@@ -1,7 +1,22 @@
 .wordmark {
-  font-size: 20px;
   font-weight: 700;
   letter-spacing: -0.02em;
+}
+
+.wordmark[data-size="40"] {
+  font-size: 40px;
+}
+
+.wordmark[data-size="20"] {
+  font-size: 20px;
+}
+
+.wordmark[data-size="18"] {
+  font-size: 18px;
+}
+
+.wordmark[data-size="16"] {
+  font-size: 16px;
 }
 
 .x {

@@ -70,6 +70,38 @@ const ICON_PATHS = {
       <path d="M13 6l6 6-6 6" />
     </>
   ),
+  arrowLeft: (
+    <>
+      <path d="M19 12H5" />
+      <path d="M11 6l-6 6 6 6" />
+    </>
+  ),
+  arrowUp: (
+    <>
+      <path d="M12 19V5" />
+      <path d="M6 11l6-6 6 6" />
+    </>
+  ),
+  globe: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18" />
+      <path d="M12 3a14 14 0 010 18 14 14 0 010-18z" />
+    </>
+  ),
+  menu: (
+    <>
+      <path d="M4 7h16" />
+      <path d="M4 12h16" />
+      <path d="M10 17h10" />
+    </>
+  ),
+  close: (
+    <>
+      <path d="M6 6l12 12" />
+      <path d="M18 6L6 18" />
+    </>
+  ),
   phone: (
     <path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2" />
   ),
