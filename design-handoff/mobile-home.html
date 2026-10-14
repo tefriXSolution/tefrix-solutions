@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TefriX — Mobile home (reference)</title>
+<!-- DESIGN REFERENCE (static export from the approved TefriX design). Assets are in ./assets. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0A0607}
+a{color:#FFF9FA}a:hover{color:#FF8FA3}
+::selection{background:#C8102E;color:#FFFFFF}
+.tx-root{position:relative;isolation:isolate;overflow:clip}
+.tx-root::after{content:"";position:absolute;inset:0;background-image:url(assets/grain.png);background-size:180px 180px;opacity:.09;pointer-events:none;z-index:60}
+.tx-fade{animation:txfade .9s cubic-bezier(.2,.7,.2,1) both}
+.tx-grad{background:linear-gradient(100deg,#FFC2CF 0%,#FF4D6D 35%,#E11D48 60%,#FF4D6D 85%,#FFC2CF 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:txshim 10s linear infinite}
+.tx-float{animation:txfloat 10s ease-in-out infinite}
+.tx-blob{animation:txdrift 24s ease-in-out infinite alternate}
+.tx-pulse{animation:txpulse 2.2s ease-in-out infinite}
+.tx-press{transition:transform .15s}
+.tx-press:active{transform:scale(.97)}
+.tx-swipe{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tx-swipe::-webkit-scrollbar{display:none}
+.tx-swipe>*{scroll-snap-align:start}
+.tx-video-still{display:none}
+@keyframes txbarin{from{opacity:0;visibility:hidden;transform:translateY(130%)}to{opacity:1;visibility:visible;transform:none}}
+@supports (animation-timeline: scroll()){
+.tx-bar{animation:txbarin linear both;animation-timeline:scroll(root);animation-range:560px 640px}
+}
+@keyframes txfade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes txfloat{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(0,-10px,0) rotate(4deg)}}
+@keyframes txdrift{0%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(6%,-4%,0) scale(1.08)}100%{transform:translate3d(-5%,5%,0) scale(.96)}}
+@keyframes txpulse{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1)}}
+@keyframes txshim{to{background-position:-220% 0}}
+.tx-still *,.tx-still *::before,.tx-still *::after{animation:none !important;transition:none !important}
+.tx-still .tx-video{display:none}
+.tx-still .tx-video-still{display:block}
+@media (prefers-reduced-motion:reduce){
+.tx-root *,.tx-root *::before,.tx-root *::after{animation:none !important;transition:none !important}
+.tx-video{display:none}
+.tx-video-still{display:block}
+}
+</style>
+</head>
+<body>
+<div class="tx-root" style="width: 390px; min-height: 4560px; display: flex; flex-direction: column; background: #0A0607; color: #FFF9FA; font-family: 'Geist', system-ui, sans-serif; font-size: 16px; line-height: 1.55">
+
+<!-- TOP BAR -->
+<header style="position: sticky; top: 0; z-index: 40; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px 10px 20px; background: rgba(10,6,7,0.72); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,226,232,0.08)">
+<a href="#top" aria-label="TefriX Solutions home" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: #FFF9FA">
+<svg viewBox="0 0 120 100" width="34" height="28" aria-hidden="true">
+<path d="M14 27 C14 15 22 8 33 8 L82 8 L69 27 Z" fill="#FFF9FA"></path>
+<path d="M42 27 L55 27 L55 70 L42 84 Z" fill="#FFF9FA"></path>
+<path d="M58 31 L71 31 L105 91 L91 91 Z" fill="#C8102E"></path>
+<path d="M26 94 Q 86 84 116 4 Q 80 68 26 94 Z" fill="#FF4D6D"></path>
+<rect x="33" y="38" width="5" height="5" fill="#FF4D6D"></rect>
+<rect x="34" y="50" width="5" height="5" fill="#FF4D6D"></rect>
+<rect x="27" y="58" width="5" height="5" fill="#FFF9FA"></rect>
+</svg>
+<span style="font-size: 18px; font-weight: 700; letter-spacing: -0.02em">Tefri<span style="color: #FF4D6D">X</span></span>
+</a>
+<a href="mobile-menu.html" aria-label="Open menu" class="tx-press" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid rgba(255,226,232,0.14); background: rgba(255,255,255,0.04); display: flex; align-items: center; justify-content: center; color: #FFF9FA">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M10 17h10"></path></svg>
+</a>
+</header>
+
+<!-- HERO -->
+<section id="top" style="position: relative; isolation: isolate; padding: 28px 20px 0">
+<div aria-hidden="true" class="tx-blob" style="position: absolute; z-index: -1; width: 560px; height: 560px; left: -10%; top: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(200,16,46,0.42), rgba(117,7,12,0.16) 42%, transparent 70%); pointer-events: none"></div>
+<div class="tx-fade" style="display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px 5px 9px; border-radius: 999px; border: 1px solid rgba(255,226,232,0.14); background: rgba(255,255,255,0.03); font-size: 13px; font-weight: 500; color: #E2D0D4">
+<span class="tx-pulse" style="width: 7px; height: 7px; border-radius: 50%; background: #FF4D6D; box-shadow: 0 0 10px #FF4D6D"></span>Software studio · Colombo</div>
+<h1 class="tx-fade" style="margin: 18px 0 0; font-size: 40px; line-height: 1.04; font-weight: 600; letter-spacing: -0.045em; animation-delay: 0.08s">Empowering your vision with <span class="tx-grad">scalable &amp; secure</span> software</h1>
+<p class="tx-fade" style="margin: 14px 0 0; font-size: 16px; color: #CDBCC0; animation-delay: 0.16s">Web, design, e-commerce and marketing — from idea to launch.</p>
+
+<div class="tx-fade" style="position: relative; width: 330px; height: 330px; margin: 8px auto 0; animation-delay: 0.24s">
+<video class="tx-video" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.webp" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none">
+<source src="assets/hero-loop.webm" type="video/webm">
+</video>
+<img class="tx-video-still" src="assets/glass-hero.webp" alt="" style="position: absolute; left: 12%; top: 4%; width: 76%; height: auto">
+<img class="tx-float" src="assets/glass-pill.webp" alt="" style="position: absolute; top: 2%; right: 0; width: 64px; height: auto; animation-duration: 9s">
+<div role="img" aria-label="Deployed to production, live" style="position: absolute; left: -4px; bottom: 14px; padding: 10px 14px; border-radius: 14px; border: 1px solid rgba(255,226,232,0.16); background: rgba(14,8,10,0.78); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; line-height: 1.7; color: #E2D0D4; box-shadow: 0 20px 50px -20px rgba(0,0,0,0.85)">
+<div><span style="color: #FF8FA3">$</span> tefrix deploy</div>
+<div><span style="color: #6EE7B7">✓</span> build <span style="color: #6EE7B7">✓</span> tests <span style="color: #6EE7B7">✓</span> security</div>
+<div style="display: flex; align-items: center; gap: 6px"><span class="tx-pulse" style="width: 7px; height: 7px; border-radius: 50%; background: #6EE7B7; box-shadow: 0 0 8px #6EE7B7"></span><span style="color: #FFF9FA">Live</span></div>
+</div>
+</div>
+
+<div class="tx-fade" style="margin-top: 18px; display: flex; flex-direction: column; gap: 10px; animation-delay: 0.32s">
+<a href="mobile-contact.html" class="tx-press" style="display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; border-radius: 14px; background: linear-gradient(135deg, #E11D48, #9F0C1F); color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 16px; box-shadow: 0 14px 40px -16px rgba(255,77,109,0.8)">Book a free consultation
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+</a>
+<a href="#services" class="tx-press" style="display: flex; align-items: center; justify-content: center; min-height: 52px; box-sizing: border-box; border-radius: 14px; border: 1px solid rgba(255,226,232,0.18); background: rgba(255,255,255,0.04); color: #FFF9FA; text-decoration: none; font-weight: 600; font-size: 16px">Explore services</a>
+</div>
+</section>
+
+<!-- STATS -->
+<section aria-label="Our milestones" style="padding: 36px 20px 0">
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid rgba(255,226,232,0.10); border-radius: 18px; background: rgba(255,255,255,0.025); overflow: hidden">
+<div style="padding: 18px; border-right: 1px solid rgba(255,226,232,0.08); border-bottom: 1px solid rgba(255,226,232,0.08)">
+<div style="font-size: 32px; font-weight: 600; letter-spacing: -0.03em; line-height: 1">20+</div>
+<div style="margin-top: 6px; font-size: 13px; color: #BFAEB2">Team members</div>
+</div>
+<div style="padding: 18px; border-bottom: 1px solid rgba(255,226,232,0.08)">
+<div style="font-size: 32px; font-weight: 600; letter-spacing: -0.03em; line-height: 1">50+</div>
+<div style="margin-top: 6px; font-size: 13px; color: #BFAEB2">Projects</div>
+</div>
+<div style="padding: 18px; border-right: 1px solid rgba(255,226,232,0.08)">
+<div style="font-size: 32px; font-weight: 600; letter-spacing: -0.03em; line-height: 1">3+</div>
+<div style="margin-top: 6px; font-size: 13px; color: #BFAEB2">Years</div>
+</div>
+<div style="padding: 18px">
+<div style="font-size: 32px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; color: #FF8FA3">99%</div>
+<div style="margin-top: 6px; font-size: 13px; color: #BFAEB2">Satisfaction</div>
+</div>
+</div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" style="padding: 64px 20px 0">
+<div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #FF8FA3">Services</div>
+<h2 style="margin: 10px 0 0; font-size: 30px; line-height: 1.1; font-weight: 600; letter-spacing: -0.035em">What we build</h2>
+<div style="margin-top: 20px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<a href="#contact" class="tx-press" style="display: flex; flex-direction: column; gap: 18px; padding: 16px; border-radius: 16px; border: 1px solid rgba(255,226,232,0.10); background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.012)); color: #FFF9FA; text-decoration: none">
+<span style="display: flex; width: 38px; height: 38px; border-radius: 10px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); color: #FFC2CF"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 9l-4 3 4 3"></path><path d="M16 9l4 3-4 3"></path><path d="M13.5 5l-3 14"></path></svg></span>
+<span style="font-size: 15px; font-weight: 600; line-height: 1.25">Web development</span>
+</a>
+<a href="#contact" class="tx-press" style="display: flex; flex-direction: column; gap: 18px; padding: 16px; border-radius: 16px; border: 1px solid rgba(255,226,232,0.10); background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.012)); color: #FFF9FA; text-decoration: none">
+<span style="display: flex; width: 38px; height: 38px; border-radius: 10px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); color: #FFC2CF"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M3 9h18"></path><path d="M8 14h4"></path><path d="M8 17h8"></path></svg></span>
+<span style="font-size: 15px; font-weight: 600; line-height: 1.25">UI/UX design</span>
+</a>
+<a href="#contact" class="tx-press" style="display: flex; flex-direction: column; gap: 18px; padding: 16px; border-radius: 16px; border: 1px solid rgba(255,226,232,0.10); background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.012)); color: #FFF9FA; text-decoration: none">
+<span style="display: flex; width: 38px; height: 38px; border-radius: 10px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); color: #FFC2CF"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11h11l2-8H6.2"></path><circle cx="9" cy="19" r="1.4"></circle><circle cx="17" cy="19" r="1.4"></circle></svg></span>
+<span style="font-size: 15px; font-weight: 600; line-height: 1.25">E-commerce</span>
+</a>
+<a href="#contact" class="tx-press" style="display: flex; flex-direction: column; gap: 18px; padding: 16px; border-radius: 16px; border: 1px solid rgba(255,226,232,0.10); background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.012)); color: #FFF9FA; text-decoration: none">
+<span style="display: flex; width: 38px; height: 38px; border-radius: 10px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); color: #FFC2CF"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5"></path><path d="M4 19h16"></path><path d="M7 15l4-4 3 3 5-6"></path></svg></span>
+<span style="font-size: 15px; font-weight: 600; line-height: 1.25">Marketing &amp; SEO</span>
+</a>
+<a href="#contact" class="tx-press" style="display: flex; flex-direction: column; gap: 18px; padding: 16px; border-radius: 16px; border: 1px solid rgba(255,226,232,0.10); background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.012)); color: #FFF9FA; text-decoration: none">
+<span style="display: flex; width: 38px; height: 38px; border-radius: 10px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); color: #FFC2CF"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="13" height="10" rx="1.5"></rect><rect x="15" y="9" width="6" height="11" rx="1.5"></rect><path d="M7 18h5"></path></svg></span>
+<span style="font-size: 15px; font-weight: 600; line-height: 1.25">Responsive design</span>
+</a>
+<a href="#contact" class="tx-press" style="display: flex; flex-direction: column; gap: 18px; padding: 16px; border-radius: 16px; border: 1px solid rgba(255,226,232,0.10); background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.012)); color: #FFF9FA; text-decoration: none">
+<span style="display: flex; width: 38px; height: 38px; border-radius: 10px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); color: #FFC2CF"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6l8-3z"></path><path d="M9 12l2 2 4-4"></path></svg></span>
+<span style="font-size: 15px; font-weight: 600; line-height: 1.25">Maintenance &amp; support</span>
+</a>
+</div>
+</section>
+
+<!-- TECH -->
+<section aria-label="Technologies we master" style="padding: 28px 0 0">
+<div style="padding: 0 20px 10px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #9F8D92">Our stack</div>
+<div class="tx-swipe" style="gap: 8px; padding: 0 20px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px">
+<span style="flex: 0 0 auto; padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(255,226,232,0.12); background: rgba(255,255,255,0.03)">React</span>
+<span style="flex: 0 0 auto; padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(255,226,232,0.12); background: rgba(255,255,255,0.03)">React Native</span>
+<span style="flex: 0 0 auto; padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(255,226,232,0.12); background: rgba(255,255,255,0.03)">Node.js</span>
+<span style="flex: 0 0 auto; padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(255,226,232,0.12); background: rgba(255,255,255,0.03)">Express</span>
+<span style="flex: 0 0 auto; padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(255,226,232,0.12); background: rgba(255,255,255,0.03)">Python</span>
+<span style="flex: 0 0 auto; padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(255,226,232,0.12); background: rgba(255,255,255,0.03)">Django</span>
+<span style="flex: 0 0 auto; padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(255,226,232,0.12); background: rgba(255,255,255,0.03)">Laravel</span>
+<span style="flex: 0 0 auto; padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(255,226,232,0.12); background: rgba(255,255,255,0.03)">Spring Boot</span>
+<span style="flex: 0 0 auto; padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(255,226,232,0.12); background: rgba(255,255,255,0.03)">MongoDB</span>
+</div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" style="padding: 64px 20px 0">
+<div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #FF8FA3">How we work</div>
+<h2 style="margin: 10px 0 0; font-size: 30px; line-height: 1.1; font-weight: 600; letter-spacing: -0.035em">Idea to launch in 4 steps</h2>
+<ol style="position: relative; margin: 24px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 22px">
+<li aria-hidden="true" style="position: absolute; left: 19px; top: 20px; bottom: 20px; width: 2px; background: linear-gradient(180deg, #FF4D6D, rgba(255,77,109,0.15))"></li>
+<li style="position: relative; display: flex; align-items: center; gap: 16px">
+<span style="flex: 0 0 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #0A0607; border: 1.5px solid #FF4D6D; box-shadow: 0 0 18px rgba(255,77,109,0.4); font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; color: #FFC2CF">01</span>
+<div><div style="font-size: 17px; font-weight: 600">Discover</div><div style="font-size: 14px; color: #BFAEB2">Goals, scope and plan</div></div>
+</li>
+<li style="position: relative; display: flex; align-items: center; gap: 16px">
+<span style="flex: 0 0 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #0A0607; border: 1.5px solid #FF4D6D; box-shadow: 0 0 18px rgba(255,77,109,0.4); font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; color: #FFC2CF">02</span>
+<div><div style="font-size: 17px; font-weight: 600">Design</div><div style="font-size: 14px; color: #BFAEB2">Clickable UI/UX you approve</div></div>
+</li>
+<li style="position: relative; display: flex; align-items: center; gap: 16px">
+<span style="flex: 0 0 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #0A0607; border: 1.5px solid #FF4D6D; box-shadow: 0 0 18px rgba(255,77,109,0.4); font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; color: #FFC2CF">03</span>
+<div><div style="font-size: 17px; font-weight: 600">Build &amp; test</div><div style="font-size: 14px; color: #BFAEB2">Secure, tested code</div></div>
+</li>
+<li style="position: relative; display: flex; align-items: center; gap: 16px">
+<span style="flex: 0 0 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #0A0607; border: 1.5px solid #FF4D6D; box-shadow: 0 0 18px rgba(255,77,109,0.4); font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; color: #FFC2CF">04</span>
+<div><div style="font-size: 17px; font-weight: 600">Launch &amp; support</div><div style="font-size: 14px; color: #BFAEB2">Live, monitored, maintained</div></div>
+</li>
+</ol>
+</section>
+
+<!-- WORK -->
+<section id="work" style="padding: 64px 0 0">
+<div style="padding: 0 20px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px">
+<div>
+<div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #FF8FA3">Selected work</div>
+<h2 style="margin: 10px 0 0; font-size: 30px; line-height: 1.1; font-weight: 600; letter-spacing: -0.035em">Recent projects</h2>
+</div>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #9F8D92">Swipe →</span>
+</div>
+<div class="tx-swipe" style="margin-top: 20px; padding: 0 20px">
+<a href="#contact" class="tx-press" style="flex: 0 0 286px; border-radius: 18px; border: 1px solid rgba(255,226,232,0.10); background: rgba(255,255,255,0.025); color: #FFF9FA; text-decoration: none; overflow: hidden">
+<div style="position: relative; height: 180px; overflow: hidden; background: radial-gradient(120% 120% at 20% 0%, #9F0C1F 0%, #3A060B 45%, #140B0E 100%)">
+<div style="position: absolute; left: 10%; right: 10%; top: 18%; bottom: -8%; border-radius: 10px 10px 0 0; border: 1px solid rgba(255,226,232,0.16); background: rgba(10,6,7,0.6); display: flex; align-items: center; justify-content: center; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; color: #9F8D92">[Screenshot]</div>
+<img class="tx-float" src="assets/glass-ring.webp" alt="" style="position: absolute; right: -8%; top: -12%; width: 42%; height: auto; animation-duration: 11s">
+</div>
+<div style="padding: 14px 16px 16px">
+<div style="font-size: 16px; font-weight: 600">[Project name]</div>
+<div style="margin-top: 4px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #FFC2CF">[Industry] · Web app</div>
+</div>
+</a>
+<a href="#contact" class="tx-press" style="flex: 0 0 286px; border-radius: 18px; border: 1px solid rgba(255,226,232,0.10); background: rgba(255,255,255,0.025); color: #FFF9FA; text-decoration: none; overflow: hidden">
+<div style="position: relative; height: 180px; overflow: hidden; background: radial-gradient(120% 120% at 80% 0%, #C8102E 0%, #4A0710 45%, #140B0E 100%)">
+<div style="position: absolute; left: 10%; right: 10%; top: 18%; bottom: -8%; border-radius: 10px 10px 0 0; border: 1px solid rgba(255,226,232,0.16); background: rgba(10,6,7,0.6); display: flex; align-items: center; justify-content: center; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; color: #9F8D92">[Screenshot]</div>
+<img class="tx-float" src="assets/glass-pill.webp" alt="" style="position: absolute; left: -4%; top: -10%; width: 28%; height: auto; animation-duration: 9s">
+</div>
+<div style="padding: 14px 16px 16px">
+<div style="font-size: 16px; font-weight: 600">[Project name]</div>
+<div style="margin-top: 4px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #FFC2CF">[Industry] · E-commerce</div>
+</div>
+</a>
+<a href="#contact" class="tx-press" style="flex: 0 0 286px; margin-right: 20px; border-radius: 18px; border: 1px solid rgba(255,226,232,0.10); background: rgba(255,255,255,0.025); color: #FFF9FA; text-decoration: none; overflow: hidden">
+<div style="position: relative; height: 180px; overflow: hidden; background: radial-gradient(120% 120% at 50% 100%, #9F0C1F 0%, #3A060B 45%, #140B0E 100%)">
+<div style="position: absolute; left: 10%; right: 10%; top: 18%; bottom: -8%; border-radius: 10px 10px 0 0; border: 1px solid rgba(255,226,232,0.16); background: rgba(10,6,7,0.6); display: flex; align-items: center; justify-content: center; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; color: #9F8D92">[Screenshot]</div>
+<img class="tx-float" src="assets/glass-twist.webp" alt="" style="position: absolute; right: -10%; bottom: -14%; width: 44%; height: auto; animation-duration: 12s">
+</div>
+<div style="padding: 14px 16px 16px">
+<div style="font-size: 16px; font-weight: 600">[Project name]</div>
+<div style="margin-top: 4px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: #FFC2CF">[Industry] · UI/UX</div>
+</div>
+</a>
+</div>
+<div aria-hidden="true" style="margin-top: 14px; display: flex; justify-content: center; gap: 6px">
+<span style="width: 18px; height: 6px; border-radius: 999px; background: #FF4D6D"></span>
+<span style="width: 6px; height: 6px; border-radius: 999px; background: rgba(255,226,232,0.25)"></span>
+<span style="width: 6px; height: 6px; border-radius: 999px; background: rgba(255,226,232,0.25)"></span>
+</div>
+</section>
+
+<!-- WHY TEFRIX -->
+<section id="about" style="position: relative; isolation: isolate; padding: 64px 20px 0">
+<div style="display: flex; align-items: center; gap: 16px">
+<div style="flex: 1 1 auto; min-width: 0">
+<div style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #FF8FA3">Why TefriX</div>
+<h2 style="margin: 10px 0 0; font-size: 30px; line-height: 1.1; font-weight: 600; letter-spacing: -0.035em">Built to last</h2>
+<p style="margin: 10px 0 0; font-size: 15px; color: #CDBCC0">Reliable, secure, scalable.</p>
+</div>
+<div style="flex: 0 0 120px; position: relative; height: 120px">
+<img class="tx-float" src="assets/glass-orb.webp" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; animation-duration: 11s">
+<img src="assets/glass-hero.webp" alt="" style="position: absolute; left: 24%; top: 20%; width: 52%; height: auto; opacity: 0.55">
+</div>
+</div>
+<div style="margin-top: 20px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<div style="padding: 16px; border-radius: 16px; border: 1px solid rgba(255,226,232,0.10); background: rgba(255,255,255,0.03)">
+<span style="display: flex; width: 34px; height: 34px; border-radius: 9px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); color: #FFC2CF"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"></path><path d="M3 13l9 5 9-5"></path><path d="M3 17.5l9 5 9-5"></path></svg></span>
+<div style="margin-top: 12px; font-size: 15px; font-weight: 600; line-height: 1.25">Scalable architecture</div>
+</div>
+<div style="padding: 16px; border-radius: 16px; border: 1px solid rgba(255,226,232,0.10); background: rgba(255,255,255,0.03)">
+<span style="display: flex; width: 34px; height: 34px; border-radius: 9px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); color: #FFC2CF"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6l8-3z"></path><path d="M9 12l2 2 4-4"></path></svg></span>
+<div style="margin-top: 12px; font-size: 15px; font-weight: 600; line-height: 1.25">Security-first</div>
+</div>
+<div style="padding: 16px; border-radius: 16px; border: 1px solid rgba(255,226,232,0.10); background: rgba(255,255,255,0.03)">
+<span style="display: flex; width: 34px; height: 34px; border-radius: 9px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); color: #FFC2CF"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"></path></svg></span>
+<div style="margin-top: 12px; font-size: 15px; font-weight: 600; line-height: 1.25">Optimal performance</div>
+</div>
+<div style="padding: 16px; border-radius: 16px; border: 1px solid rgba(255,226,232,0.10); background: rgba(255,255,255,0.03)">
+<span style="display: flex; width: 34px; height: 34px; border-radius: 9px; align-items: center; justify-content: center; background: rgba(255,77,109,0.12); color: #FFC2CF"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1"></circle></svg></span>
+<div style="margin-top: 12px; font-size: 15px; font-weight: 600; line-height: 1.25">Real-world impact</div>
+</div>
+</div>
+<figure style="position: relative; isolation: isolate; overflow: hidden; margin: 16px 0 0; padding: 22px; border-radius: 18px; border: 1px solid rgba(255,143,163,0.20); background: radial-gradient(130% 160% at 0% 0%, #9F0C1F 0%, #4A0710 45%, #170B0E 85%)">
+<blockquote style="margin: 0; font-size: 19px; line-height: 1.35; font-weight: 500; letter-spacing: -0.02em">“Great software is built by the best team working together.”</blockquote>
+<figcaption style="margin-top: 10px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #FFC2CF">Our commitment</figcaption>
+</figure>
+</section>
+
+<!-- CONTACT CTA -->
+<section id="contact" style="padding: 64px 20px 0">
+<div style="position: relative; isolation: isolate; overflow: hidden; padding: 26px 20px 20px; border-radius: 22px; border: 1px solid rgba(255,143,163,0.18); background: #110A0C">
+<div aria-hidden="true" class="tx-blob" style="position: absolute; z-index: -1; width: 520px; height: 520px; left: -40%; top: -70%; border-radius: 50%; background: radial-gradient(circle, rgba(200,16,46,0.5), rgba(117,7,12,0.18) 40%, transparent 68%); pointer-events: none"></div>
+<img class="tx-float" src="assets/glass-twist.webp" alt="" style="position: absolute; z-index: -1; right: -18px; top: -18px; width: 120px; height: auto; opacity: 0.9; animation-duration: 12s">
+<h2 style="margin: 0; max-width: 240px; font-size: 30px; line-height: 1.08; font-weight: 600; letter-spacing: -0.04em">Ready to build with us?</h2>
+<p style="margin: 10px 0 0; font-size: 15px; color: #E2D0D4">The first consultation is free.</p>
+<a href="mobile-contact.html" class="tx-press" style="margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; border-radius: 14px; background: linear-gradient(135deg, #E11D48, #9F0C1F); color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 16px; box-shadow: 0 14px 40px -16px rgba(255,77,109,0.8)">Send us a message
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+</a>
+<div style="margin-top: 10px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<a href="https://wa.me/94765907934" class="tx-press" style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 6px; border-radius: 14px; border: 1px solid rgba(255,226,232,0.14); background: rgba(255,255,255,0.04); color: #FFF9FA; text-decoration: none; font-size: 13px; font-weight: 500">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFC2CF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"></path></svg>WhatsApp</a>
+<a href="tel:+94765907934" class="tx-press" style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 6px; border-radius: 14px; border: 1px solid rgba(255,226,232,0.14); background: rgba(255,255,255,0.04); color: #FFF9FA; text-decoration: none; font-size: 13px; font-weight: 500">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFC2CF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"></path></svg>Call</a>
+<a href="mailto:tefrixsolutions@gmail.com" class="tx-press" style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 6px; border-radius: 14px; border: 1px solid rgba(255,226,232,0.14); background: rgba(255,255,255,0.04); color: #FFF9FA; text-decoration: none; font-size: 13px; font-weight: 500">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFC2CF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>Email</a>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer style="margin-top: auto; padding: 56px 20px 112px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<span style="display: flex; align-items: center; gap: 8px">
+<svg viewBox="0 0 120 100" width="30" height="25" aria-hidden="true">
+<path d="M14 27 C14 15 22 8 33 8 L82 8 L69 27 Z" fill="#FFF9FA"></path>
+<path d="M42 27 L55 27 L55 70 L42 84 Z" fill="#FFF9FA"></path>
+<path d="M58 31 L71 31 L105 91 L91 91 Z" fill="#C8102E"></path>
+<path d="M26 94 Q 86 84 116 4 Q 80 68 26 94 Z" fill="#FF4D6D"></path>
+</svg>
+<span style="font-size: 16px; font-weight: 700; letter-spacing: -0.02em">Tefri<span style="color: #FF4D6D">X</span> <span style="font-weight: 500; color: #BFAEB2">Solutions</span></span>
+</span>
+<span style="display: flex; gap: 8px">
+<a href="https://www.facebook.com/tefrix" aria-label="TefriX on Facebook" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid rgba(255,226,232,0.12); display: flex; align-items: center; justify-content: center; color: #E2D0D4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h-2.5A3.5 3.5 0 009 6.5V9H7v3h2v9h3v-9h2.5l.5-3h-3V6.8c0-.5.3-.8.8-.8H15V3z"></path></svg></a>
+<a href="https://www.linkedin.com/company/tefrix/" aria-label="TefriX on LinkedIn" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid rgba(255,226,232,0.12); display: flex; align-items: center; justify-content: center; color: #E2D0D4"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M8 10v7"></path><path d="M8 7v.01"></path><path d="M12 17v-4a2 2 0 014 0v4"></path><path d="M12 10v7"></path></svg></a>
+</span>
+</div>
+<div style="margin-top: 24px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 16px; font-size: 15px">
+<a href="#services" style="padding: 8px 0; text-decoration: none; color: #E2D0D4">Services</a>
+<a href="tel:+94765907934" style="padding: 8px 0; text-decoration: none; color: #E2D0D4">+94 76 590 7934</a>
+<a href="#process" style="padding: 8px 0; text-decoration: none; color: #E2D0D4">How we work</a>
+<a href="mailto:tefrixsolutions@gmail.com" style="padding: 8px 0; text-decoration: none; color: #E2D0D4; overflow-wrap: anywhere">Email us</a>
+<a href="#work" style="padding: 8px 0; text-decoration: none; color: #E2D0D4">Work</a>
+<span style="padding: 8px 0; color: #E2D0D4">Colombo, Sri Lanka</span>
+</div>
+<div aria-hidden="true" style="margin-top: 28px; font-size: 96px; line-height: 0.85; font-weight: 700; letter-spacing: -0.06em; text-align: center; background: linear-gradient(180deg, rgba(255,194,207,0.5), rgba(255,77,109,0.3) 45%, rgba(117,7,12,0.04) 95%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent">TefriX</div>
+<div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,226,232,0.08); font-size: 12px; color: #9F8D92; text-align: center">© 2026 TefriX Solutions</div>
+</footer>
+
+<!-- STICKY ACTION BAR -->
+<div class="tx-bar" style="position: sticky; bottom: 12px; z-index: 45; margin: -92px 12px 12px; display: flex; gap: 8px; padding: 8px; border-radius: 18px; border: 1px solid rgba(255,226,232,0.14); background: rgba(16,9,11,0.78); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 20px 50px -18px rgba(0,0,0,0.9)">
+<a href="mobile-contact.html" class="tx-press" style="flex: 1 1 auto; display: flex; align-items: center; justify-content: center; min-height: 50px; border-radius: 12px; background: linear-gradient(135deg, #E11D48, #9F0C1F); color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px">Free consultation</a>
+<a href="https://wa.me/94765907934" aria-label="Chat on WhatsApp" class="tx-press" style="flex: 0 0 50px; height: 50px; border-radius: 12px; border: 1px solid rgba(255,226,232,0.16); background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; color: #FFC2CF"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"></path></svg></a>
+</div>
+
+</div>
+</body>
+</html>

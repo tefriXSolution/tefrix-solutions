@@ -1,8 +1,10 @@
 # TefriX Solutions — Homepage (Cherry glass, professional) · Design spec
 
-**Source of truth:** `reference.html` (open in Chrome; it loads everything from `./assets`).
-`screens/desktop.jpg` (1440px) and `screens/mobile.jpg` (390px) show the settled state of every section.
-This spec explains the system behind the reference so it can be rebuilt as real components. If the two disagree, match `reference.html`.
+**Sources of truth** (open in Chrome; they load everything from `./assets`):
+- Desktop and tablet (≥ 768px): `reference.html` — screenshot `screens/desktop.jpg` (1440px).
+- Phone (< 768px): `mobile-home.html`, `mobile-menu.html`, `mobile-contact.html` (linked to each other) — screenshots `screens/mobile-home.jpg` (full page), `mobile-home-top.jpg` (first screen), `mobile-home-scrolled.jpg` (with the pinned action bar), `mobile-menu.jpg`, `mobile-contact.jpg`. See §13.
+
+This spec explains the system behind the references so they can be rebuilt as real components. If a reference and this spec disagree, match the reference.
 
 ---
 
@@ -114,9 +116,9 @@ The reference uses CSS scroll-driven animations (Chrome-only) for reveals, count
 
 ## 7. Responsive
 
-- ≤ 900px: hide the process connector line and the orb illustration.
-- ≤ 760px: hide the floating hero pill; the terminal spans the width (`left/right: 4%`) and overlaps the bottom of the glass (`bottom: -20%`) with `margin-bottom: 22%` on the visual so nothing collides.
-- Nav wraps; every grid collapses via auto-fit. No horizontal scroll at 375px. Check 375, 768, 1024, 1440.
+- ≥ 768px: the desktop layout (`reference.html`). Between 768 and 1024 the grids collapse via auto-fit; hide the process connector line and the orb illustration below 900px.
+- < 768px: the **dedicated phone layout** in §13 — not the squeezed desktop layout.
+- No horizontal scroll at 375px. Check 375, 390, 768, 1024, 1440.
 
 ## 8. Accessibility
 
@@ -145,7 +147,49 @@ All copy in `reference.html` is final **except**:
 
 ## 12. Acceptance criteria
 
-- Side by side with `reference.html` / `screens/*.jpg` at 1440px and 390px it matches (colours, type, spacing, glass, textures).
+- At 1440px it matches `reference.html` / `screens/desktop.jpg`; at 390px it matches `mobile-home.html` and the `screens/mobile-*.jpg` set (colours, type, spacing, glass, textures).
+- The menu overlay and the phone contact page match `mobile-menu.html` and `mobile-contact.html`.
 - Hero glass is transparent over the background in Chrome/Edge/Firefox; Safari shows the still image with no black box.
+- On phones the pinned action bar is hidden on the first screen and never covers the hero buttons.
 - No horizontal scroll at 375px; reduced motion removes all motion.
 - Placeholder sections are hidden until real data exists.
+
+## 13. Phone layout (< 768px)
+
+Same tokens, fonts, glass assets and motion as desktop — less text, bigger touch targets, one column. Content width 390 − 2×20px side padding. Section spacing 64px.
+
+**Shorter copy on phones (use these exact strings below 768px):**
+
+| Element | Phone copy |
+|---|---|
+| Hero eyebrow | Software studio · Colombo |
+| Hero paragraph | Web, design, e-commerce and marketing — from idea to launch. |
+| Stats labels | Team members · Projects · Years · Satisfaction |
+| Services heading | What we build — tiles show the service name only: Web development, UI/UX design, E-commerce, Marketing & SEO, Responsive design, Maintenance & support |
+| Tech row label | Our stack (chip says "Laravel" instead of "PHP Laravel") |
+| Process heading | Idea to launch in 4 steps — lines: Goals, scope and plan · Clickable UI/UX you approve · Secure, tested code · Live, monitored, maintained |
+| Work heading | Recent projects (+ "Swipe →") |
+| Why heading | Built to last — "Reliable, secure, scalable." — four pillar names only |
+| Quote | "Great software is built by the best team working together." |
+| Contact card | Ready to build with us? — The first consultation is free. |
+| Contact page | Tell us about your project — Free consultation. Quick reply. |
+
+The phone layout drops: the client-logo row, the long "who we are" paragraph, vision, mission and values (keep them on desktop and on `/about`).
+
+**Components:**
+
+1. **Top bar** — sticky, 64px: logo mark + "TefriX"; a 44×44 menu button (☰) on the right. No CTA in the bar.
+2. **Menu** (`mobile-menu.html`) — a full-screen overlay, not a separate page: big links 01–05 (Services, Process, Work, About, Contact) at 34px, a "Book a free consultation" button, then WhatsApp / Call / Email buttons. Links stagger in (60ms apart). Implement it as an accessible dialog: focus trap, Esc and the ✕ button close it, page scroll locked, focus returns to the ☰ button. Tapping a link closes the menu and scrolls to the section.
+3. **Hero** — 40px H1; a 330px glass video; a compact deploy card (3 lines) overlapping its bottom-left; full-width primary + ghost buttons (54px).
+4. **Stats** — 2×2 grid card.
+5. **Services** — 2-column tiles (icon + name only), whole tile tappable.
+6. **Stack** — one horizontally scrolling row of chips (scroll-snap, no scrollbar).
+7. **Process** — vertical timeline: 40px numbered dots on a gradient line, title + one short line each.
+8. **Work** — horizontally swiping cards (286px wide, scroll-snap, the next card peeks in) with page dots; hidden while there are no real projects.
+9. **Why TefriX** — heading + small floating orb, 2×2 pillar tiles, short quote card.
+10. **Contact card** — "Send us a message" (opens the contact page) + WhatsApp / Call / Email buttons in a 3-column row.
+11. **Footer** — logo + social buttons, a 2-column link list, faded wordmark, ©.
+12. **Pinned action bar** — floats 12px above the bottom edge (add `env(safe-area-inset-bottom)`): "Free consultation" + a WhatsApp icon button. **Hidden on the first screen**: slide it up (200ms) once the hero buttons have scrolled out of view (IntersectionObserver on the hero CTA group). Hide it while the menu is open, on the contact page, and when the footer is visible.
+13. **Contact page** (`mobile-contact.html`, route `/contact` on phones) — back button, short heading, WhatsApp / Call / Email chips, the same form fields (48px inputs, 16px text so iOS doesn't zoom), Send button. Use `type="tel"`/`type="email"` and `autocomplete` attributes.
+
+Tap feedback: `:active { transform: scale(.97) }` on every tappable card and button. All targets ≥ 44px.

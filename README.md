@@ -15,7 +15,7 @@ Then open [http://localhost:3000](http://localhost:3000).
 
 ## Design
 
-The approved homepage design lives in `design-handoff/`: `reference.html` (open it in Chrome), screenshots at 1440px and 390px, `DESIGN_SPEC.md`, the source assets, and the scripts that render the glass images and video. Client logos and case studies are filled in through `clientLogos` and `caseStudies` in `app/lib/site-config.ts`; each section stays hidden until its array has entries.
+The approved design lives in `design-handoff/`: `reference.html` (desktop/tablet, ≥ 768px) and `mobile-home.html`, `mobile-menu.html`, `mobile-contact.html` (phones, < 768px) — open them in Chrome — plus screenshots of each, `DESIGN_SPEC.md`, the source assets, and the scripts that render the glass images and video. Client logos and case studies are filled in through `clientLogos` and `caseStudies` in `app/lib/site-config.ts`; each section stays hidden until its array has entries.
 
 ## Scripts
 

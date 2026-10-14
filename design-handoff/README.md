@@ -8,9 +8,10 @@ What's inside:
 
 | Path | What it is |
 |---|---|
-| `reference.html` | The approved homepage as one working page (open in Chrome) |
-| `screens/desktop.jpg`, `screens/mobile.jpg` | Full-page screenshots at 1440px and 390px |
-| `DESIGN_SPEC.md` | Tokens, sections, assets, motion, responsive, accessibility, acceptance criteria |
+| `reference.html` | Desktop/tablet homepage (≥ 768px), one working page |
+| `mobile-home.html`, `mobile-menu.html`, `mobile-contact.html` | Phone layout (< 768px), linked to each other |
+| `screens/` | Screenshots of every reference |
+| `DESIGN_SPEC.md` | Tokens, sections, assets, motion, responsive, accessibility, phone layout (§13), acceptance criteria |
 | `CLAUDE_CODE_PROMPT.md` | The prompt to paste into Claude Code |
 | `assets/` | Transparent hero video + poster, 5 glass images, grain texture, logo mark SVGs |
 | `glass-source/` | Scripts that render the glass shapes and video (for new sizes or colours later) |

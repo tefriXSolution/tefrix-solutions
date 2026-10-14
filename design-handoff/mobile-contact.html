@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TefriX — Mobile contact (reference)</title>
+<!-- DESIGN REFERENCE (static export from the approved TefriX design). Assets are in ./assets. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0A0607}
+a{color:#FFF9FA}a:hover{color:#FF8FA3}
+input::placeholder,textarea::placeholder{color:#8F7D82}
+.tx-root{position:relative;isolation:isolate;overflow:hidden}
+.tx-root::after{content:"";position:absolute;inset:0;background-image:url(assets/grain.png);background-size:180px 180px;opacity:.09;pointer-events:none;z-index:60}
+.tx-float{animation:txfloat 10s ease-in-out infinite}
+.tx-press{transition:transform .15s}
+.tx-press:active{transform:scale(.97)}
+.tx-field:focus{outline:none;border-color:#FF8FA3 !important;box-shadow:0 0 0 3px rgba(255,77,109,.2)}
+@keyframes txfloat{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(0,-10px,0) rotate(4deg)}}
+.tx-still *,.tx-still *::before,.tx-still *::after{animation:none !important;transition:none !important}
+@media (prefers-reduced-motion:reduce){.tx-root *,.tx-root *::before,.tx-root *::after{animation:none !important;transition:none !important}}
+</style>
+</head>
+<body>
+<div class="tx-root" style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: #0A0607; color: #FFF9FA; font-family: 'Geist', system-ui, sans-serif; font-size: 16px">
+<div aria-hidden="true" style="position: absolute; z-index: -1; width: 560px; height: 560px; left: -45%; top: -32%; border-radius: 50%; background: radial-gradient(circle, rgba(200,16,46,0.48), rgba(117,7,12,0.16) 42%, transparent 70%); pointer-events: none"></div>
+<img class="tx-float" src="assets/glass-ring.webp" alt="" style="position: absolute; z-index: -1; right: -30px; top: 70px; width: 130px; height: auto">
+
+<header style="display: flex; align-items: center; gap: 12px; padding: 10px 20px 10px 12px">
+<a href="mobile-home.html" aria-label="Back to home" class="tx-press" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid rgba(255,226,232,0.14); background: rgba(255,255,255,0.04); display: flex; align-items: center; justify-content: center; color: #FFF9FA">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"></path><path d="M11 6l-6 6 6 6"></path></svg>
+</a>
+<span style="font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #FF8FA3">Contact</span>
+</header>
+
+<div style="padding: 12px 20px 0">
+<h1 style="margin: 0; max-width: 260px; font-size: 32px; line-height: 1.06; font-weight: 600; letter-spacing: -0.045em">Tell us about your project</h1>
+<p style="margin: 8px 0 0; font-size: 15px; color: #CDBCC0">Free consultation. Quick reply.</p>
+<div style="margin-top: 16px; display: flex; gap: 8px">
+<a href="https://wa.me/94765907934" class="tx-press" style="flex: 1 1 0; display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; border-radius: 12px; border: 1px solid rgba(255,226,232,0.14); background: rgba(255,255,255,0.04); text-decoration: none; font-size: 13px; font-weight: 500"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFC2CF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.6 7.1L4 20l1-4.6A8 8 0 1121 12z"></path></svg>WhatsApp</a>
+<a href="tel:+94765907934" class="tx-press" style="flex: 1 1 0; display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; border-radius: 12px; border: 1px solid rgba(255,226,232,0.14); background: rgba(255,255,255,0.04); text-decoration: none; font-size: 13px; font-weight: 500"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFC2CF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"></path></svg>Call</a>
+<a href="mailto:tefrixsolutions@gmail.com" class="tx-press" style="flex: 1 1 0; display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; border-radius: 12px; border: 1px solid rgba(255,226,232,0.14); background: rgba(255,255,255,0.04); text-decoration: none; font-size: 13px; font-weight: 500"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFC2CF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>Email</a>
+</div>
+</div>
+
+<form style="margin: 20px 12px 0; padding: 18px 16px 16px; border-radius: 20px; border: 1px solid rgba(255,226,232,0.12); background: rgba(16,9,11,0.66); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); display: flex; flex-direction: column; gap: 12px">
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 500; color: #E2D0D4">Name *
+<input class="tx-field" type="text" name="name" placeholder="Your name" style="height: 48px; box-sizing: border-box; padding: 0 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,226,232,0.14); border-radius: 12px; color: #FFF9FA; font-family: inherit; font-size: 16px">
+</label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 500; color: #E2D0D4"><span>Phone * <span style="color: #FF8FA3; font-weight: 400">· WhatsApp preferred</span></span>
+<input class="tx-field" type="tel" name="phone" placeholder="+94 7X XXX XXXX" style="height: 48px; box-sizing: border-box; padding: 0 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,226,232,0.14); border-radius: 12px; color: #FFF9FA; font-family: inherit; font-size: 16px">
+</label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 500; color: #E2D0D4">Email
+<input class="tx-field" type="email" name="email" placeholder="you@company.com" style="height: 48px; box-sizing: border-box; padding: 0 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,226,232,0.14); border-radius: 12px; color: #FFF9FA; font-family: inherit; font-size: 16px">
+</label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 500; color: #E2D0D4">Message *
+<textarea class="tx-field" name="message" rows="4" placeholder="Your idea, product or challenge" style="box-sizing: border-box; padding: 12px 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,226,232,0.14); border-radius: 12px; color: #FFF9FA; font-family: inherit; font-size: 16px; resize: none"></textarea>
+</label>
+<button type="button" class="tx-press" style="margin-top: 4px; display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; border: 0; border-radius: 14px; background: linear-gradient(135deg, #E11D48, #9F0C1F); color: #FFFFFF; font-family: inherit; font-weight: 600; font-size: 16px; cursor: pointer; box-shadow: 0 14px 40px -16px rgba(255,77,109,0.8)">Send message
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+</button>
+</form>
+</div>
+</body>
+</html>

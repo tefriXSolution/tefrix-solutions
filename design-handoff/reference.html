@@ -3,11 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TefriX Solutions — Homepage reference</title>
-<meta name="description" content="TefriX Solutions — scalable, secure software: custom web development, UI/UX design, e-commerce and digital marketing. Colombo, Sri Lanka.">
-<!-- DESIGN REFERENCE (static export of the approved "Homepage F" design).
-     Open in Chrome/Edge for the full effect (scroll-driven reveals and count-ups need Chrome 115+ / Safari 26+).
-     All assets are in ./assets. -->
+<title>TefriX Solutions — Homepage reference (desktop)</title>
+<!-- DESIGN REFERENCE (static export from the approved TefriX design). Assets are in ./assets. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&amp;family=Geist+Mono:wght@400;500&amp;display=swap">
@@ -18,7 +15,7 @@ a{color:#FFF9FA}a:hover{color:#FF8FA3}
 input::placeholder,textarea::placeholder{color:#8F7D82}
 ::selection{background:#C8102E;color:#FFFFFF}
 @property --n{syntax:'<integer>';initial-value:0;inherits:false}
-.tx-root{position:relative;isolation:isolate;overflow-x:hidden}
+.tx-root{position:relative;isolation:isolate;overflow-x:clip}
 .tx-root::after{content:"";position:absolute;inset:0;background-image:url(assets/grain.png);background-size:180px 180px;opacity:.09;pointer-events:none;z-index:60}
 .tx-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .tx-fade{animation:txfade .9s cubic-bezier(.2,.7,.2,1) both}
